@@ -9,3 +9,5 @@ The work here is based on the following literature available:
 5. [Caffemodel zoo GitHub](https://github.com/BVLC/caffe/tree/master/models)
 
 
+Use the caffemodel zoo from the reference [4,5] mentioned above to vary the CNN models and Play around with the codes.
+
