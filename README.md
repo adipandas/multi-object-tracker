@@ -32,7 +32,7 @@ The model and the config files will be downloaded in `./yolo_dir`. These will be
 - The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
 - To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
 
-Example video link used in above demo: https://flic.kr/p/L6qyxj
+Example video used in above demo: https://flic.kr/p/L6qyxj
 
 ### Run with Caffemodel
 - You have to use `tracking-caffe-model.ipynb`.
