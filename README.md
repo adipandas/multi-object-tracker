@@ -1,9 +1,15 @@
-[output_video]: ./assets/sample-output.gif "Sample Output"
+[output_video_1]: ./assets/sample-output.gif "Sample Output with YOLO"
+[output_video_2]: ./assets/sample-output-2.gif "Sample Output with SSD"
 
-# multi-object-tracker
-object detection using deep learning and multi-object tracking
+# Multi-Object-Tracker
+Object detection using deep learning and multi-object tracking
 
-![Output Sample][output_video]
+#### YOLO
+![Output Sample with YOLO][output_video_1]
+
+#### SSD
+![Output Sample with SSD][output_video_2]
+
 
 ### Install OpenCV
 Pip install for OpenCV (version 3.4.3 or later) is available [here](https://pypi.org/project/opencv-python/) and can be done with the following command:
@@ -23,6 +29,23 @@ The model and the config files will be downloaded in `./yolo_dir`. These will be
 - To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
 
 Example video used in above demo: https://flic.kr/p/L6qyxj
+
+### Run with TensorFlow SSD model
+
+1. Open the terminal
+2. Go to the tensorflow_model_dir: `cd ./tensorflow_model_dir`
+3. Run: `sudo chmod +x ./get_ssd_model.sh`
+4. Run: `./get_ssd_model.sh`
+
+This will download model and config files in `./tensorflow_model_dir`. These will be used `tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb`.
+
+**SSD-Mobilenet_v2_coco_2018_03_29** was used for this example.
+Other networks can be downloaded and ran: Go through `tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb` for more details.
+
+- The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
+- To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
+
+Video used in SSD-Mobilenet multi-object detection and tracking: https://flic.kr/p/26WeEWy
 
 ### Run with Caffemodel
 - You have to use `tracking-caffe-model.ipynb`.
