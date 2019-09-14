@@ -63,3 +63,5 @@ The work here is based on the following literature available:
 6. [YOLO v3](https://pjreddie.com/media/files/papers/YOLOv3.pdf)
 
 Use the caffemodel zoo from the reference [4,5] mentioned above to vary the CNN models and Play around with the codes.
+
+***Suggestion**: If you are looking for Speed, go for SSD-mobilenet. If you are looking for accurracy and speed go with YOLO. The best way is to train and fine tune your models on your dataset.*
