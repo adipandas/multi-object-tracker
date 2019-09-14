@@ -64,4 +64,4 @@ The work here is based on the following literature available:
 
 Use the caffemodel zoo from the reference [4,5] mentioned above to vary the CNN models and Play around with the codes.
 
-***Suggestion**: If you are looking for Speed, go for SSD-mobilenet. If you are looking for accurracy and speed go with YOLO. The best way is to train and fine tune your models on your dataset.*
+***Suggestion**: If you are looking for speed go for SSD-mobilenet. If you are looking for accurracy and speed go with YOLO. The best way is to train and fine tune your models on your dataset. Faster-RCNN will be better in accuracy as compared to YOLO.*
