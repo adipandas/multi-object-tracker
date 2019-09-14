@@ -11,12 +11,12 @@ Object detection using deep learning and multi-object tracking
 ![Output Sample with SSD][output_video_2]
 
 
-### Install OpenCV
+## Install OpenCV
 Pip install for OpenCV (version 3.4.3 or later) is available [here](https://pypi.org/project/opencv-python/) and can be done with the following command:
 
 `pip install opencv-contrib-python`
 
-### Run with YOLO
+## Run with YOLO
 
 1. Open the terminal
 2. Go to `yolo_dir` in this repository: `cd ./yolo_dir`
@@ -30,7 +30,7 @@ The model and the config files will be downloaded in `./yolo_dir`. These will be
 
 Example video used in above demo: https://flic.kr/p/L6qyxj
 
-### Run with TensorFlow SSD model
+## Run with TensorFlow SSD model
 
 1. Open the terminal
 2. Go to the tensorflow_model_dir: `cd ./tensorflow_model_dir`
@@ -47,13 +47,13 @@ Other networks can be downloaded and ran: Go through `tracking-tensorflow-ssd_mo
 
 Video used in SSD-Mobilenet multi-object detection and tracking: https://flic.kr/p/26WeEWy
 
-### Run with Caffemodel
+## Run with Caffemodel
 - You have to use `tracking-caffe-model.ipynb`.
 - The model for use is provided in the folder named `caffemodel_dir`.
 - The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
 - To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
 
-### References
+## References
 The work here is based on the following literature available:
 1. http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf
 2. Pyimagesearch [1](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/), [2](https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/)
