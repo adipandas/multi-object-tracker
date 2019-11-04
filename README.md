@@ -69,9 +69,9 @@ Use the caffemodel zoo from the reference [4,5] mentioned above to vary the CNN 
 
 ## Citation
 
-If you find this repository useful in your work, please cite it as:
+If you use this repository in your work, please consider citing it with:
 ```
-@misc{multiobjtracker_a,
+@misc{multiobjtracker_amd2018,
   author = {Deshpande, Aditya M.},
   title = {multi-object-tracker},
   year = {2018},
