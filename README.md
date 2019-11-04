@@ -65,3 +65,18 @@ The work here is based on the following literature available:
 Use the caffemodel zoo from the reference [4,5] mentioned above to vary the CNN models and Play around with the codes.
 
 ***Suggestion**: If you are looking for speed go for SSD-mobilenet. If you are looking for accurracy and speed go with YOLO. The best way is to train and fine tune your models on your dataset. Although, Faster-RCNN gives more accurate object detections, you will have to compromise on the detection speed as it is slower as compared to YOLO.*
+
+
+## Citation
+
+If you find this repository useful in your work, please cite it as:
+```
+@misc{multiobjtracker_a,
+  author = {Deshpande, Aditya M.},
+  title = {multi-object-tracker},
+  year = {2018},
+  publisher = {GitHub},
+  journal = {GitHub repository},
+  howpublished = {\url{https://github.com/adipandas/multi-object-tracker}},
+}
+```
