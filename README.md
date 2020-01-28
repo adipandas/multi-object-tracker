@@ -54,9 +54,9 @@ Video used in SSD-Mobilenet multi-object detection and tracking: https://flic.kr
 - To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
 
 ## References
-The work here is based on the following literature available:
-1. http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf
-2. Pyimagesearch [1](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/), [2](https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/)
+This work is based on the following literature:
+1. Bochinski, E., Eiselein, V., & Sikora, T. (2017, August). High-speed tracking-by-detection without using image information. In 2017 14th IEEE International Conference on Advanced Video and Signal Based Surveillance (AVSS) (pp. 1-6). IEEE. [paper-pdf](http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf)
+2. Pyimagesearch [link-1](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/), [link-2](https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/)
 3. [correlationTracker](https://github.com/Wenuka/correlationTracker)
 4. [Caffemodel zoo](http://caffe.berkeleyvision.org/model_zoo.html)
 5. [Caffemodel zoo GitHub](https://github.com/BVLC/caffe/tree/master/models)
