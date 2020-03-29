@@ -76,10 +76,24 @@ If you use this repository in your work, please consider citing it with:
 ```
 @misc{multiobjtracker_amd2018,
   author = {Deshpande, Aditya M.},
-  title = {multi-object-tracker},
+  title = {adipandas/multi-object-tracker},
   year = {2018},
   publisher = {GitHub},
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/adipandas/multi-object-tracker}},
+}
+```
+
+```
+@software{aditya_m_deshpande_2019_3530936,
+  author       = {Aditya M. Deshpande},
+  title        = {{adipandas/multi-object-tracker: multi-object- 
+                   tracker}},
+  month        = nov,
+  year         = 2019,
+  publisher    = {Zenodo},
+  version      = {v4.0.0},
+  doi          = {10.5281/zenodo.3530936},
+  url          = {https://doi.org/10.5281/zenodo.3530936}
 }
 ```
