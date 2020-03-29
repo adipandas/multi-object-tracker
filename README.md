@@ -4,6 +4,9 @@
 # Multi-Object-Tracker
 Object detection using deep learning and multi-object tracking
 
+[![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
+
+
 #### YOLO
 ![Output Sample with YOLO][output_video_1]
 
