@@ -1,17 +1,10 @@
 .ipynb_checkpoints/
 video_data/
-!video_data/readme.md
 .idea/
 examples/output.avi
-
 pretrained_models/caffemodel_weights/
-!pretrained_models/caffemodel_weights/get_caffemodel.sh
-
 pretrained_models/tensorflow_weights/
-!pretrained_models/tensorflow_weights/get_ssd_model.sh
-
 pretrained_models/yolo_weights/
-!pretrained_models/yolo_weights/get_yolo.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
