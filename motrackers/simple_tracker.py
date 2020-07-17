@@ -34,7 +34,7 @@ class SimpleTracker:
 
     def removeObject(self, objectID):
         """
-        remove tracker data after object is lost
+        Remove tracker data after object is lost
 
         :param objectID: ID of the object lost from tracker
         """
@@ -44,7 +44,7 @@ class SimpleTracker:
     @staticmethod
     def getLocation(bounding_box):
         """
-        Calculate the centroid of bounding box
+        Calculate the centroid of bounding box.
 
         :param bounding_box: list of bounding box coordinates top-left and bottom-right (xlt, ylt, xrb, yrb)
         :return: bounding box centroid coordinates (x, y)
@@ -55,6 +55,7 @@ class SimpleTracker:
 
     def update(self, detections):
         """
+        Update the tracker based on the new detections as input.
 
         :param detections: list of bounding box coordinates of detected objects in the image.
             Each element of the list is a tuple of pixel coordinates of the following form
