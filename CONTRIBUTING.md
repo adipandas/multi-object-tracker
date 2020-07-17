@@ -1,1 +1,1 @@
-Aditya - @adipandas
+Aditya M. Deshpande - @adipandas

@@ -1,46 +1,70 @@
-[output_video_1]: ./assets/sample-output.gif "Sample Output with YOLO"
-[output_video_2]: ./assets/sample-output-2.gif "Sample Output with SSD"
+[cars-yolo-output]: ./assets/cars.gif "Sample Output with YOLO"
+[cows-tf-ssd-output]: ./assets/cows.gif "Sample Output with SSD"
 
-# Multi-Object-Tracker
+# multi-object-tracker
 Object detection using deep learning and multi-object tracking
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
 
 
 #### YOLO
-![Output Sample with YOLO][output_video_1]
+Video Source: [link](https://flic.kr/p/89KYXt)
 
-#### SSD
-![Output Sample with SSD][output_video_2]
+![Cars with YOLO][cars-yolo-output]
+
+#### Tensorflow-SSD-MobileNet
+Video Source: [link](https://flic.kr/p/26WeEWy)
+
+![Cows with tf-SSD][cows-tf-ssd-output]
 
 
-## Install OpenCV
+### Installation
 Pip install for OpenCV (version 3.4.3 or later) is available [here](https://pypi.org/project/opencv-python/) and can be done with the following command:
 
-`pip install opencv-contrib-python`
+```
+pip install numpy matplotlib scipy
+pip install opencv-contrib-python
+```
 
-## Run with YOLO
+Installation of `ipyfilechooser` is recommended if you want to use the jupyter notebooks available in the ```examples``` folder.
+```
+pip install ipyfilechooser
+```
 
-1. Open the terminal
-2. Go to `yolo_dir` in this repository: `cd ./yolo_dir`
-3. Run: `sudo chmod +x ./get_yolo.sh`
-4. Run: `./get_yolo.sh`
+```
+git clone https://github.com/adipandas/multi-object-tracker
+cd multi-object-tracker
+pip install -e .
+```
 
-The model and the config files will be downloaded in `./yolo_dir`. These will be used `tracking-yolo-model.ipynb`.
+### YOLO
+
+Do the following in the terminal:
+```
+cd ./pretrained_models/yolo_weights
+sudo chmod +x ./get_yolo.sh
+./get_yolo.sh
+```
+
+The above commands will download the model and the config files in `./pretrained_models/yolo_weights`.
+These weights are to be used in `examples/tracking-yolo-model.ipynb`.
 
 - The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
 - To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
 
-Example video used in above demo: https://flic.kr/p/L6qyxj
+Example video used in above demo was taken from [here](https://flic.kr/p/L6qyxj)
 
-## Run with TensorFlow SSD model
+### TensorFlow model
 
-1. Open the terminal
-2. Go to the tensorflow_model_dir: `cd ./tensorflow_model_dir`
-3. Run: `sudo chmod +x ./get_ssd_model.sh`
-4. Run: `./get_ssd_model.sh`
+Do the following in the terminal:
+```
+cd ./pretrained_models/tensorflow_weights
+sudo chmod +x ./get_ssd_model.sh
+./get_ssd_model.sh
+```
 
-This will download model and config files in `./tensorflow_model_dir`. These will be used `tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb`.
+This will download model and config files in `./pretrained_models/tensorflow_weights`.
+These will be used `examples/tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb`.
 
 **SSD-Mobilenet_v2_coco_2018_03_29** was used for this example.
 Other networks can be downloaded and ran: Go through `tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb` for more details.
@@ -48,15 +72,23 @@ Other networks can be downloaded and ran: Go through `tracking-tensorflow-ssd_mo
 - The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
 - To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
 
-Video used in SSD-Mobilenet multi-object detection and tracking: https://flic.kr/p/26WeEWy
+Video used in SSD-Mobilenet multi-object detection and tracking can be found [here](https://flic.kr/p/89KYXt)
 
-## Run with Caffemodel
-- You have to use `tracking-caffe-model.ipynb`.
-- The model for use is provided in the folder named `caffemodel_dir`.
-- The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
-- To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
+### Caffemodel
 
-## References
+Do the following in the terminal
+```
+cd ./pretrained_models/caffemodel_weights
+sudo chmod +x ./get_caffemodel.sh
+./get_caffemodel.sh
+```
+
+This will download model and config files in `./pretrained_models/caffemodel_weights`.
+These will be used `examples/tracking-caffe-model-mobilenetSSD.ipynb`.
+
+The caffemodel example provided here also uses MobileNet-SSD model for detection.
+
+### References and Credits
 This work is based on the following literature:
 1. Bochinski, E., Eiselein, V., & Sikora, T. (2017, August). High-speed tracking-by-detection without using image information. In 2017 14th IEEE International Conference on Advanced Video and Signal Based Surveillance (AVSS) (pp. 1-6). IEEE. [[paper-pdf](http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf)]
 2. Pyimagesearch [link-1](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/), [link-2](https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/)
@@ -69,8 +101,7 @@ Use the caffemodel zoo from the reference [4,5] mentioned above to vary the CNN 
 
 ***Suggestion**: If you are looking for speed go for SSD-mobilenet. If you are looking for accurracy and speed go with YOLO. The best way is to train and fine tune your models on your dataset. Although, Faster-RCNN gives more accurate object detections, you will have to compromise on the detection speed as it is slower as compared to YOLO.*
 
-
-## Citation
+### Citation
 
 If you use this repository in your work, please consider citing it with:
 ```
