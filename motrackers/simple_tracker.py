@@ -16,6 +16,7 @@ class SimpleTracker:
         self.objects = OrderedDict()        # stores ID:Locations
         self.lost = OrderedDict()           # stores ID:Lost_count
         self.maxLost = max_lost
+        self.frame_count = 0
 
     def addObject(self, new_object_location):
         """
