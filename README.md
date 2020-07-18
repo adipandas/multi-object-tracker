@@ -6,6 +6,12 @@ Object detection using deep learning and multi-object tracking
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
 
+### Available Trackers
+```
+SimpleTracker
+
+SimpleTracker2
+```
 
 #### YOLO
 Video Source: [link](https://flic.kr/p/89KYXt)
@@ -39,54 +45,39 @@ pip install -e .
 
 ### YOLO
 
-Do the following in the terminal:
+Do the following in the terminal to download a pretrained weights of YOLO:
 ```
 cd ./pretrained_models/yolo_weights
 sudo chmod +x ./get_yolo.sh
 ./get_yolo.sh
 ```
 
-The above commands will download the model and the config files in `./pretrained_models/yolo_weights`.
-These weights are to be used in `examples/tracking-yolo-model.ipynb`.
-
-- The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
-- To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
-
-Example video used in above demo was taken from [here](https://flic.kr/p/L6qyxj)
-
 ### TensorFlow model
 
-Do the following in the terminal:
+Do the following in the terminal to download a pretrained model:
 ```
 cd ./pretrained_models/tensorflow_weights
 sudo chmod +x ./get_ssd_model.sh
 ./get_ssd_model.sh
 ```
 
-This will download model and config files in `./pretrained_models/tensorflow_weights`.
-These will be used `examples/tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb`.
-
 **SSD-Mobilenet_v2_coco_2018_03_29** was used for this example.
 Other networks can be downloaded and ran: Go through `tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb` for more details.
 
-- The video input can be specified in the cell named `Initiate opencv video capture object` in the notebook.
-- To make the source as the webcam, use `video_src=0` else provide the path of the video file (example: `video_src="/path/of/videofile.mp4"`).
-
-Video used in SSD-Mobilenet multi-object detection and tracking can be found [here](https://flic.kr/p/89KYXt)
-
 ### Caffemodel
 
-Do the following in the terminal
+Do the following in the terminal to download a pretrained model:
 ```
 cd ./pretrained_models/caffemodel_weights
 sudo chmod +x ./get_caffemodel.sh
 ./get_caffemodel.sh
 ```
 
-This will download model and config files in `./pretrained_models/caffemodel_weights`.
-These will be used `examples/tracking-caffe-model-mobilenetSSD.ipynb`.
+This is a MobileNet-SSD caffemodel.
 
-The caffemodel example provided here also uses MobileNet-SSD model for detection.
+### Examples and How to use:
+
+For examples and how to use this repository, please refer [examples/](examples/) folder.
 
 ### References and Credits
 This work is based on the following literature:
