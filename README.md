@@ -107,7 +107,7 @@ If you use this repository in your work, please consider citing it with:
 ```
 @misc{multiobjtracker_amd2018,
   author = {Deshpande, Aditya M.},
-  title = {adipandas/multi-object-tracker},
+  title = {Multi-object trackers in Python},
   year = {2018},
   publisher = {GitHub},
   journal = {GitHub repository},
