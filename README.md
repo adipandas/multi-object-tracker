@@ -99,7 +99,7 @@ If you use this repository in your work, please consider citing it with:
 @misc{multiobjtracker_amd2018,
   author = {Deshpande, Aditya M.},
   title = {Multi-object trackers in Python},
-  year = {2018},
+  year = {2020},
   publisher = {GitHub},
   journal = {GitHub repository},
   howpublished = {\url{https://github.com/adipandas/multi-object-tracker}},
@@ -107,15 +107,14 @@ If you use this repository in your work, please consider citing it with:
 ```
 
 ```
-@software{aditya_m_deshpande_2019_3530936,
+@software{aditya_m_deshpande_2020_3951169,
   author       = {Aditya M. Deshpande},
-  title        = {{adipandas/multi-object-tracker: multi-object- 
-                   tracker}},
-  month        = nov,
-  year         = 2019,
+  title        = {Multi-object trackers in Python},
+  month        = jul,
+  year         = 2020,
   publisher    = {Zenodo},
-  version      = {v4.0.0},
-  doi          = {10.5281/zenodo.3530936},
-  url          = {https://doi.org/10.5281/zenodo.3530936}
+  version      = {v1.0.0},
+  doi          = {10.5281/zenodo.3951169},
+  url          = {https://doi.org/10.5281/zenodo.3951169}
 }
 ```
