@@ -7,7 +7,7 @@ from motrackers.track import Track
 
 class SimpleTracker2:
     """
-    Greedy Tracker with class label check.
+    Simple Tracker.
     """
     def __init__(self, max_lost=5):
         """

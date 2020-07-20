@@ -24,12 +24,15 @@ def get_centroid(bounding_box):
 
 
 def get_centroids(bboxes):
-    assert bboxes.shape[1] == 4
+    if len(bboxes):
+        assert bboxes.shape[1] == 4, "Input shape is {}, expecting shape[1]==4".format(bboxes.shape)
 
-    x = np.mean(bb[:, [0, 2]], axis=1, keepdims=True, dtype='int')
-    y = np.mean(bb[:, [1, 3]], axis=1, keepdims=True, dtype='int')
-    centroids = np.concatenate([x, y], axis=1)
-    return centroids
+        x = np.mean(bboxes[:, [0, 2]], axis=1, keepdims=True, dtype='int')
+        y = np.mean(bboxes[:, [1, 3]], axis=1, keepdims=True, dtype='int')
+        centroids = np.concatenate([x, y], axis=1)
+        return centroids
+    else:
+        return bboxes
 
 
 def iou(bbox1, bbox2):
