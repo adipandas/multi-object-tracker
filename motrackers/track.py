@@ -8,10 +8,14 @@ class Track:
 
         Parameters
         ----------
-        track_id :
-        centroid :
-        bbox :
-        class_id :
+        track_id : int
+                   Track id.
+        centroid : tuple
+                   Centroid of the track pixel coordinate (x, y).
+        bbox : tuple, list, numpy.ndarray
+               Bounding box of the track.
+        class_id : int
+                   Class label id.
         """
         self.id = track_id
         self.class_id = class_id
@@ -22,4 +26,8 @@ class Track:
         self.bbox = bbox
         self.lost = 0
 
-        self.info = {}
+        self.info = dict(
+            max_score=0.0,
+            lost=0,
+            score=0.0,
+        )

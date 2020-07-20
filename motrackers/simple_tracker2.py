@@ -1,7 +1,7 @@
 from collections import OrderedDict
 import numpy as np
 from scipy.spatial import distance
-from motrackers.utils.misc import get_centroid
+from motrackers.utils.misc import get_centroids
 from motrackers.track import Track
 
 
@@ -24,7 +24,7 @@ class SimpleTracker2:
         self.max_lost = max_lost
         self.frame_count = 0
 
-    def _add_object(self, centroid, bbox, class_id):
+    def _add_track(self, centroid, bbox, class_id, **kwargs):
         """
         Add a newly detected object to the queue
 
@@ -46,6 +46,9 @@ class SimpleTracker2:
                                                 centroid=centroid,
                                                 bbox=bbox,
                                                 class_id=class_id)
+        for key, value in kwargs.items():
+            self.tracks[self.next_track_id].info[key] = value
+
         self.next_track_id += 1
 
     def _remove_track(self, track_id):
@@ -63,7 +66,14 @@ class SimpleTracker2:
         """
         del self.tracks[track_id]
 
-    def get_tracks(self, tracks):
+    def _update_track(self, track_id, centroid, bbox, **kwargs):
+        self.tracks[track_id].centroid = centroid
+        self.tracks[track_id].bbox = bbox
+        self.tracks[track_id].lost = 0
+        for key, value in kwargs.items():
+            self.tracks[track_id].info[key] = value
+
+    def _get_tracks(self, tracks):
         """
         Output the information of tracks
 
@@ -95,7 +105,7 @@ class SimpleTracker2:
 
         return outputs
 
-    def update(self, bboxes: list, class_ids: list):
+    def update(self, bboxes: list, class_ids: list, detection_scores: list):
         """
         Update the tracker based on the new bboxes as input.
 
@@ -106,6 +116,8 @@ class SimpleTracker2:
                  coordinates of bounding box as tuple (top-left-x, top-left-y, bottom-right-x, bottom-right-y).
         class_ids : list
                     List of class_ids (int) corresponding to labels of the detected object. Default is `None`.
+        detection_scores: list
+                         List of detection scores / probability of each detected object or objectness.
 
         Returns
         -------
@@ -122,6 +134,16 @@ class SimpleTracker2:
         """
         self.frame_count += 1
 
+        new_bboxes = np.array(bboxes, dtype='int')
+        new_class_ids = np.array(class_ids, dtype='int')
+        new_detection_scores = np.array(detection_scores)
+
+        new_centroids = get_centroids(new_bboxes)
+
+        new_detections = list(zip(
+            range(len(bboxes)), new_bboxes, new_class_ids, new_centroids, new_detection_scores
+        ))
+
         if len(bboxes) == 0:        # if no object detected
             lost_ids = list(self.tracks.keys())
             for track_id in lost_ids:
@@ -129,20 +151,16 @@ class SimpleTracker2:
                 if self.tracks[track_id].lost > self.max_lost:
                     self._remove_track(track_id)
 
-            outputs = self.get_tracks(self.tracks)
+            outputs = self._get_tracks(self.tracks)
             return outputs
 
-        new_class_ids = np.array(class_ids, dtype='int')
-        new_centroids = np.zeros((len(bboxes), 2), dtype="int")
-        for (i, bbox) in enumerate(bboxes):
-            new_centroids[i] = get_centroid(bbox)
-
-        if len(self.tracks):
-            track_ids = list(self.tracks.keys())
+        track_ids = list(self.tracks.keys())
+        if len(track_ids):
             old_centroids = np.array([self.tracks[tid].centroid for tid in track_ids])
-            D = distance.cdist(old_centroids, new_centroids)   # (row, col) = distance between old (row) and new (col)
-            row_idxs = D.min(axis=1).argsort()                 # old tracks sorted as per min distance from new
-            col_idxs = D.argmin(axis=1)[row_idxs]              # new tracks sorted as per min distance from old
+            D = distance.cdist(old_centroids, new_centroids)  # (row, col) = distance between old (row) and new (col)
+
+            row_idxs = D.min(axis=1).argsort()          # old tracks sorted as per min distance from new
+            col_idxs = D.argmin(axis=1)[row_idxs]       # new tracks sorted as per min distance from old
 
             assigned_rows, assigned_cols = set(), set()
             for (row_idx, col_idx) in zip(row_idxs, col_idxs):
@@ -150,11 +168,11 @@ class SimpleTracker2:
                     continue
 
                 track_id = track_ids[row_idx]
+                
+                col_idx, bbox, class_id, centroid, detection_score = new_detections[col_idx]
 
-                if self.tracks[track_id].class_id == new_class_ids[col_idx]:
-                    self.tracks[track_id].centroid = new_centroids[col_idx]
-                    self.tracks[track_id].bbox = bboxes[col_idx]
-                    self.tracks[track_id].lost = 0
+                if self.tracks[track_id].class_id == class_id:
+                    self._update_track(track_id, centroid, bbox, score=detection_score)
                     assigned_rows.add(row_idx)
                     assigned_cols.add(col_idx)
 
@@ -170,10 +188,10 @@ class SimpleTracker2:
                         self._remove_track(track_id)
             else:
                 for col_idx in unassigned_cols:
-                    self._add_object(new_centroids[col_idx], bboxes[col_idx], class_ids[col_idx])
+                    self._add_track(new_centroids[col_idx], bboxes[col_idx], class_ids[col_idx])
         else:
             for i in range(0, len(bboxes)):
-                self._add_object(new_centroids[i], bboxes[i], class_ids[i])
+                self._add_track(new_centroids[i], bboxes[i], class_ids[i])
 
-        outputs = self.get_tracks(self.tracks)
+        outputs = self._get_tracks(self.tracks)
         return outputs
