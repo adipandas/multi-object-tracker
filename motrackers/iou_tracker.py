@@ -54,37 +54,30 @@ class IOUTracker(SimpleTracker2):
         new_bboxes = np.array(bboxes, dtype='int')
         new_class_ids = np.array(class_ids, dtype='int')
         new_detection_scores = np.array(detection_scores)
-
         new_centroids = get_centroids(new_bboxes)
 
-        new_detections = list(zip(
-            range(len(bboxes)), new_bboxes, new_class_ids, new_centroids, new_detection_scores
-        ))
-
+        new_detections = list(zip(new_bboxes, new_class_ids, new_centroids, new_detection_scores))
         track_ids = list(self.tracks.keys())
 
         updated_tracks = []
         for track_id in track_ids:
             if len(new_detections) > 0:
-                idx, bb, cid, ctrd, scr = max(new_detections, key=lambda x: iou(self.tracks[track_id].bbox, x[1]))
+                idx, best_match = max(enumerate(new_detections), key=lambda x: iou(self.tracks[track_id].bbox, x[1][0]))
+                (bb, cid, ctrd, scr) = best_match
 
-                if iou(self.tracks[track_id].bbox, bb) > self.iou_threshold and self.tracks[track_id].class_id == cid:
+                if iou(self.tracks[track_id].bbox, bb) > self.iou_threshold:
                     max_score = max(self.tracks[track_id].info['max_score'], scr)
                     self._update_track(track_id, ctrd, bb, score=scr, max_score=max_score)
-
                     updated_tracks.append(track_id)
-
                     del new_detections[idx]
 
             if len(updated_tracks) == 0 or track_id is not updated_tracks[-1]:
                 self.tracks[track_id].lost += 1
-
-                if self.tracks[track_id].lost > self.max_lost and \
-                        self.tracks[track_id].info['max_score'] >= self.max_detection_confidence:
+                if self.tracks[track_id].lost > self.max_lost:
                     self._remove_track(track_id)
 
-        for idx, bb, cid, ctrd, scr in new_detections:
-            self._add_track(ctrd, bb, cid, score=scr, max_score=scr)
+        for bb_, cid_, ctrd_, scr_ in new_detections:
+            self._add_track(ctrd_, bb_, cid_, score=scr_, max_score=scr_)
 
         outputs = self._get_tracks(self.tracks)
         return outputs
