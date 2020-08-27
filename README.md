@@ -1,7 +1,7 @@
 [cars-yolo-output]: ./assets/cars.gif "Sample Output with YOLO"
 [cows-tf-ssd-output]: ./assets/cows.gif "Sample Output with SSD"
 
-# multi-object-tracker
+# Multi-object trackers in Python
 Object detection using deep learning and multi-object tracking
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
