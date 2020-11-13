@@ -1,27 +1,32 @@
-[cars-yolo-output]: ./assets/cars.gif "Sample Output with YOLO"
-[cows-tf-ssd-output]: ./assets/cows.gif "Sample Output with SSD"
+[cars-yolo-output]: examples/assets/cars.gif "Sample Output with YOLO"
+[cows-tf-ssd-output]: examples/assets/cows.gif "Sample Output with SSD"
 
 # Multi-object trackers in Python
 Object detection using deep learning and multi-object tracking
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
 
-### Available Trackers
+### Available Multi Object Trackers
+
 ```
-SimpleTracker
-
-SimpleTracker2
+CentroidTracker
+CentroidKF_Tracker
+IOUTracker
+SORT
 ```
 
-#### YOLO
-Video Source: [link](https://flic.kr/p/89KYXt)
+### Available OpenCV-based object detectors:
 
-![Cars with YOLO][cars-yolo-output]
+```
+detector.TF_SSDMobileNetV2
+detector.Caffe_SSDMobileNet
+detector.YOLOv3
+```
 
-#### Tensorflow-SSD-MobileNet
-Video Source: [link](https://flic.kr/p/26WeEWy)
-
-![Cows with tf-SSD][cows-tf-ssd-output]
+`YOLOv3 + CentroidTracker` |  `TF-MobileNetSSD + CentroidTracker`
+:-------------------------:|:-------------------------:
+![Cars with YOLO][cars-yolo-output]  |  ![Cows with tf-SSD][cows-tf-ssd-output]
+Video source: [link](https://flic.kr/p/89KYXt) | Video source: [link](https://flic.kr/p/26WeEWy)
 
 
 ### Installation
@@ -43,54 +48,43 @@ cd multi-object-tracker
 pip install -e .
 ```
 
-### YOLO
+For using the opencv `dnn`-based object detection modules provided in this repository with GPU, you may have to compile a CUDA enabled version of OpenCV from source.
 
-Do the following in the terminal to download a pretrained weights of YOLO:
+For building opencv from source, you can refer the following: [[link-1](https://docs.opencv.org/master/df/d65/tutorial_table_of_content_introduction.html)], [[link-2](https://www.pyimagesearch.com/2020/02/03/how-to-use-opencvs-dnn-module-with-nvidia-gpus-cuda-and-cudnn/)]
+
+### How to use?: Examples
+
+Examples for how to use `motrackers` are provided [examples](./examples/) folder of this repository.
+You can clone and run the examples as shown in the [readme](examples/readme.md) inside the [examples](./examples/) folder.
+
+### Pretrained Object Detection Models
+
+You will have to download the pretrained weights for the model. The shell scripts for downloading are provided in [examples](examples/) folder.
+
+##### YOLOv3
 ```
-cd ./pretrained_models/yolo_weights
+cd ./examples/pretrained_models/yolo_weights
 sudo chmod +x ./get_yolo.sh
 ./get_yolo.sh
 ```
 
-### TensorFlow model
-
-Do the following in the terminal to download a pretrained model:
+##### TensorFlow MobileNetSSDv2
 ```
 cd ./pretrained_models/tensorflow_weights
 sudo chmod +x ./get_ssd_model.sh
 ./get_ssd_model.sh
 ```
 
-**SSD-Mobilenet_v2_coco_2018_03_29** was used for this example.
-Other networks can be downloaded and ran: Go through `tracking-tensorflow-ssd_mobilenet_v2_coco_2018_03_29.ipynb` for more details.
-
-### Caffemodel
-
-Do the following in the terminal to download a pretrained model:
+##### Caffemodel
 ```
 cd ./pretrained_models/caffemodel_weights
 sudo chmod +x ./get_caffemodel.sh
 ./get_caffemodel.sh
 ```
 
-This is a MobileNet-SSD caffemodel.
-
-### Examples and How to use:
-
-For examples and how to use this repository, please refer [examples/](examples/) folder.
-
 ### References and Credits
-This work is based on the following literature:
-1. Bochinski, E., Eiselein, V., & Sikora, T. (2017, August). High-speed tracking-by-detection without using image information. In 2017 14th IEEE International Conference on Advanced Video and Signal Based Surveillance (AVSS) (pp. 1-6). IEEE. [[paper-pdf](http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf)]
-2. Pyimagesearch [link-1](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/), [link-2](https://www.pyimagesearch.com/2018/11/12/yolo-object-detection-with-opencv/)
-3. [correlationTracker](https://github.com/Wenuka/correlationTracker)
-4. [Caffemodel zoo](http://caffe.berkeleyvision.org/model_zoo.html)
-5. [Caffemodel zoo GitHub](https://github.com/BVLC/caffe/tree/master/models)
-6. [YOLO v3](https://pjreddie.com/media/files/papers/YOLOv3.pdf)
 
-Use the caffemodel zoo from the reference [4,5] mentioned above to vary the CNN models and Play around with the codes.
-
-***Suggestion**: If you are looking for speed go for SSD-mobilenet. If you are looking for accurracy and speed go with YOLO. The best way is to train and fine tune your models on your dataset. Although, Faster-RCNN gives more accurate object detections, you will have to compromise on the detection speed as it is slower as compared to YOLO.*
+Please see [references.md](REFERENCES.md)
 
 ### Citation
 
