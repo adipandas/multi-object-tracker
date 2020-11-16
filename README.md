@@ -26,7 +26,7 @@ detector.YOLOv3
 `YOLOv3 + CentroidTracker` |  `TF-MobileNetSSD + CentroidTracker`
 :-------------------------:|:-------------------------:
 ![Cars with YOLO][cars-yolo-output]  |  ![Cows with tf-SSD][cows-tf-ssd-output]
-Video source: [link](https://flic.kr/p/89KYXt) | Video source: [link](https://flic.kr/p/26WeEWy)
+Video source: [link](https://flic.kr/p/L6qyxj) | Video source: [link](https://flic.kr/p/26WeEWy)
 
 
 ### Installation

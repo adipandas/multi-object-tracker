@@ -10,24 +10,31 @@ def get_centroid(bboxes):
     ----------
     bboxes : numpy.ndarray
         Array of shape `(n, 4)` or of shape `(4,)`.
-        Where each row contains `(xmin, ymin, xmax, ymax)`.
+        Where each row contains `(xmin, ymin, width, height)`.
 
     Returns
     -------
     numpy.ndarray : Centroid (x, y) coordinates of shape `(n, 2)` or `(2,)`.
 
     """
-    if len(bboxes.shape) == 2:
-        assert bboxes.shape[1] == 4, "Input shape is {}, expecting shape[1]==4".format(bboxes.shape)
-        x = np.mean(bboxes[:, [0, 2]], axis=1, keepdims=True, dtype='int')
-        y = np.mean(bboxes[:, [1, 3]], axis=1, keepdims=True, dtype='int')
-        centroids = np.concatenate([x, y], axis=1)
-        return centroids
-    elif len(bboxes.shape) == 1:
-        assert bboxes.shape[0] == 4, "Input shape is {}, expecting shape[0]==4".format(bboxes.shape)
-        x = 0.5*(bboxes[0] + bboxes[2])
-        y = 0.5*(bboxes[1] + bboxes[3])
-        return np.array([x, y])
+
+    one_bbox = False
+    if len(bboxes.shape) == 1:
+        one_bbox = True
+        bboxes = bboxes[None, :]
+
+    xmin = bboxes[:, 0]
+    ymin = bboxes[:, 1]
+    w, h = bboxes[:, 2], bboxes[:, 3]
+
+    xc = xmin + 0.5*w
+    yc = ymin + 0.5*h
+
+    x = np.hstack([xc[:, None], yc[:, None]])
+
+    if one_bbox:
+        x = x.flatten()
+    return x
 
 
 def iou(bbox1, bbox2):
@@ -70,6 +77,31 @@ def iou(bbox1, bbox2):
     size_union = size_1 + size_2 - size_intersection
 
     iou_ = size_intersection / size_union
+
+    return iou_
+
+
+def iou_xywh(bbox1, bbox2):
+    """
+    Calculates the intersection-over-union of two bounding boxes.
+    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py
+
+    Parameters
+    ----------
+    bbox1 : numpy.array, list of floats
+            bounding box in format (x-top-left, y-top-left, width, height) of length 4.
+    bbox2 : numpy.array, list of floats
+            bounding box in format (x-top-left, y-top-left, width, height) of length 4.
+
+    Returns
+    -------
+    iou: float
+         intersection-over-onion of bbox1, bbox2.
+    """
+    bbox1 = bbox1[0], bbox1[1], bbox1[2]+bbox1[0], bbox1[3]+bbox1[0]
+    bbox2 = bbox2[0], bbox2[1], bbox2[2] + bbox2[0], bbox2[3] + bbox2[0]
+
+    iou_ = iou(bbox1, bbox2)
 
     return iou_
 

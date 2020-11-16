@@ -26,7 +26,7 @@ class IOUTracker(Tracker):
 
     def __init__(
             self,
-            max_lost=2,
+            max_lost=0,
             iou_threshold=0.5,
             min_detection_confidence=0.4,
             max_detection_confidence=0.7,

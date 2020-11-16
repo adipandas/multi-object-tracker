@@ -1,29 +1,28 @@
+from collections import OrderedDict
 import numpy as np
+from scipy.spatial import distance
 from scipy.optimize import linear_sum_assignment
-from motrackers.utils.misc import iou_xywh as iou
-from motrackers.track import KFTrackSORT
-from motrackers.centroid_kf_tracker import CentroidKF_Tracker
+from motrackers.tracker import Tracker
+from motrackers.track import KFTrackCentroid
+from motrackers.utils.misc import get_centroid
 
 
-def assign_tracks2detection_iou(bbox_tracks, bbox_detections, iou_threshold=0.3):
+def assign_tracks2detection_centroid_distances(bbox_tracks, bbox_detections, distance_threshold=10.):
     """
     Assigns detected bounding boxes to tracked bounding boxes using IoU as a distance metric.
 
-    Parameters
-    ----------
-    bbox_tracks : numpy.ndarray
-    bbox_detections : numpy.ndarray
-    iou_threshold : float
+    Args:
+        bbox_tracks (numpy.ndarray): tracked bounding boxes with shape (n, 4) each row as (xmin, ymin, width, height).
+        bbox_detections (numpy.ndarray): detection bounding boxes with shape (m, 4) each row as (xmin, ymin, width, height).
+        distance_threshold (float): Minimum distance between the tracked object and new detection to consider for assignment.
 
-    Returns
-    -------
-    tuple :
-        Tuple containing the following elements
-            - matches: (numpy.ndarray) Array of shape `(n, 2)` where `n` is number of pairs formed after
+    Returns:
+        tuple: Tuple containing the following elements:
+            - matches (numpy.ndarray):  Array of shape `(n, 2)` where `n` is number of pairs formed after
                 matching tracks to detections. This is an array of tuples with each element as matched pair
                 of indices`(track_index, detection_index)`.
-            - unmatched_detections : (numpy.ndarray) Array of shape `(m,)` where `m` is number of unmatched detections.
-            - unmatched_tracks : (numpy.ndarray) Array of shape `(k,)` where `k` is the number of unmatched tracks.
+            - unmatched_detections (numpy.ndarray):  Array of shape `(m,)` where `m` is number of unmatched detections.
+            - unmatched_tracks (numpy.ndarray):  Array of shape `(k,)` where `k` is the number of unmatched tracks.
     """
 
     if (bbox_tracks.size == 0) or (bbox_detections.size == 0):
@@ -35,13 +34,11 @@ def assign_tracks2detection_iou(bbox_tracks, bbox_detections, iou_threshold=0.3)
     if len(bbox_detections.shape) == 1:
         bbox_detections = bbox_detections[None, :]
 
-    iou_matrix = np.zeros((bbox_tracks.shape[0], bbox_detections.shape[0]), dtype=np.float32)
+    estimated_track_centroids = get_centroid(bbox_tracks)
+    detection_centroids = get_centroid(bbox_detections)
+    centroid_distances = distance.cdist(estimated_track_centroids, detection_centroids)
 
-    for t in range(bbox_tracks.shape[0]):
-        for d in range(bbox_detections.shape[0]):
-            iou_matrix[t, d] = iou(bbox_tracks[t, :], bbox_detections[d, :])
-
-    assigned_tracks, assigned_detections = linear_sum_assignment(-iou_matrix)
+    assigned_tracks, assigned_detections = linear_sum_assignment(centroid_distances)
 
     unmatched_detections, unmatched_tracks = [], []
 
@@ -53,10 +50,10 @@ def assign_tracks2detection_iou(bbox_tracks, bbox_detections, iou_threshold=0.3)
         if t not in assigned_tracks:
             unmatched_tracks.append(t)
 
-    # filter out matched with low IOU
+    # filter out matched with high distance between centroids
     matches = []
     for t, d in zip(assigned_tracks, assigned_detections):
-        if iou_matrix[t, d] < iou_threshold:
+        if centroid_distances[t, d] > distance_threshold:
             unmatched_detections.append(d)
             unmatched_tracks.append(t)
         else:
@@ -70,18 +67,16 @@ def assign_tracks2detection_iou(bbox_tracks, bbox_detections, iou_threshold=0.3)
     return matches, np.array(unmatched_detections), np.array(unmatched_tracks)
 
 
-class SORT(CentroidKF_Tracker):
+class CentroidKF_Tracker(Tracker):
     """
-    SORT - Multi object tracker.
+    Kalman filter based tracking of multiple detected objects.
 
     Parameters
     ----------
     max_lost : int
-        Max. number of times a object is lost while tracking.
+        Maximum number of consecutive frames object was not detected.
     tracker_output_format : str
         Output format of the tracker.
-    iou_threshold : float
-        Intersection over union minimum value.
     process_noise_scale : float or numpy.ndarray
         Process noise covariance matrix of shape (3, 3) or covariance magnitude as scalar value.
     measurement_noise_scale : float or numpy.ndarray
@@ -91,23 +86,23 @@ class SORT(CentroidKF_Tracker):
     """
 
     def __init__(
-            self, max_lost=0,
+            self,
+            max_lost=1,
+            centroid_distance_threshold=30.,
             tracker_output_format='mot_challenge',
-            iou_threshold=0.3,
             process_noise_scale=1.0,
             measurement_noise_scale=1.0,
             time_step=1
     ):
-        self.iou_threshold = iou_threshold
-
-        super().__init__(
-            max_lost=max_lost, tracker_output_format=tracker_output_format,
-            process_noise_scale=process_noise_scale,
-            measurement_noise_scale=measurement_noise_scale, time_step=time_step
-        )
+        self.time_step = time_step
+        self.process_noise_scale = process_noise_scale
+        self.measurement_noise_scale = measurement_noise_scale
+        self.centroid_distance_threshold = centroid_distance_threshold
+        self.kalman_trackers = OrderedDict()
+        super().__init__(max_lost, tracker_output_format)
 
     def _add_track(self, frame_id, bbox, detection_confidence, class_id, **kwargs):
-        self.tracks[self.next_track_id] = KFTrackSORT(
+        self.tracks[self.next_track_id] = KFTrackCentroid(
             self.next_track_id, frame_id, bbox, detection_confidence, class_id=class_id,
             data_output_format=self.tracker_output_format, process_noise_scale=self.process_noise_scale,
             measurement_noise_scale=self.measurement_noise_scale, **kwargs
@@ -116,7 +111,6 @@ class SORT(CentroidKF_Tracker):
 
     def update(self, bboxes, detection_scores, class_ids):
         self.frame_count += 1
-
         bbox_detections = np.array(bboxes, dtype='int')
 
         track_ids = list(self.tracks.keys())
@@ -125,8 +119,8 @@ class SORT(CentroidKF_Tracker):
             bbox_tracks.append(self.tracks[track_id].predict())
         bbox_tracks = np.array(bbox_tracks)
 
-        matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_iou(
-            bbox_tracks, bbox_detections, iou_threshold=0.3
+        matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_centroid_distances(
+            bbox_tracks, bbox_detections, distance_threshold=self.centroid_distance_threshold
         )
 
         for i in range(matches.shape[0]):
@@ -136,7 +130,7 @@ class SORT(CentroidKF_Tracker):
             cid = class_ids[d]
             confidence = detection_scores[d]
             self._update_track(track_id, self.frame_count, bbox, confidence, cid, lost=0)
-            
+
         for d in unmatched_detections:
             bbox = bboxes[d, :]
             cid = class_ids[d]
@@ -148,8 +142,8 @@ class SORT(CentroidKF_Tracker):
             bbox = bbox_tracks[t, :]
             confidence = self.tracks[track_id].detection_confidence
             cid = self.tracks[track_id].class_id
-            self._update_track(track_id, self.frame_count, bbox, detection_confidence=confidence, class_id=cid, lost=1)
-            
+            self._update_track(track_id, self.frame_count, bbox, confidence, cid, lost=1)
+
             if self.tracks[track_id].lost > self.max_lost:
                 self._remove_track(track_id)
 

@@ -3,8 +3,6 @@ import numpy as np
 from scipy.spatial import distance
 from motrackers.utils.misc import get_centroid
 from motrackers.track import Track
-from motrackers.kalman_tracker import KFTracker2D
-from scipy.optimize import linear_sum_assignment
 
 
 class Tracker:
@@ -47,6 +45,7 @@ class Tracker:
         kwargs : dict
             Additional key word arguments.
         """
+
         self.tracks[self.next_track_id] = Track(
             self.next_track_id, frame_id, bbox, detection_confidence, class_id=class_id,
             data_output_format=self.tracker_output_format,
@@ -63,6 +62,7 @@ class Tracker:
         track_id : int
                     track_id of the track lost while tracking
         """
+
         del self.tracks[track_id]
 
     def _update_track(self, track_id, frame_id, bbox, detection_confidence, class_id, lost=0, iou_score=0., **kwargs):
@@ -137,6 +137,7 @@ class Tracker:
         detections : list[Tuple]
             Data for detections as list of tuples containing `(bbox, class_id, detection_score)`.
         """
+
         new_bboxes = np.array(bboxes, dtype='int')
         new_class_ids = np.array(class_ids, dtype='int')
         new_detection_scores = np.array(detection_scores)
@@ -152,7 +153,7 @@ class Tracker:
         ----------
         bboxes : numpy.ndarray or list
             List of bounding boxes detected in the current frame. Each element of the list represent
-            coordinates of bounding box as tuple `(top-left-x, top-left-y, bottom-right-x, bottom-right-y)`.
+            coordinates of bounding box as tuple `(top-left-x, top-left-y, width, height)`.
         detection_scores: numpy.ndarray or list
             List of detection scores (probability) of each detected object.
         class_ids : numpy.ndarray or list
@@ -213,242 +214,6 @@ class Tracker:
         for i, (bbox, class_id, confidence) in enumerate(detections):
             if i not in updated_detections:
                 self._add_track(self.frame_count, bbox, confidence, class_id=class_id)
-
-        outputs = self._get_tracks(self.tracks)
-        return outputs
-
-
-def assign_tracks2detection(bbox_tracks, bbox_detections, distance_threshold=0.5):
-    """
-    Assigns detected bounding boxes to tracked bounding boxes using IoU as a distance metric.
-
-    Parameters
-    ----------
-    bbox_tracks : numpy.ndarray
-    bbox_detections : numpy.ndarray
-    distance_threshold : float
-
-    Returns
-    -------
-    tuple :
-        Tuple containing the following elements
-            - matches: (numpy.ndarray) Array of shape `(n, 2)` where `n` is number of pairs formed after
-                matching tracks to detections. This is an array of tuples with each element as matched pair
-                of indices`(track_index, detection_index)`.
-            - unmatched_detections : (numpy.ndarray) Array of shape `(m,)` where `m` is number of unmatched detections.
-            - unmatched_tracks : (numpy.ndarray) Array of shape `(k,)` where `k` is the number of unmatched tracks.
-    """
-
-    if (bbox_tracks.size == 0) or (bbox_detections.size == 0):
-        return np.empty((0, 2), dtype=int), np.arange(len(bbox_detections), dtype=int), np.empty((0,), dtype=int)
-
-    if len(bbox_tracks.shape) == 1:
-        bbox_tracks = bbox_tracks[None, :]
-
-    if len(bbox_detections.shape) == 1:
-        bbox_detections = bbox_detections[None, :]
-
-    estimated_track_centroids = get_centroid(bbox_tracks)
-    detection_centroids = get_centroid(bbox_detections)
-    centroid_distances = distance.cdist(estimated_track_centroids, detection_centroids)
-
-    assigned_tracks, assigned_detections = linear_sum_assignment(centroid_distances)
-
-    unmatched_detections, unmatched_tracks = [], []
-
-    for d in range(bbox_detections.shape[0]):
-        if d not in assigned_detections:
-            unmatched_detections.append(d)
-
-    for t in range(bbox_tracks.shape[0]):
-        if t not in assigned_tracks:
-            unmatched_tracks.append(t)
-
-    # filter out matched with low IOU
-    matches = []
-    for t, d in zip(assigned_tracks, assigned_detections):
-        if centroid_distances[t, d] < distance_threshold:
-            unmatched_detections.append(d)
-            unmatched_tracks.append(t)
-        else:
-            matches.append((t, d))
-
-    if len(matches):
-        matches = np.empty((0, 2), dtype=int)
-    else:
-        matches = np.array(matches)
-
-    return matches, np.array(unmatched_detections), np.array(unmatched_tracks)
-
-
-class CentroidKF_Tracker(Tracker):
-    """
-    Kalman filter based tracking of multiple detected objects.
-
-    Parameters
-    ----------
-    max_lost : int
-        Maximum number of consecutive frames object was not detected.
-    tracker_output_format : str
-        Output format of the tracker.
-    process_noise_covariance : float or numpy.ndarray
-        Process noise covariance matrix of shape (3, 3) or covariance magnitude as scalar value.
-    measurement_noise_covariance : float or numpy.ndarray
-        Measurement noise covariance matrix of shape (1,) or covariance magnitude as scalar value.
-    time_step : int or float
-        Time step for Kalman Filter.
-    """
-    def __init__(
-            self,
-            max_lost=5,
-            tracker_output_format='mot_challenge',
-            process_noise_covariance=None,
-            measurement_noise_covariance=None,
-            time_step=1
-    ):
-        self.time_step = time_step
-        self.process_noise_covariance = process_noise_covariance
-        self.measurement_noise_covariance = measurement_noise_covariance
-
-        self.kalman_trackers = OrderedDict()
-        super().__init__(max_lost, tracker_output_format)
-
-    def _add_kf_tracker(self, track_id, track_centroid):
-        """
-        Add kalman tracker for the object to be tracked.
-
-        Parameters
-        ----------
-        track_id : int
-            Tracker ID (aka object ID) to be tracked.
-        track_centroid : numpy.ndarray or list
-            Pixel coordinates of centroid of the track as (centroid_x, centroid_y) as initial state of
-            the object being tracked using the Kalman Filter.
-
-        Returns
-        -------
-        """
-
-        kf = KFTracker2D(time_step=self.time_step)
-        kf.setup(
-            process_noise_covariance_x=self.process_noise_covariance,
-            measurement_noise_covariance_x=self.measurement_noise_covariance,
-            initial_state_x=track_centroid[0],
-            process_noise_covariance_y=self.process_noise_covariance,
-            measurement_noise_covariance_y=self.measurement_noise_covariance,
-            initial_state_y=track_centroid[1]
-        )
-
-        self.kalman_trackers[track_id] = kf
-
-    def _predict_kf_tracker(self, track_id):
-        """
-        Use Kalman Tracker to predict the current location of the object being tracked.
-
-        Parameters
-        ----------
-        track_id : int
-            ID of the object to predict the location for.
-
-        Returns
-        -------
-        bbox : numpy.ndarray
-            Bounding box of the object as `(xmin, ymin, width, height)`.
-
-        """
-        centroid_x, centroid_y = self.kalman_trackers[track_id].predict()
-        w, h = self.tracks[track_id].bbox[2], self.tracks[track_id].bbox[3]
-        x, y = int(centroid_x - 0.5 * w), int(centroid_y - 0.5 * h)
-        return np.array([x, y, w, h])
-
-    def _remove_kf_tracker(self, track_id):
-        """
-        Remove KF tracker data after object is lost.
-
-        Parameters
-        ----------
-        track_id : int
-            track_id of the track lost while tracking
-        """
-        del self.kalman_trackers[track_id]
-
-    def _update_kf_tracker(self, track_id, track_centroid):
-        """
-        Update Kalman Tracker of the object being tracked with the new measurement.
-
-        Parameters
-        ----------
-        track_id : int
-            ID of the object.
-        track_centroid : numpy.ndarray
-            Centroid pixel coordinates with shape (2,) of the object being tracked, i.e., `(x, y)`.
-
-        """
-        self.kalman_trackers[track_id].update(track_centroid)
-
-    def update(self, bboxes, detection_scores, class_ids):
-        self.frame_count += 1
-
-        if len(bboxes) == 0:
-            lost_ids = list(self.tracks.keys())
-            for track_id in lost_ids:
-                estimated_bbox = self._predict_kf_tracker(track_id)
-
-                self._update_track(track_id, self.frame_count, estimated_bbox, detection_confidence=0.,
-                                   class_id=self.tracks[track_id].class_id, lost=1)
-
-                if self.tracks[track_id].lost > self.max_lost:
-                    self._remove_track(track_id)
-                    self._remove_kf_tracker(track_id)
-                    
-            outputs = self._get_tracks(self.tracks)
-            return outputs
-
-        detections = Tracker.preprocess_input(bboxes, class_ids, detection_scores)
-
-        track_ids = list(self.tracks.keys())
-        n_tracks, n_detections = len(track_ids), len(detections)
-
-        if len(track_ids):
-            estimated_track_bboxes = np.array([self._predict_kf_tracker(tid) for tid in track_ids])
-            estimated_track_centroids = get_centroid(estimated_track_bboxes)
-            detection_centroids = get_centroid(bboxes)
-            centroid_distances = distance.cdist(estimated_track_centroids, detection_centroids)
-            track_indices, detection_indices = linear_sum_assignment(centroid_distances)
-
-            for (tidx, didx) in zip(track_indices, detection_indices):
-                track_id = track_ids[tidx]
-                bbox, class_id, confidence = detections[didx]
-                self._update_track(track_id, self.frame_count, bbox, confidence, class_id=class_id)
-                self._update_kf_tracker(track_id, self.tracks[track_id].centroid)
-
-            if n_tracks > n_detections:
-                mask = np.ones((n_tracks,), dtype=bool)
-                mask[track_indices] = False
-                unassigned_track_indices = track_indices[mask]
-
-                for tidx in unassigned_track_indices:
-                    track_id = track_ids[tidx]
-                    self._update_track(track_id, self.frame_count, estimated_track_bboxes[track_id],
-                                       detection_confidence=0., class_id=self.tracks[track_id].class_id, lost=1)
-                    if self.tracks[track_id].lost > self.max_lost:
-                        self._remove_track(track_id)
-                        self._remove_kf_tracker(track_id)
-
-            elif n_tracks < n_detections:
-                mask = np.ones((n_detections,), dtype=bool)
-                mask[detection_indices] = False
-                unassigned_detection_indices = np.arange(n_detections)[mask]
-                for didx in unassigned_detection_indices:
-                    bbox, class_id, confidence = detections[didx]
-                    self._add_track(self.frame_count, bbox, confidence, class_id=class_id)
-                    self._add_kf_tracker(self.next_track_id-1, self.tracks[self.next_track_id-1].centroid)
-
-        else:
-            for detection in detections:
-                bbox, class_id, confidence = detection
-                self._add_track(self.frame_count, bbox, confidence, class_id=class_id)
-                self._add_kf_tracker(self.next_track_id - 1, self.tracks[self.next_track_id - 1].centroid)
 
         outputs = self._get_tracks(self.tracks)
         return outputs

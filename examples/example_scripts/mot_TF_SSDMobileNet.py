@@ -1,6 +1,6 @@
 import cv2 as cv
 from motrackers.detectors import TF_SSDMobileNetV2
-from motrackers import CentroidTracker, CentroidKF_Tracker
+from motrackers import CentroidTracker, CentroidKF_Tracker, SORT
 from motrackers.utils import draw_tracks
 
 
@@ -9,7 +9,7 @@ def main(video_path, weights_path, config_path, use_gpu, tracker):
     model = TF_SSDMobileNetV2(
         weights_path=weights_path,
         configfile_path=config_path,
-        confidence_threshold=0.3,
+        confidence_threshold=0.4,
         nms_threshold=0.2,
         draw_bboxes=True,
         use_gpu=use_gpu
@@ -24,15 +24,13 @@ def main(video_path, weights_path, config_path, use_gpu, tracker):
             break
 
         bboxes, confidences, class_ids = model.detect(image)
-
         tracks = tracker.update(bboxes, confidences, class_ids)
-
-        updated_image = model.draw_bboxes(image, bboxes, confidences, class_ids)
+        updated_image = model.draw_bboxes(image.copy(), bboxes, confidences, class_ids)
 
         updated_image = draw_tracks(updated_image, tracks)
 
         cv.imshow("image", updated_image)
-        if cv.waitKey(1) & 0xFF == ord('q'):
+        if cv.waitKey(0) & 0xFF == ord('q'):
             break
 
     cap.release()
@@ -55,7 +53,8 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--config', '-c', type=str,
+        '--config', '-c',
+        type=str,
         default="./../pretrained_models/tensorflow_weights/ssd_mobilenet_v2_coco_2018_03_29.pbtxt",
         help='path to config file of Caffe-MobileNetSSD (`.pbtxt` file).'
     )
@@ -66,15 +65,17 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--tracker', type=str, default='CentroidKF_Tracker',
-        help="Tracker used to track objects. Options include ['CentroidTracker', 'CentroidKF_Tracker']")
+        '--tracker', type=str, default='SORT',
+        help="Tracker used to track objects. Options include ['CentroidTracker', 'CentroidKF_Tracker', 'SORT']")
 
     args = parser.parse_args()
 
     if args.tracker == 'CentroidTracker':
-        tracker = CentroidTracker(max_lost=5, tracker_output_format='mot_challenge')
+        tracker = CentroidTracker(max_lost=0, tracker_output_format='mot_challenge')
     elif args.tracker == 'CentroidKF_Tracker':
-        tracker = CentroidKF_Tracker(max_lost=3, tracker_output_format='mot_challenge')
+        tracker = CentroidKF_Tracker(max_lost=0, tracker_output_format='mot_challenge')
+    elif args.tracker == 'SORT':
+        tracker = SORT(max_lost=2, tracker_output_format='mot_challenge', iou_threshold=0.5, time_step=1)
     else:
         raise NotImplementedError
 

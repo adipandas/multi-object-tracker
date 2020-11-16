@@ -1,4 +1,5 @@
 import numpy as np
+from motrackers.kalman_tracker import KFTrackerSORT, KFTracker2D
 
 
 class Track:
@@ -23,6 +24,7 @@ class Track:
         Intersection over union score.
     kwargs : dict
         Additional key word arguments.
+
     """
 
     count = 0
@@ -113,7 +115,7 @@ class Track:
         -------
         numpy.ndarray: Centroid (x, y) of bounding box.
         """
-        return (self.bbox[0] + 0.5 * self.bbox[2]), (self.bbox[1] + 0.5 * self.bbox[3])
+        return np.array((self.bbox[0]+0.5*self.bbox[2], self.bbox[1]+0.5*self.bbox[3]))
 
     def get_mot_challenge_format(self):
         """
@@ -160,6 +162,60 @@ class Track:
         )
         return mot_tuple
 
+    def predict(self):
+        raise NotImplemented
+
     @staticmethod
     def print_all_track_output_formats():
         print(Track.metadata['data_output_formats'])
+
+
+class KFTrackSORT(Track):
+    """
+    Track based on Kalman filter tracker used for SORT MOT-Algorithm.
+    """
+    def __init__(self, track_id, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0.,
+                 data_output_format='mot_challenge', process_noise_scale=1.0, measurement_noise_scale=1.0, **kwargs):
+        bbz = np.array([bbox[0]+0.5*bbox[2], bbox[1]+0.5*bbox[3], bbox[2]*bbox[3], bbox[2]/float(bbox[3])])
+        self.kf = KFTrackerSORT(
+            bbz, process_noise_scale=process_noise_scale, measurement_noise_scale=measurement_noise_scale)
+        super().__init__(track_id, frame_id, bbox, detection_confidence, class_id=class_id, lost=lost,
+                         iou_score=iou_score, data_output_format=data_output_format, **kwargs)
+
+    def predict(self):
+        x = self.kf.predict()
+        w = np.sqrt(x[2] * x[3])
+        h = x[2] / w
+        bb = np.array([x[0]-0.5*w, x[1]-0.5*h, w, h])
+        return bb
+
+    def update(self, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0., **kwargs):
+        super().update(
+            frame_id, bbox, detection_confidence, class_id=class_id, lost=lost, iou_score=iou_score, **kwargs)
+        z = np.array([bbox[0]+0.5*bbox[2], bbox[1]+0.5*bbox[3], bbox[2]*bbox[3], bbox[2]/float(bbox[3])])
+        self.kf.update(z)
+
+
+class KFTrackCentroid(Track):
+    """
+    Track based on Kalman filter used for Centroid Tracking of bounding box in MOT.
+    """
+    def __init__(self, track_id, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0.,
+                 data_output_format='mot_challenge', process_noise_scale=1.0, measurement_noise_scale=1.0, **kwargs):
+        c = np.array((bbox[0]+0.5*bbox[2], bbox[1]+0.5*bbox[3]))
+        self.kf = KFTracker2D(c, process_noise_scale=process_noise_scale, measurement_noise_scale=measurement_noise_scale)
+        super().__init__(track_id, frame_id, bbox, detection_confidence, class_id=class_id, lost=lost,
+                         iou_score=iou_score, data_output_format=data_output_format, **kwargs)
+
+    def predict(self):
+        s = self.kf.predict()
+        xmid, ymid = s[0], s[3]
+        w, h = self.bbox[2], self.bbox[3]
+        xmin = xmid - 0.5*w
+        ymin = ymid - 0.5*h
+        return np.array([xmin, ymin, w, h]).astype(int)
+
+    def update(self, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0., **kwargs):
+        super().update(
+            frame_id, bbox, detection_confidence, class_id=class_id, lost=lost, iou_score=iou_score, **kwargs)
+        self.kf.update(self.centroid)
