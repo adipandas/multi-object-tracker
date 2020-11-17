@@ -6,6 +6,13 @@ Various multi-object tracking algorithms.
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
 
+
+`YOLOv3 + CentroidTracker` |  `TF-MobileNetSSD + CentroidTracker`
+:-------------------------:|:-------------------------:
+![Cars with YOLO][cars-yolo-output]  |  ![Cows with tf-SSD][cows-tf-ssd-output]
+Video source: [link](https://flic.kr/p/L6qyxj) | Video source: [link](https://flic.kr/p/26WeEWy)
+
+
 ## Available Multi Object Trackers
 
 ```
@@ -15,19 +22,13 @@ CentroidKF_Tracker
 SORT
 ```
 
-### Available OpenCV-based object detectors:
+## Available OpenCV-based object detectors:
 
 ```
 detector.TF_SSDMobileNetV2
 detector.Caffe_SSDMobileNet
 detector.YOLOv3
 ```
-
-`YOLOv3 + CentroidTracker` |  `TF-MobileNetSSD + CentroidTracker`
-:-------------------------:|:-------------------------:
-![Cars with YOLO][cars-yolo-output]  |  ![Cows with tf-SSD][cows-tf-ssd-output]
-Video source: [link](https://flic.kr/p/L6qyxj) | Video source: [link](https://flic.kr/p/26WeEWy)
-
 
 ## Installation
 
@@ -49,6 +50,8 @@ cd multi-object-tracker
 pip install -e .
 ```
 
+Note - for using neural network models with GPU
+---
 For using the opencv `dnn`-based object detection modules provided in this repository with GPU, you may have to compile a CUDA enabled version of OpenCV from source.
 
 For building opencv from source, you can refer the following:
