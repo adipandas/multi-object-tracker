@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 from motrackers.utils.misc import iou_xywh as iou
-from motrackers.track import KFTrackSORT
+from motrackers.track import KFTrackSORT, KFTrack4DSORT
 from motrackers.centroid_kf_tracker import CentroidKF_Tracker
 
 
@@ -36,7 +36,6 @@ def assign_tracks2detection_iou(bbox_tracks, bbox_detections, iou_threshold=0.3)
         bbox_detections = bbox_detections[None, :]
 
     iou_matrix = np.zeros((bbox_tracks.shape[0], bbox_detections.shape[0]), dtype=np.float32)
-
     for t in range(bbox_tracks.shape[0]):
         for d in range(bbox_detections.shape[0]):
             iou_matrix[t, d] = iou(bbox_tracks[t, :], bbox_detections[d, :])
@@ -107,11 +106,15 @@ class SORT(CentroidKF_Tracker):
         )
 
     def _add_track(self, frame_id, bbox, detection_confidence, class_id, **kwargs):
-        self.tracks[self.next_track_id] = KFTrackSORT(
+        # self.tracks[self.next_track_id] = KFTrackSORT(
+        #     self.next_track_id, frame_id, bbox, detection_confidence, class_id=class_id,
+        #     data_output_format=self.tracker_output_format, process_noise_scale=self.process_noise_scale,
+        #     measurement_noise_scale=self.measurement_noise_scale, **kwargs
+        # )
+        self.tracks[self.next_track_id] = KFTrack4DSORT(
             self.next_track_id, frame_id, bbox, detection_confidence, class_id=class_id,
             data_output_format=self.tracker_output_format, process_noise_scale=self.process_noise_scale,
-            measurement_noise_scale=self.measurement_noise_scale, **kwargs
-        )
+            measurement_noise_scale=self.measurement_noise_scale, kf_time_step=1, **kwargs)
         self.next_track_id += 1
 
     def update(self, bboxes, detection_scores, class_ids):
@@ -119,15 +122,26 @@ class SORT(CentroidKF_Tracker):
 
         bbox_detections = np.array(bboxes, dtype='int')
 
+        # track_ids_all = list(self.tracks.keys())
+        # bbox_tracks = []
+        # track_ids = []
+        # for track_id in track_ids_all:
+        #     bb = self.tracks[track_id].predict()
+        #     if np.any(np.isnan(bb)):
+        #         self._remove_track(track_id)
+        #     else:
+        #         track_ids.append(track_id)
+        #         bbox_tracks.append(bb)
+
         track_ids = list(self.tracks.keys())
         bbox_tracks = []
         for track_id in track_ids:
-            bbox_tracks.append(self.tracks[track_id].predict())
-        bbox_tracks = np.array(bbox_tracks)
+            bb = self.tracks[track_id].predict()
+            bbox_tracks.append(bb)
 
+        bbox_tracks = np.array(bbox_tracks)
         matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_iou(
-            bbox_tracks, bbox_detections, iou_threshold=0.3
-        )
+            bbox_tracks, bbox_detections, iou_threshold=0.3)
 
         for i in range(matches.shape[0]):
             t, d = matches[i, :]

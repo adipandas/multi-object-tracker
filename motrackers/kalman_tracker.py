@@ -224,9 +224,14 @@ class KFTrackerSORT(KalmanFilter):
             [0, 1, 0, 0, 0, 1, 0],
             [0, 0, 1, 0, 0, 0, 1]]) * process_noise_scale
 
+        process_noise_covariance[-1, -1] *= 0.01
+        process_noise_covariance[4:, 4:] *= 0.01
+
         measurement_noise_covariance = np.eye(4) * measurement_noise_scale
+        measurement_noise_covariance[2:, 2:] *= 0.01
 
         prediction_covariance = np.ones_like(transition_matrix) * 10.
+        prediction_covariance[4:, 4:] *= 100.
 
         initial_state = np.array([bbox[0], bbox[1], bbox[2], bbox[3], 0., 0., 0.])
 

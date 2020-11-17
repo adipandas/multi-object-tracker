@@ -1,5 +1,5 @@
 import numpy as np
-from motrackers.kalman_tracker import KFTrackerSORT, KFTracker2D
+from motrackers.kalman_tracker import KFTracker2D, KFTrackerSORT, KFTracker4D
 
 
 class Track:
@@ -183,9 +183,16 @@ class KFTrackSORT(Track):
                          iou_score=iou_score, data_output_format=data_output_format, **kwargs)
 
     def predict(self):
+        if (self.kf.x[6] + self.kf.x[2]) <= 0:
+            self.kf.x[6] *= 0.0
+
         x = self.kf.predict()
+
+        if x[2] * x[3] < 0:
+            return np.array([np.nan, np.nan, np.nan, np.nan])
+
         w = np.sqrt(x[2] * x[3])
-        h = x[2] / w
+        h = x[2] / float(w)
         bb = np.array([x[0]-0.5*w, x[1]-0.5*h, w, h])
         return bb
 
@@ -194,6 +201,30 @@ class KFTrackSORT(Track):
             frame_id, bbox, detection_confidence, class_id=class_id, lost=lost, iou_score=iou_score, **kwargs)
         z = np.array([bbox[0]+0.5*bbox[2], bbox[1]+0.5*bbox[3], bbox[2]*bbox[3], bbox[2]/float(bbox[3])])
         self.kf.update(z)
+
+
+class KFTrack4DSORT(Track):
+    """
+    Track based on Kalman filter tracker used for SORT MOT-Algorithm.
+    """
+    def __init__(self, track_id, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0.,
+                 data_output_format='mot_challenge', process_noise_scale=1.0, measurement_noise_scale=1.0,
+                 kf_time_step=1, **kwargs):
+        self.kf = KFTracker4D(
+            bbox.copy(), process_noise_scale=process_noise_scale, measurement_noise_scale=measurement_noise_scale,
+            time_step=kf_time_step)
+        super().__init__(track_id, frame_id, bbox, detection_confidence, class_id=class_id, lost=lost,
+                         iou_score=iou_score, data_output_format=data_output_format, **kwargs)
+
+    def predict(self):
+        x = self.kf.predict()
+        bb = np.array([x[0], x[3], x[6], x[9]])
+        return bb
+
+    def update(self, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0., **kwargs):
+        super().update(
+            frame_id, bbox, detection_confidence, class_id=class_id, lost=lost, iou_score=iou_score, **kwargs)
+        self.kf.update(bbox.copy())
 
 
 class KFTrackCentroid(Track):

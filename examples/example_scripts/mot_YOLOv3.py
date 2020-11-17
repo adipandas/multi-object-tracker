@@ -1,15 +1,15 @@
 import cv2 as cv
-from motrackers.detectors import TF_SSDMobileNetV2
+from motrackers.detectors import YOLOv3
 from motrackers import CentroidTracker, CentroidKF_Tracker, SORT
 from motrackers.utils import draw_tracks
 
 
-def main(video_path, weights_path, config_path, use_gpu, tracker):
-
-    model = TF_SSDMobileNetV2(
+def main(video_path, weights_path, config_path, labels_path, use_gpu, tracker):
+    model = YOLOv3(
         weights_path=weights_path,
         configfile_path=config_path,
-        confidence_threshold=0.4,
+        labels_path=labels_path,
+        confidence_threshold=0.5,
         nms_threshold=0.2,
         draw_bboxes=True,
         use_gpu=use_gpu
@@ -43,42 +43,48 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(
-        description='Object detections in input video using TensorFlow model of MobileNetSSD.')
+        description='Object detections in input video using YOLOv3 trained on COCO dataset.'
+    )
 
     parser.add_argument(
         '--video', '-v', type=str, default="./../video_data/cars.mp4", help='Input video path.')
 
     parser.add_argument(
         '--weights', '-w', type=str,
-        default="./../pretrained_models/tensorflow_weights/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb",
-        help='path to weights file of tf-MobileNetSSD (`.pb` file).'
+        default="./../pretrained_models/yolo_weights/yolov3.weights",
+        help='path to weights file of YOLOv3 (`.weights` file.)'
     )
 
     parser.add_argument(
-        '--config', '-c',
-        type=str,
-        default="./../pretrained_models/tensorflow_weights/ssd_mobilenet_v2_coco_2018_03_29.pbtxt",
-        help='path to config file of Caffe-MobileNetSSD (`.pbtxt` file).'
+        '--config', '-c', type=str,
+        default="./../pretrained_models/yolo_weights/yolov3.cfg",
+        help='path to config file of YOLOv3 (`.cfg` file.)'
     )
 
     parser.add_argument(
-        '--gpu', type=bool, default=False,
-        help='Flag to use gpu to run the deep learning model. Default is `False`'
+        '--labels', '-l', type=str,
+        default="./../pretrained_models/yolo_weights/coco.names",
+        help='path to labels file of coco dataset (`.names` file.)'
     )
 
     parser.add_argument(
-        '--tracker', type=str, default='SORT',
+        '--gpu', type=bool,
+        default=False, help='Flag to use gpu to run the deep learning model. Default is `False`'
+    )
+
+    parser.add_argument(
+        '--tracker', type=str, default='CentroidTracker',
         help="Tracker used to track objects. Options include ['CentroidTracker', 'CentroidKF_Tracker', 'SORT']")
 
     args = parser.parse_args()
 
     if args.tracker == 'CentroidTracker':
-        tracker = CentroidTracker(max_lost=0, tracker_output_format='mot_challenge')
+        tracker = CentroidTracker(max_lost=3, tracker_output_format='mot_challenge')
     elif args.tracker == 'CentroidKF_Tracker':
-        tracker = CentroidKF_Tracker(max_lost=0, tracker_output_format='mot_challenge')
+        tracker = CentroidKF_Tracker(max_lost=3, tracker_output_format='mot_challenge')
     elif args.tracker == 'SORT':
-        tracker = SORT(max_lost=3, tracker_output_format='mot_challenge', iou_threshold=0.3)
+        tracker = SORT(max_lost=3, tracker_output_format='mot_challenge', iou_threshold=0.3, time_step=1)
     else:
         raise NotImplementedError
 
-    main(args.video, args.weights, args.config, args.gpu, tracker)
+    main(args.video, args.weights, args.config, args.labels, args.gpu, tracker)
