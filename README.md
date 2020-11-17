@@ -2,7 +2,7 @@
 [cows-tf-ssd-output]: examples/assets/cows.gif "Sample Output with SSD"
 
 # Multi-object trackers in Python
-Object detection using deep learning and multi-object tracking
+Various multi-object tracking algorithms.
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
 
@@ -10,8 +10,8 @@ Object detection using deep learning and multi-object tracking
 
 ```
 CentroidTracker
-CentroidKF_Tracker
 IOUTracker
+CentroidKF_Tracker
 SORT
 ```
 
@@ -50,43 +50,26 @@ pip install -e .
 
 For using the opencv `dnn`-based object detection modules provided in this repository with GPU, you may have to compile a CUDA enabled version of OpenCV from source.
 
-For building opencv from source, you can refer the following: [[link-1](https://docs.opencv.org/master/df/d65/tutorial_table_of_content_introduction.html)], [[link-2](https://www.pyimagesearch.com/2020/02/03/how-to-use-opencvs-dnn-module-with-nvidia-gpus-cuda-and-cudnn/)]
+For building opencv from source, you can refer the following:
+[[link-1](https://docs.opencv.org/master/df/d65/tutorial_table_of_content_introduction.html)],
+[[link-2](https://www.pyimagesearch.com/2020/02/03/how-to-use-opencvs-dnn-module-with-nvidia-gpus-cuda-and-cudnn/)]
 
-### How to use?: Examples
+#### How to use?: Examples
 
 Examples for how to use `motrackers` are provided [examples](./examples/) folder of this repository.
 You can clone and run the examples as shown in the [readme](examples/readme.md) inside the [examples](./examples/) folder.
 
-### Pretrained Object Detection Models
+#### Pretrained object detection models
 
-You will have to download the pretrained weights for the model. The shell scripts for downloading are provided in [examples](examples/) folder.
+You will have to download the pretrained weights for the neural-network models. 
+The shell scripts for downloading these are provided in [examples](examples/) folder.  
+Please refer [DOWNLOAD_WEIGHTS.md](DOWNLOAD_WEIGHTS.md) for more details.
 
-##### YOLOv3
-```
-cd ./examples/pretrained_models/yolo_weights
-sudo chmod +x ./get_yolo.sh
-./get_yolo.sh
-```
+#### References and Credits
 
-##### TensorFlow MobileNetSSDv2
-```
-cd ./pretrained_models/tensorflow_weights
-sudo chmod +x ./get_ssd_model.sh
-./get_ssd_model.sh
-```
+Please see [REFERENCES.md](REFERENCES.md)
 
-##### Caffemodel
-```
-cd ./pretrained_models/caffemodel_weights
-sudo chmod +x ./get_caffemodel.sh
-./get_caffemodel.sh
-```
-
-### References and Credits
-
-Please see [references.md](REFERENCES.md)
-
-### Citation
+#### Citation
 
 If you use this repository in your work, please consider citing it with:
 ```

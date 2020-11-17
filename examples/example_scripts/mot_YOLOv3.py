@@ -1,6 +1,6 @@
 import cv2 as cv
 from motrackers.detectors import YOLOv3
-from motrackers import CentroidTracker, CentroidKF_Tracker, SORT
+from motrackers import CentroidTracker, CentroidKF_Tracker, SORT, IOUTracker
 from motrackers.utils import draw_tracks
 
 
@@ -73,17 +73,20 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--tracker', type=str, default='CentroidTracker',
+        '--tracker', type=str, default='IOUTracker',
         help="Tracker used to track objects. Options include ['CentroidTracker', 'CentroidKF_Tracker', 'SORT']")
 
     args = parser.parse_args()
 
     if args.tracker == 'CentroidTracker':
-        tracker = CentroidTracker(max_lost=3, tracker_output_format='mot_challenge')
+        tracker = CentroidTracker(max_lost=0, tracker_output_format='mot_challenge')
     elif args.tracker == 'CentroidKF_Tracker':
-        tracker = CentroidKF_Tracker(max_lost=3, tracker_output_format='mot_challenge')
+        tracker = CentroidKF_Tracker(max_lost=0, tracker_output_format='mot_challenge')
     elif args.tracker == 'SORT':
-        tracker = SORT(max_lost=3, tracker_output_format='mot_challenge', iou_threshold=0.3, time_step=1)
+        tracker = SORT(max_lost=3, tracker_output_format='mot_challenge', iou_threshold=0.3)
+    elif args.tracker == 'IOUTracker':
+        tracker = IOUTracker(max_lost=2, iou_threshold=0.5, min_detection_confidence=0.4, max_detection_confidence=0.7,
+                             tracker_output_format='mot_challenge')
     else:
         raise NotImplementedError
 

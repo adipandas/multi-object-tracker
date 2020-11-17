@@ -1,19 +1,18 @@
 import cv2 as cv
-from motrackers.detectors import TF_SSDMobileNetV2
+from motrackers.detectors import Caffe_SSDMobileNet
 from motrackers import CentroidTracker, CentroidKF_Tracker, SORT, IOUTracker
 from motrackers.utils import draw_tracks
 
 
 def main(video_path, weights_path, config_path, use_gpu, tracker):
 
-    model = TF_SSDMobileNetV2(
+    model = Caffe_SSDMobileNet(
         weights_path=weights_path,
         configfile_path=config_path,
-        confidence_threshold=0.4,
+        confidence_threshold=0.5,
         nms_threshold=0.2,
         draw_bboxes=True,
-        use_gpu=use_gpu
-    )
+        use_gpu=use_gpu)
 
     cap = cv.VideoCapture(video_path)
     while True:
@@ -43,33 +42,25 @@ if __name__ == '__main__':
     import argparse
 
     parser = argparse.ArgumentParser(
-        description='Object detections in input video using TensorFlow model of MobileNetSSD.')
+        description='Object detections in input video using Caffemodel of MobileNetSSD.')
 
     parser.add_argument(
         '--video', '-v', type=str, default="./../video_data/cars.mp4", help='Input video path.')
 
     parser.add_argument(
-        '--weights', '-w', type=str,
-        default="./../pretrained_models/tensorflow_weights/ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb",
-        help='path to weights file of tf-MobileNetSSD (`.pb` file).'
-    )
+        '--weights', '-w', type=str, default="./../pretrained_models/caffemodel_weights/MobileNetSSD_deploy.caffemodel",
+        help='path to weights file of Caffe-MobileNetSSD, i.e., `.caffemodel` file.')
 
     parser.add_argument(
-        '--config', '-c',
-        type=str,
-        default="./../pretrained_models/tensorflow_weights/ssd_mobilenet_v2_coco_2018_03_29.pbtxt",
-        help='path to config file of Caffe-MobileNetSSD (`.pbtxt` file).'
-    )
+        '--config', '-c', type=str, default="./../pretrained_models/caffemodel_weights/MobileNetSSD_deploy.prototxt",
+        help='path to config file of Caffe-MobileNetSSD, i.e., `.prototxt` file.')
 
     parser.add_argument(
-        '--gpu', type=bool, default=False,
-        help='Flag to use gpu to run the deep learning model. Default is `False`'
-    )
+        '--gpu', type=bool, default=False, help='Flag to use gpu to run the deep learning model. Default is `False`')
 
     parser.add_argument(
-        '--tracker', type=str, default='IOUTracker',
-        help="Tracker used to track objects. Options include ['CentroidTracker', 'CentroidKF_Tracker', "
-             "'SORT', IOUTracker]")
+        '--tracker', type=str, default='IOUTracker', help="Tracker used to track objects."
+        " Options include ['CentroidTracker', 'CentroidKF_Tracker', 'SORT', IOUTracker]")
 
     args = parser.parse_args()
 

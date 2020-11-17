@@ -3,9 +3,7 @@ from motrackers.detectors.detector import Detector
 
 
 class TF_SSDMobileNetV2(Detector):
-    def __init__(
-            self, weights_path, configfile_path,
-            confidence_threshold=0.5, nms_threshold=0.4, draw_bboxes=True, use_gpu=False):
+    def __init__(self, weights_path, configfile_path, confidence_threshold=0.5, nms_threshold=0.4, draw_bboxes=True, use_gpu=False):
         self.image_size = (300, 300)
         self.net = cv.dnn.readNetFromTensorflow(weights_path, configfile_path)
 

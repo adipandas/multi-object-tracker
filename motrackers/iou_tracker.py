@@ -1,4 +1,4 @@
-from motrackers.utils import iou
+from motrackers.utils.misc import iou_xywh as iou
 from motrackers.tracker import Tracker
 
 
@@ -26,7 +26,7 @@ class IOUTracker(Tracker):
 
     def __init__(
             self,
-            max_lost=0,
+            max_lost=2,
             iou_threshold=0.5,
             min_detection_confidence=0.4,
             max_detection_confidence=0.7,
