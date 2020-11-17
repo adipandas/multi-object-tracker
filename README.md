@@ -6,7 +6,7 @@ Various multi-object tracking algorithms.
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
 
-### Available Multi Object Trackers
+## Available Multi Object Trackers
 
 ```
 CentroidTracker
@@ -29,7 +29,8 @@ detector.YOLOv3
 Video source: [link](https://flic.kr/p/L6qyxj) | Video source: [link](https://flic.kr/p/26WeEWy)
 
 
-### Installation
+## Installation
+
 Pip install for OpenCV (version 3.4.3 or later) is available [here](https://pypi.org/project/opencv-python/) and can be done with the following command:
 
 ```
@@ -54,22 +55,22 @@ For building opencv from source, you can refer the following:
 [[link-1](https://docs.opencv.org/master/df/d65/tutorial_table_of_content_introduction.html)],
 [[link-2](https://www.pyimagesearch.com/2020/02/03/how-to-use-opencvs-dnn-module-with-nvidia-gpus-cuda-and-cudnn/)]
 
-#### How to use?: Examples
+## How to use?: Examples
 
-Examples for how to use `motrackers` are provided [examples](./examples/) folder of this repository.
+Please refer [examples](./examples/) folder of this repository.
 You can clone and run the examples as shown in the [readme](examples/readme.md) inside the [examples](./examples/) folder.
 
-#### Pretrained object detection models
+## Pretrained object detection models
 
 You will have to download the pretrained weights for the neural-network models. 
 The shell scripts for downloading these are provided in [examples](examples/) folder.  
 Please refer [DOWNLOAD_WEIGHTS.md](DOWNLOAD_WEIGHTS.md) for more details.
 
-#### References and Credits
+## References and Credits
 
 Please see [REFERENCES.md](REFERENCES.md)
 
-#### Citation
+## Citation
 
 If you use this repository in your work, please consider citing it with:
 ```
