@@ -1,5 +1,8 @@
 ## Instructions to download pretrained neural-network weights.
 
+[Home](https://adipandas.github.io/multi-object-tracker/){: .btn .btn-green }
+[GitHub](https://github.com/adipandas/multi-object-tracker){: .btn .btn-blue}
+
 ##### YOLOv3
 ```
 cd ./examples/pretrained_models/yolo_weights

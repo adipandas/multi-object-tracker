@@ -1,5 +1,8 @@
 # References and Credits
 
+[Home](https://adipandas.github.io/multi-object-tracker/){: .btn .btn-green }
+[GitHub](https://github.com/adipandas/multi-object-tracker){: .btn .btn-blue}
+
 This work is based on the following literature:
 
 1. Bochinski, E., Eiselein, V., & Sikora, T. (2017, August). High-speed tracking-by-detection without using image information. In 2017 14th IEEE International Conference on Advanced Video and Signal Based Surveillance (AVSS) (pp. 1-6). IEEE. [[pdf](http://elvera.nue.tu-berlin.de/files/1517Bochinski2017.pdf)]
@@ -8,6 +11,3 @@ This work is based on the following literature:
 4. Kalman Filter. [[wiki](https://en.wikipedia.org/wiki/Kalman_filter)]
 5. TensorFlow Object Detection API [[github](https://github.com/tensorflow/models/tree/master/research/object_detection)]
 6. Caffe [[website](https://caffe.berkeleyvision.org/)][[github](https://github.com/BVLC/caffe)]
-
-
-#### Link to `multi-object-tracker` [[webpage](https://adipandas.github.io/multi-object-tracker/)][[GitHub Repo](https://github.com/adipandas/multi-object-tracker)]
