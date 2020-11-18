@@ -2,7 +2,7 @@
 [cows-tf-ssd-output]: examples/assets/cows.gif "Sample Output with SSD"
 
 # Multi-object trackers in Python
-Various multi-object tracking algorithms.
+Easy to use implementation of various multi-object tracking algorithms.
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)
 
@@ -57,6 +57,10 @@ You can clone and run the examples as shown [here](examples/readme.md).
 You will have to download the pretrained weights for the neural-network models. 
 The shell scripts for downloading these are provided [here](https://github.com/adipandas/multi-object-tracker/tree/master/examples/pretrained_models) below respective folders.
 Please refer [DOWNLOAD_WEIGHTS.md](DOWNLOAD_WEIGHTS.md) for more details.
+
+### Notes
+* There are some variations in implementations as compared to what appeared in papers of `SORT` and `IoU Tracker`.
+* In case you find any bugs in the algorithm, I will be happy to accept your pull request or you can create an issue to point it out.
 
 ## References and Credits
 
