@@ -1,5 +1,8 @@
 # multi-object-tracker examples
 
+[Home](https://adipandas.github.io/multi-object-tracker/){: .btn .btn-green }
+[GitHub](https://github.com/adipandas/multi-object-tracker){: .btn .btn-blue}
+
 This folder contains various examples.
 
 1. [Example jupyter-notebooks](example_notebooks)

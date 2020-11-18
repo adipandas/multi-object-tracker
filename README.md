@@ -35,16 +35,6 @@ detector.YOLOv3
 Pip install for OpenCV (version 3.4.3 or later) is available [here](https://pypi.org/project/opencv-python/) and can be done with the following command:
 
 ```
-pip install numpy matplotlib scipy
-pip install opencv-contrib-python
-```
-
-Installation of `ipyfilechooser` is recommended if you want to use the jupyter notebooks available in the ```examples``` folder.
-```
-pip install ipyfilechooser
-```
-
-```
 git clone https://github.com/adipandas/multi-object-tracker
 cd multi-object-tracker
 pip install -e .
