@@ -1,7 +1,7 @@
 ## Instructions to download pretrained neural-network weights.
 
-[Home](https://adipandas.github.io/multi-object-tracker/){: .btn .btn-green }
-[GitHub](https://github.com/adipandas/multi-object-tracker){: .btn .btn-blue}
+[GitHub](https://github.com/adipandas/multi-object-tracker)
+[Home](https://adipandas.github.io/multi-object-tracker/)
 
 ##### YOLOv3
 ```

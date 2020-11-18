@@ -1,9 +1,7 @@
 # References and Credits
 
-<p>
-<button name="button1" onclick="https://adipandas.github.io/multi-object-tracker/">Home</button>
-<button name="button2" onclick="https://github.com/adipandas/multi-object-tracker">GitHub</button>
-</p>
+[GitHub](https://github.com/adipandas/multi-object-tracker)
+[Home](https://adipandas.github.io/multi-object-tracker/)
 
 This work is based on the following literature:
 
