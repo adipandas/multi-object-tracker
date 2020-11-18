@@ -4,15 +4,7 @@ from motrackers import CentroidTracker, CentroidKF_Tracker, SORT, IOUTracker
 from motrackers.utils import draw_tracks
 
 
-def main(video_path, weights_path, config_path, use_gpu, tracker):
-
-    model = Caffe_SSDMobileNet(
-        weights_path=weights_path,
-        configfile_path=config_path,
-        confidence_threshold=0.5,
-        nms_threshold=0.2,
-        draw_bboxes=True,
-        use_gpu=use_gpu)
+def main(video_path, model, tracker):
 
     cap = cv.VideoCapture(video_path)
     while True:
@@ -56,6 +48,12 @@ if __name__ == '__main__':
         help='path to config file of Caffe-MobileNetSSD, i.e., `.prototxt` file.')
 
     parser.add_argument(
+        '--labels', '-l', type=str,
+        default="./../pretrained_models/caffemodel_weights/ssd_mobilenet_caffe_names.json",
+        help='path to labels file of coco dataset (`.names` file.)'
+    )
+
+    parser.add_argument(
         '--gpu', type=bool, default=False, help='Flag to use gpu to run the deep learning model. Default is `False`')
 
     parser.add_argument(
@@ -76,4 +74,14 @@ if __name__ == '__main__':
     else:
         raise NotImplementedError
 
-    main(args.video, args.weights, args.config, args.gpu, tracker)
+    model = Caffe_SSDMobileNet(
+        weights_path=args.weights,
+        configfile_path=args.config,
+        labels_path=args.labels,
+        confidence_threshold=0.5,
+        nms_threshold=0.2,
+        draw_bboxes=True,
+        use_gpu=args.gpuq
+    )
+
+    main(args.video, model, tracker)

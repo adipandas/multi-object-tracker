@@ -1,15 +1,26 @@
 import cv2 as cv
 from motrackers.detectors.detector import Detector
+from motrackers.utils.misc import load_labelsjson
 
 
 class Caffe_SSDMobileNet(Detector):
-    def __init__(self, weights_path, configfile_path, confidence_threshold=0.5, nms_threshold=0.2,
-                 draw_bboxes=True, use_gpu=False):
-        object_names = {
-            0: 'background', 1: 'aeroplane', 2: 'bicycle', 3: 'bird', 4: 'boat', 5: 'bottle', 6: 'bus',
-            7: 'car', 8: 'cat', 9: 'chair', 10: 'cow', 11: 'diningtable', 12: 'dog', 13: 'horse', 14: 'motorbike',
-            15: 'person', 16: 'pottedplant', 17: 'sheep', 18: 'sofa', 19: 'train', 20: 'tvmonitor'
-        }
+    """
+    Caffe SSD MobileNet model for Object Detection.
+
+    Args:
+        weights_path (str): path to network weights file.
+        configfile_path (str): path to network configuration file.
+        labels_path (str): path to data labels json file.
+        confidence_threshold (float): confidence threshold to select the detected object.
+        nms_threshold (float): Non-maximum suppression threshold.
+        draw_bboxes (bool): If True, assign colors for drawing bounding boxes on the image.
+        use_gpu (bool): If True, try to load the model on GPU.
+    """
+
+    def __init__(self, weights_path, configfile_path, labels_path,
+                 confidence_threshold=0.5, nms_threshold=0.2, draw_bboxes=True, use_gpu=False):
+
+        object_names = load_labelsjson(labels_path)
 
         self.pixel_mean = 127.5
         self.pixel_std = 1/127.5

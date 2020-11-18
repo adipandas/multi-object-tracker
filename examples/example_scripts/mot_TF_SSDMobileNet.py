@@ -4,17 +4,7 @@ from motrackers import CentroidTracker, CentroidKF_Tracker, SORT, IOUTracker
 from motrackers.utils import draw_tracks
 
 
-def main(video_path, weights_path, config_path, use_gpu, tracker):
-
-    model = TF_SSDMobileNetV2(
-        weights_path=weights_path,
-        configfile_path=config_path,
-        confidence_threshold=0.4,
-        nms_threshold=0.2,
-        draw_bboxes=True,
-        use_gpu=use_gpu
-    )
-
+def main(video_path, model, tracker):
     cap = cv.VideoCapture(video_path)
     while True:
         ok, image = cap.read()
@@ -62,6 +52,12 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
+        '--labels', '-l', type=str,
+        default="./../pretrained_models/tensorflow_weights/ssd_mobilenet_v2_coco_names.json",
+        help='path to labels file of coco dataset (`.names` file.)'
+    )
+
+    parser.add_argument(
         '--gpu', type=bool, default=False,
         help='Flag to use gpu to run the deep learning model. Default is `False`'
     )
@@ -85,4 +81,14 @@ if __name__ == '__main__':
     else:
         raise NotImplementedError
 
-    main(args.video, args.weights, args.config, args.gpu, tracker)
+    model = TF_SSDMobileNetV2(
+        weights_path=args.weights,
+        configfile_path=args.config,
+        labels_path=args.labels,
+        confidence_threshold=0.4,
+        nms_threshold=0.2,
+        draw_bboxes=True,
+        use_gpu=args.gpu
+    )
+
+    main(args.video, model, tracker)

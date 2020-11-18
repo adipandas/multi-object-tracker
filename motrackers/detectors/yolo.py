@@ -1,16 +1,26 @@
 import numpy as np
 import cv2 as cv
 from motrackers.detectors.detector import Detector
+from motrackers.utils.misc import load_labelsjson
 
 
 class YOLOv3(Detector):
-    def __init__(self, weights_path, configfile_path, labels_path,
-                 confidence_threshold=0.5,
-                 nms_threshold=0.2, draw_bboxes=True, use_gpu=False):
+    """
+    YOLOv3 Object Detector Module.
 
+    Args:
+        weights_path (str): path to network weights file.
+        configfile_path (str): path to network configuration file.
+        labels_path (str): path to data labels json file.
+        confidence_threshold (float): confidence threshold to select the detected object.
+        nms_threshold (float): Non-maximum suppression threshold.
+        draw_bboxes (bool): If True, assign colors for drawing bounding boxes on the image.
+        use_gpu (bool): If True, try to load the model on GPU.
+    """
+
+    def __init__(self, weights_path, configfile_path, labels_path, confidence_threshold=0.5, nms_threshold=0.2, draw_bboxes=True, use_gpu=False):
         self.net = cv.dnn.readNetFromDarknet(configfile_path, weights_path)
-        labels = open(labels_path).read().strip().split("\n")
-        object_names = dict(enumerate(labels))
+        object_names = load_labelsjson(labels_path)
 
         layer_names = self.net.getLayerNames()
         self.layer_names = [layer_names[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
