@@ -2,7 +2,6 @@ numpy
 scipy
 matplotlib
 pandas
-ipyfilechooser
 opencv-contrib-python
 motmetrics
 setuptools

@@ -12,7 +12,6 @@ setup(
         'matplotlib',
         'scipy',
         'opencv-contrib-python',
-        'ipyfilechooser',
         'motmetrics'
     ]
 )
