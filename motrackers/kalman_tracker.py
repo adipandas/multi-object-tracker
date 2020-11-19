@@ -101,10 +101,16 @@ class KalmanFilter:
 
 
 def get_process_covariance_matrix(dt):
+    # a = np.array([
+    #     [0.25 * dt ** 4, 0.5 * dt ** 3, 0.5 * dt ** 2],
+    #     [0.5 * dt ** 3, dt ** 2, dt],
+    #     [0.5 * dt ** 2, dt, 1]
+    # ])
+
     a = np.array([
-        [0.25 * dt ** 4, 0.5 * dt ** 3, 0.5 * dt ** 2],
-        [0.5 * dt ** 3, dt ** 2, dt],
-        [0.5 * dt ** 2, dt, 1]
+        [dt ** 6 / 36., dt ** 5 / 24., dt ** 4 / 6.],
+        [dt ** 5 / 24., 0.25 * dt ** 4, 0.5 * dt ** 3],
+        [dt ** 4 / 6., 0.5 * dt ** 3, dt ** 2]
     ])
     return a
 
