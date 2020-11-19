@@ -57,7 +57,7 @@ if __name__ == '__main__':
         '--gpu', type=bool, default=False, help='Flag to use gpu to run the deep learning model. Default is `False`')
 
     parser.add_argument(
-        '--tracker', type=str, default='IOUTracker', help="Tracker used to track objects."
+        '--tracker', type=str, default='SORT', help="Tracker used to track objects."
         " Options include ['CentroidTracker', 'CentroidKF_Tracker', 'SORT', IOUTracker]")
 
     args = parser.parse_args()
@@ -81,7 +81,7 @@ if __name__ == '__main__':
         confidence_threshold=0.5,
         nms_threshold=0.2,
         draw_bboxes=True,
-        use_gpu=args.gpuq
+        use_gpu=args.gpu
     )
 
     main(args.video, model, tracker)
