@@ -7,11 +7,8 @@ from motrackers.track import Track
 
 class Tracker:
     """
-    Greedy Tracker with tracking based on `centroid` location of the bounding box of the object.
-
-    References
-    ----------
-    This tracker is also referred as `CentroidTracker` in this repository.
+    Greedy Tracker with tracking based on ``centroid`` location of the bounding box of the object.
+    This tracker is also referred as ``CentroidTracker`` in this repository.
 
     Parameters
     ----------

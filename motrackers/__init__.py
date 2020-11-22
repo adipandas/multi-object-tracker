@@ -1,9 +1,8 @@
 """
-Multi-object Trackers in Python
-
-Author: Aditya M. Deshpande
-Blog: http://adipandas.github.io/
-Github: adipandas
+Multi-object Trackers in Python:
+    - GitHub link: https://github.com/adipandas/multi-object-tracker
+    - Author: Aditya M. Deshpande
+    - Blog: http://adipandas.github.io/
 """
 
 
