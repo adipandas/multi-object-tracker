@@ -49,17 +49,14 @@ For using the opencv `dnn`-based object detection modules provided in this repos
 
 ## How to use?: Examples
 
-Please refer [examples](https://github.com/adipandas/multi-object-tracker/tree/master/examples) folder of this repository.
-You can clone and run the examples as shown [here](examples/readme.md).
-
-The interface for each tracker is simple and similar.
+The interface for each tracker is simple and similar. Please refer the example template below.
 
 ```
-from mottrackers import CentroidTracker # IOUTracker, CentroidKF_Tracker, SORT
+from motrackers import CentroidTracker # or IOUTracker, CentroidKF_Tracker, SORT
 
 input_data = ...
 detector = ...
-tracker = CentroidTracker(...)
+tracker = CentroidTracker(...) # or IOUTracker(...), CentroidKF_Tracker(...), SORT(...)
 
 while True:
     done, image = <read(input_data)>
@@ -67,6 +64,10 @@ while True:
         break
 
     detection_bboxes, detection_confidences, detection_class_ids = detector.detect(image)
+    # NOTE: 
+    # * `detection_bboxes` are numpy.ndarray of shape (n, 4) with each row containing (bb_left, bb_top, bb_width, bb_height)
+    # * `detection_confidences` are numpy.ndarray of shape (n,);
+    # * `detection_class_ids` are numpy.ndarray of shape (n,).
 
     output_tracks = tracker.track(detection_bboxes, detection_confidences, detection_class_ids)
     
@@ -77,6 +78,9 @@ while True:
         assert len(track) == 10
         print(track)
 ```
+
+Please refer [examples](https://github.com/adipandas/multi-object-tracker/tree/master/examples) folder of this repository for more details.
+You can clone and run the examples as shown [here](examples/readme.md).
 
 ## Pretrained object detection models
 
