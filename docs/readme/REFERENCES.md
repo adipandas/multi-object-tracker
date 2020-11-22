@@ -9,5 +9,6 @@ This work is based on the following literature:
 2. Bewley, A., Ge, Z., Ott, L., Ramos, F., & Upcroft, B. (2016, September). Simple online and realtime tracking. In 2016 IEEE International Conference on Image Processing (ICIP) (pp. 3464-3468). IEEE. [[arxiv](https://arxiv.org/abs/1602.00763)]
 3. YOLOv3. [[pdf](https://pjreddie.com/media/files/papers/YOLOv3.pdf)][[website](https://pjreddie.com/darknet/yolo/)]
 4. Kalman Filter. [[wiki](https://en.wikipedia.org/wiki/Kalman_filter)]
-5. TensorFlow Object Detection API [[github](https://github.com/tensorflow/models/tree/master/research/object_detection)]
-6. Caffe [[website](https://caffe.berkeleyvision.org/)][[github](https://github.com/BVLC/caffe)]
+5. TensorFlow Object Detection API [[GitHub](https://github.com/tensorflow/models/tree/master/research/object_detection)]
+6. Caffe [[website](https://caffe.berkeleyvision.org/)][[GitHub](https://github.com/BVLC/caffe)]
+7. OpenCV. [[GitHub](https://github.com/opencv/opencv)] [[Website](https://opencv.org/)]
