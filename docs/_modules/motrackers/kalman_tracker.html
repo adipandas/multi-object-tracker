@@ -1,0 +1,534 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>motrackers.kalman_tracker &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Multi-object trackers in Python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/readmefile.html">Multi-object trackers in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/readmefile.html#example-tf-mobilenetssd-centroidtracker">Example: <cite>TF-MobileNetSSD + CentroidTracker</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/readmefile.html#example-yolov3-centroidtracker">Example: <cite>YOLOv3 + CentroidTracker</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html">Tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#sort">SORT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#iou-tracker">IOU Tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#kalman-filter-based-centroid-tracker">Kalman Filter based Centroid Tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#tracks">Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#kalman-filters">Kalman Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#object-detection">Object Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#utilities">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#references-and-credits">References and Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Multi-object trackers in Python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>motrackers.kalman_tracker</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for motrackers.kalman_tracker</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="KalmanFilter"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KalmanFilter">[docs]</a><span class="k">class</span> <span class="nc">KalmanFilter</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Kalman Filter Implementation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    transition_matrix: numpy.ndarray</span>
+<span class="sd">        Transition matrix of shape (n, n).</span>
+<span class="sd">    measurement_matrix: numpy.ndarray</span>
+<span class="sd">        Measurement matrix of shape (m, n).</span>
+<span class="sd">    control_matrix: numpy.ndarray</span>
+<span class="sd">        Control matrix of shape (m, n).</span>
+<span class="sd">    process_noise_covariance: numpy.ndarray</span>
+<span class="sd">        Covariance matrix of shape (n, n).</span>
+<span class="sd">    measurement_noise_covariance: numpy.ndarray</span>
+<span class="sd">        Covariance matrix of shape (m, m).</span>
+<span class="sd">    prediction_covariance: numpy.ndarray</span>
+<span class="sd">        Predicted (a priori) estimate covariance of shape (n, n).</span>
+<span class="sd">    initial_state: numpy.ndarray</span>
+<span class="sd">        Initial state of shape (n,).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">transition_matrix</span><span class="p">,</span>
+            <span class="n">measurement_matrix</span><span class="p">,</span>
+            <span class="n">control_matrix</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">process_noise_covariance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">measurement_noise_covariance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">prediction_covariance</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">initial_state</span><span class="o">=</span><span class="kc">None</span>
+    <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state_size</span> <span class="o">=</span> <span class="n">transition_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span> <span class="o">=</span> <span class="n">measurement_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">transition_matrix</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">measurement_matrix</span> <span class="o">=</span> <span class="n">measurement_matrix</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">control_matrix</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">control_matrix</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">control_matrix</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">process_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_size</span><span class="p">)</span> \
+            <span class="k">if</span> <span class="n">process_noise_covariance</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">process_noise_covariance</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">measurement_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">observation_size</span><span class="p">)</span> \
+            <span class="k">if</span> <span class="n">measurement_noise_covariance</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">measurement_noise_covariance</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prediction_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_size</span><span class="p">)</span> <span class="k">if</span> <span class="n">prediction_covariance</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">prediction_covariance</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">state_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">initial_state</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">initial_state</span>
+
+<div class="viewcode-block" id="KalmanFilter.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KalmanFilter.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prediction step of Kalman Filter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            u (float or int or numpy.ndarray): Control input. Default is `0`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray : State vector of shape (n,).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">control_matrix</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">prediction_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prediction_covariance</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">transition_matrix</span><span class="o">.</span><span class="n">T</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_covariance</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span></div>
+
+<div class="viewcode-block" id="KalmanFilter.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KalmanFilter.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Measurement update of Kalman Filter.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            z (numpy.ndarray): Measurement vector of the system with shape (m,).</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="n">innovation_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prediction_covariance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_covariance</span>
+
+        <span class="n">optimal_kalman_gain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">prediction_covariance</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="o">.</span><span class="n">T</span><span class="p">),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">innovation_covariance</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">optimal_kalman_gain</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">eye</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state_size</span><span class="p">)</span>
+        <span class="n">_t1</span> <span class="o">=</span> <span class="n">eye</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">optimal_kalman_gain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="p">)</span>
+        <span class="n">t1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">_t1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">prediction_covariance</span><span class="p">),</span> <span class="n">_t1</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="n">t2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">optimal_kalman_gain</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">measurement_covariance</span><span class="p">),</span> <span class="n">optimal_kalman_gain</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prediction_covariance</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">t2</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">get_process_covariance_matrix</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="c1"># a = np.array([</span>
+    <span class="c1">#     [0.25 * dt ** 4, 0.5 * dt ** 3, 0.5 * dt ** 2],</span>
+    <span class="c1">#     [0.5 * dt ** 3, dt ** 2, dt],</span>
+    <span class="c1">#     [0.5 * dt ** 2, dt, 1]</span>
+    <span class="c1"># ])</span>
+
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+        <span class="p">[</span><span class="n">dt</span> <span class="o">**</span> <span class="mi">6</span> <span class="o">/</span> <span class="mf">36.</span><span class="p">,</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">5</span> <span class="o">/</span> <span class="mf">24.</span><span class="p">,</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">/</span> <span class="mf">6.</span><span class="p">],</span>
+        <span class="p">[</span><span class="n">dt</span> <span class="o">**</span> <span class="mi">5</span> <span class="o">/</span> <span class="mf">24.</span><span class="p">,</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">4</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">3</span><span class="p">],</span>
+        <span class="p">[</span><span class="n">dt</span> <span class="o">**</span> <span class="mi">4</span> <span class="o">/</span> <span class="mf">6.</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">3</span><span class="p">,</span> <span class="n">dt</span> <span class="o">**</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="p">])</span>
+    <span class="k">return</span> <span class="n">a</span>
+
+
+<span class="k">def</span> <span class="nf">get_transition_matrix</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
+    <span class="k">return</span> <span class="n">a</span>
+
+
+<div class="viewcode-block" id="KFTrackerConstantAcceleration"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTrackerConstantAcceleration">[docs]</a><span class="k">class</span> <span class="nc">KFTrackerConstantAcceleration</span><span class="p">(</span><span class="n">KalmanFilter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Kalman Filter with constant acceleration kinematic model.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        initial_measurement (numpy.ndarray):  Initial state of the tracker.</span>
+<span class="sd">        time_step (float) : Time step.</span>
+<span class="sd">        process_noise_scale (float): Process noise covariance scale.</span>
+<span class="sd">            or covariance magnitude as scalar value.</span>
+<span class="sd">        measurement_noise_scale (float): Measurement noise covariance scale.</span>
+<span class="sd">            or covariance magnitude as scalar value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_measurement</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_step</span> <span class="o">=</span> <span class="n">time_step</span>
+
+        <span class="n">measurement_size</span> <span class="o">=</span> <span class="n">initial_measurement</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span> <span class="o">*</span> <span class="n">measurement_size</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">measurement_size</span><span class="p">))</span>
+        <span class="n">measurement_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">measurement_size</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">measurement_size</span><span class="p">))</span>
+        <span class="n">process_noise_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span> <span class="o">*</span> <span class="n">measurement_size</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">measurement_size</span><span class="p">))</span>
+        <span class="n">measurement_noise_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">measurement_size</span><span class="p">)</span>
+        <span class="n">initial_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span> <span class="o">*</span> <span class="n">measurement_size</span><span class="p">,))</span>
+
+        <span class="n">a</span> <span class="o">=</span> <span class="n">get_transition_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_step</span><span class="p">)</span>
+        <span class="n">q</span> <span class="o">=</span> <span class="n">get_process_covariance_matrix</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_step</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">measurement_size</span><span class="p">):</span>
+            <span class="n">transition_matrix</span><span class="p">[</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span><span class="p">:</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">i</span><span class="p">:</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span>
+            <span class="n">measurement_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.</span>
+            <span class="n">process_noise_covariance</span><span class="p">[</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span><span class="p">:</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">i</span><span class="p">:</span><span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">process_noise_scale</span> <span class="o">*</span> <span class="n">q</span>
+            <span class="n">measurement_noise_covariance</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">measurement_noise_scale</span>
+            <span class="n">initial_state</span><span class="p">[</span><span class="n">i</span> <span class="o">*</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">initial_measurement</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="n">prediction_noise_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">3</span><span class="o">*</span><span class="n">measurement_size</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">measurement_size</span><span class="p">))</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transition_matrix</span><span class="o">=</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">measurement_matrix</span><span class="o">=</span><span class="n">measurement_matrix</span><span class="p">,</span>
+                         <span class="n">process_noise_covariance</span><span class="o">=</span><span class="n">process_noise_covariance</span><span class="p">,</span>
+                         <span class="n">measurement_noise_covariance</span><span class="o">=</span><span class="n">measurement_noise_covariance</span><span class="p">,</span>
+                         <span class="n">prediction_covariance</span><span class="o">=</span><span class="n">prediction_noise_covariance</span><span class="p">,</span> <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KFTracker1D"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTracker1D">[docs]</a><span class="k">class</span> <span class="nc">KFTracker1D</span><span class="p">(</span><span class="n">KFTrackerConstantAcceleration</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_measurement</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">]),</span> <span class="n">time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">initial_measurement</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">initial_measurement</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">initial_measurement</span><span class="o">=</span><span class="n">initial_measurement</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="n">time_step</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="n">process_noise_scale</span><span class="p">,</span>
+            <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="n">measurement_noise_scale</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KFTracker2D"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTracker2D">[docs]</a><span class="k">class</span> <span class="nc">KFTracker2D</span><span class="p">(</span><span class="n">KFTrackerConstantAcceleration</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_measurement</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]),</span> <span class="n">time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">initial_measurement</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">,</span> <span class="n">initial_measurement</span><span class="o">.</span><span class="n">shape</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">initial_measurement</span><span class="o">=</span><span class="n">initial_measurement</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="n">time_step</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="n">process_noise_scale</span><span class="p">,</span>
+            <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="n">measurement_noise_scale</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KFTracker4D"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTracker4D">[docs]</a><span class="k">class</span> <span class="nc">KFTracker4D</span><span class="p">(</span><span class="n">KFTrackerConstantAcceleration</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">initial_measurement</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]),</span> <span class="n">time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                 <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">initial_measurement</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="n">initial_measurement</span><span class="o">.</span><span class="n">shape</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">initial_measurement</span><span class="o">=</span><span class="n">initial_measurement</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="n">time_step</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="n">process_noise_scale</span><span class="p">,</span>
+            <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="n">measurement_noise_scale</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="KFTrackerSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTrackerSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrackerSORT</span><span class="p">(</span><span class="n">KalmanFilter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        bbox (numpy.ndarray): Bounding box coordinates as (xmid, ymid, area, aspect_ratio).</span>
+<span class="sd">        time_step (float or int): Time step.</span>
+<span class="sd">        process_noise_scale (float): Scale (a.k.a covariance) of the process noise.</span>
+<span class="sd">        measurement_noise_scale (float): Scale (a.k.a covariance) of the measurement noise.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">bbox</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">shape</span>
+
+        <span class="n">t</span> <span class="o">=</span> <span class="n">time_step</span>
+
+        <span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+        <span class="n">measurement_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+        <span class="n">process_noise_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+            <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span> <span class="o">*</span> <span class="n">process_noise_scale</span>
+
+        <span class="n">process_noise_covariance</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*=</span> <span class="mf">0.01</span>
+        <span class="n">process_noise_covariance</span><span class="p">[</span><span class="mi">4</span><span class="p">:,</span> <span class="mi">4</span><span class="p">:]</span> <span class="o">*=</span> <span class="mf">0.01</span>
+
+        <span class="n">measurement_noise_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="o">*</span> <span class="n">measurement_noise_scale</span>
+        <span class="n">measurement_noise_covariance</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">2</span><span class="p">:]</span> <span class="o">*=</span> <span class="mf">0.01</span>
+
+        <span class="n">prediction_covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">)</span> <span class="o">*</span> <span class="mf">10.</span>
+        <span class="n">prediction_covariance</span><span class="p">[</span><span class="mi">4</span><span class="p">:,</span> <span class="mi">4</span><span class="p">:]</span> <span class="o">*=</span> <span class="mf">100.</span>
+
+        <span class="n">initial_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="n">measurement_matrix</span><span class="p">,</span> <span class="n">process_noise_covariance</span><span class="o">=</span><span class="n">process_noise_covariance</span><span class="p">,</span>
+                         <span class="n">measurement_noise_covariance</span><span class="o">=</span><span class="n">measurement_noise_covariance</span><span class="p">,</span>
+                         <span class="n">prediction_covariance</span><span class="o">=</span><span class="n">prediction_covariance</span><span class="p">,</span> <span class="n">initial_state</span><span class="o">=</span><span class="n">initial_state</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">test_KFTracker1D</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+    <span class="k">def</span> <span class="nf">create_data</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">prediction_noise</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">measurement_noise</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">non_linear_input</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">velocity_scale</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="mf">200.</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">t</span><span class="p">,))</span>
+        <span class="k">if</span> <span class="n">non_linear_input</span><span class="p">:</span>
+            <span class="n">vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">velocity_scale</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">vel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.001</span> <span class="o">*</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span>
+        <span class="n">vel_noise</span> <span class="o">=</span> <span class="n">vel</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">prediction_noise</span>
+        <span class="n">x_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">t</span><span class="p">,))</span>
+        <span class="n">x_measure_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">*</span> <span class="n">measurement_noise</span>
+        <span class="n">x_noise</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">x_measure_noise</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x_noise</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">vel</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">x_noise</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">vel_noise</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">x_measure_noise</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">x_noise</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">x_noise</span><span class="p">,</span> <span class="n">vel_noise</span><span class="p">,</span> <span class="n">x_measure_noise</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">vel</span><span class="p">,</span> <span class="n">x_noise</span><span class="p">,</span> <span class="n">vel_noise</span><span class="p">,</span> <span class="n">x_measure_noise</span> <span class="o">=</span> <span class="n">create_data</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">)</span>
+
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">KFTracker1D</span><span class="p">(</span>
+        <span class="n">initial_measurement</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_measure_noise</span><span class="p">[</span><span class="mi">0</span><span class="p">]]),</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">x_prediction</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_measure_noise</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="n">x_prediction</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">predict</span><span class="p">())</span>
+        <span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">x_measure_noise</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="n">x_prediction</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x_prediction</span><span class="p">)</span>
+
+    <span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="n">time</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">x_measure_noise</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">x_prediction</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;-.&#39;</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">*</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;true&#39;</span><span class="p">,</span> <span class="s1">&#39;noise&#39;</span><span class="p">,</span> <span class="s1">&#39;kf&#39;</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="n">t</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">test_KFTracker2D</span><span class="p">():</span>
+    <span class="n">kf</span> <span class="o">=</span> <span class="n">KFTracker2D</span><span class="p">(</span><span class="n">time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;measurement matrix:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;process cov:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">process_covariance</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;transition matrix:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">transition_matrix</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;measurement cov:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">measurement_covariance</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;state:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;predicted measurement:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="p">,</span> <span class="n">kf</span><span class="o">.</span><span class="n">x</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;prediction:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">predict</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;prediction2:&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">kf</span><span class="o">.</span><span class="n">predict</span><span class="p">())</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">test_KFTracker1D</span><span class="p">()</span>
+    <span class="n">test_KFTracker2D</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Aditya M. Deshpande.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

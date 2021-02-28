@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>motrackers.utils.misc &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Multi-object trackers in Python
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/readmefile.html">Multi-object trackers in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/readmefile.html#example-tf-mobilenetssd-centroidtracker">Example: <cite>TF-MobileNetSSD + CentroidTracker</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/readmefile.html#example-yolov3-centroidtracker">Example: <cite>YOLOv3 + CentroidTracker</cite></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html">Tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#sort">SORT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#iou-tracker">IOU Tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#kalman-filter-based-centroid-tracker">Kalman Filter based Centroid Tracker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#tracks">Tracks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#kalman-filters">Kalman Filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#object-detection">Object Detection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#utilities">Utilities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#references-and-credits">References and Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Multi-object trackers in Python</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>motrackers.utils.misc</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for motrackers.utils.misc</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">cv2</span> <span class="k">as</span> <span class="nn">cv</span>
+
+
+<div class="viewcode-block" id="get_centroid"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.get_centroid">[docs]</a><span class="k">def</span> <span class="nf">get_centroid</span><span class="p">(</span><span class="n">bboxes</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculate centroids for multiple bounding boxes.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bboxes : numpy.ndarray</span>
+<span class="sd">        Array of shape `(n, 4)` or of shape `(4,)`.</span>
+<span class="sd">        Where each row contains `(xmin, ymin, width, height)`.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray : Centroid (x, y) coordinates of shape `(n, 2)` or `(2,)`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">one_bbox</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bboxes</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">one_bbox</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">bboxes</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="n">xmin</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">ymin</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">bboxes</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">xc</span> <span class="o">=</span> <span class="n">xmin</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">w</span>
+    <span class="n">yc</span> <span class="o">=</span> <span class="n">ymin</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">h</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">xc</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">yc</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]])</span>
+
+    <span class="k">if</span> <span class="n">one_bbox</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">x</span></div>
+
+
+<div class="viewcode-block" id="iou"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.iou">[docs]</a><span class="k">def</span> <span class="nf">iou</span><span class="p">(</span><span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
+<span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bbox1 : numpy.array, list of floats</span>
+<span class="sd">            bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.</span>
+<span class="sd">    bbox2 : numpy.array, list of floats</span>
+<span class="sd">            bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    iou: float</span>
+<span class="sd">         intersection-over-onion of bbox1, bbox2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">bbox1</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bbox1</span><span class="p">]</span>
+    <span class="n">bbox2</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bbox2</span><span class="p">]</span>
+
+    <span class="p">(</span><span class="n">x0_1</span><span class="p">,</span> <span class="n">y0_1</span><span class="p">,</span> <span class="n">x1_1</span><span class="p">,</span> <span class="n">y1_1</span><span class="p">),</span> <span class="p">(</span><span class="n">x0_2</span><span class="p">,</span> <span class="n">y0_2</span><span class="p">,</span> <span class="n">x1_2</span><span class="p">,</span> <span class="n">y1_2</span><span class="p">)</span> <span class="o">=</span> <span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span>
+
+    <span class="c1"># get the overlap rectangle</span>
+    <span class="n">overlap_x0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">x0_1</span><span class="p">,</span> <span class="n">x0_2</span><span class="p">)</span>
+    <span class="n">overlap_y0</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">y0_1</span><span class="p">,</span> <span class="n">y0_2</span><span class="p">)</span>
+    <span class="n">overlap_x1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">x1_1</span><span class="p">,</span> <span class="n">x1_2</span><span class="p">)</span>
+    <span class="n">overlap_y1</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">y1_1</span><span class="p">,</span> <span class="n">y1_2</span><span class="p">)</span>
+
+    <span class="c1"># check if there is an overlap</span>
+    <span class="k">if</span> <span class="n">overlap_x1</span> <span class="o">-</span> <span class="n">overlap_x0</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">overlap_y1</span> <span class="o">-</span> <span class="n">overlap_y0</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+
+    <span class="c1"># if yes, calculate the ratio of the overlap to each ROI size and the unified size</span>
+    <span class="n">size_1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x1_1</span> <span class="o">-</span> <span class="n">x0_1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y1_1</span> <span class="o">-</span> <span class="n">y0_1</span><span class="p">)</span>
+    <span class="n">size_2</span> <span class="o">=</span> <span class="p">(</span><span class="n">x1_2</span> <span class="o">-</span> <span class="n">x0_2</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y1_2</span> <span class="o">-</span> <span class="n">y0_2</span><span class="p">)</span>
+    <span class="n">size_intersection</span> <span class="o">=</span> <span class="p">(</span><span class="n">overlap_x1</span> <span class="o">-</span> <span class="n">overlap_x0</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">overlap_y1</span> <span class="o">-</span> <span class="n">overlap_y0</span><span class="p">)</span>
+    <span class="n">size_union</span> <span class="o">=</span> <span class="n">size_1</span> <span class="o">+</span> <span class="n">size_2</span> <span class="o">-</span> <span class="n">size_intersection</span>
+
+    <span class="n">iou_</span> <span class="o">=</span> <span class="n">size_intersection</span> <span class="o">/</span> <span class="n">size_union</span>
+
+    <span class="k">return</span> <span class="n">iou_</span></div>
+
+
+<div class="viewcode-block" id="iou_xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.iou_xywh">[docs]</a><span class="k">def</span> <span class="nf">iou_xywh</span><span class="p">(</span><span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
+<span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    bbox1 : numpy.array, list of floats</span>
+<span class="sd">            bounding box in format (x-top-left, y-top-left, width, height) of length 4.</span>
+<span class="sd">    bbox2 : numpy.array, list of floats</span>
+<span class="sd">            bounding box in format (x-top-left, y-top-left, width, height) of length 4.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    iou: float</span>
+<span class="sd">         intersection-over-onion of bbox1, bbox2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">bbox1</span> <span class="o">=</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">bbox1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">bbox1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">bbox2</span> <span class="o">=</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">bbox2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">bbox2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="n">iou_</span> <span class="o">=</span> <span class="n">iou</span><span class="p">(</span><span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">iou_</span></div>
+
+
+<div class="viewcode-block" id="xyxy2xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.xyxy2xywh">[docs]</a><span class="k">def</span> <span class="nf">xyxy2xywh</span><span class="p">(</span><span class="n">xyxy</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert bounding box coordinates from (xmin, ymin, xmax, ymax) format to (xmin, ymin, width, height).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xyxy : numpy.ndarray</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray : Bounding box coordinates (xmin, ymin, width, height).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xyxy</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">xyxy</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">xyxy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">xyxy</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">xyxy</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">xywh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">xyxy</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">w</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">h</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">xywh</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;int&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">xyxy</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">right</span><span class="p">,</span> <span class="n">bottom</span><span class="p">)</span> <span class="o">=</span> <span class="n">xyxy</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">right</span> <span class="o">-</span> <span class="n">left</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">bottom</span> <span class="o">-</span> <span class="n">top</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">left</span><span class="p">,</span> <span class="n">top</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">height</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Input shape not compatible.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="xywh2xyxy"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.xywh2xyxy">[docs]</a><span class="k">def</span> <span class="nf">xywh2xyxy</span><span class="p">(</span><span class="n">xywh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert bounding box coordinates from (xmin, ymin, width, height) to (xmin, ymin, xmax, ymax) format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    xywh : numpy.ndarray</span>
+<span class="sd">        Bounding box coordinates as (xmin, ymin, width, height)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray : bounding box coordinates as (xmin, ymin, xmax, ymax)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xywh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">xywh</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">xywh</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">xywh</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">xywh</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+        <span class="n">xyxy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">((</span><span class="n">xywh</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">],</span> <span class="n">x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">xyxy</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xywh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">xywh</span>
+        <span class="n">xr</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span>
+        <span class="n">yb</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">h</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">xr</span><span class="p">,</span> <span class="n">yb</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="midwh2xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.midwh2xywh">[docs]</a><span class="k">def</span> <span class="nf">midwh2xywh</span><span class="p">(</span><span class="n">midwh</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Convert bounding box coordinates from (xmid, ymid, width, height) to (xmin, ymin, width, height) format.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    midwh : numpy.ndarray</span>
+<span class="sd">        Bounding box coordinates (xmid, ymid, width, height)</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    numpy.ndarray : Bounding box coordinates (xmin, ymin, width, height).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">midwh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">xymin</span> <span class="o">=</span> <span class="n">midwh</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">midwh</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span> <span class="o">*</span> <span class="mf">0.5</span>
+        <span class="n">wh</span> <span class="o">=</span> <span class="n">midwh</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">:]</span>
+        <span class="n">xywh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">xymin</span><span class="p">,</span> <span class="n">wh</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">xywh</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">midwh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">xmid</span><span class="p">,</span> <span class="n">ymid</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">midwh</span>
+        <span class="n">xywh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xmid</span><span class="o">-</span><span class="n">w</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ymid</span><span class="o">-</span><span class="n">h</span><span class="o">*</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">xywh</span></div>
+
+
+<div class="viewcode-block" id="intersection_complement_indices"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.intersection_complement_indices">[docs]</a><span class="k">def</span> <span class="nf">intersection_complement_indices</span><span class="p">(</span><span class="n">big_set_indices</span><span class="p">,</span> <span class="n">small_set_indices</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the complement of intersection of two sets of indices.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    big_set_indices :  numpy.ndarray</span>
+<span class="sd">        Indices of big set.</span>
+<span class="sd">    small_set_indices : numpy.ndarray</span>
+<span class="sd">        Indices of small set.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    intersection_complement : numpy.ndarray</span>
+<span class="sd">        Indices of set which is complementary to intersection of two input sets.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span> <span class="n">big_set_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">small_set_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">big_set_indices</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">n</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+    <span class="n">mask</span><span class="p">[</span><span class="n">small_set_indices</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">intersection_complement</span> <span class="o">=</span> <span class="n">big_set_indices</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">intersection_complement</span></div>
+
+
+<div class="viewcode-block" id="nms"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.nms">[docs]</a><span class="k">def</span> <span class="nf">nms</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">overlapThresh</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Non-maximum suppression. based on Malisiewicz et al.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        boxes (numpy.ndarray): Boxes to process (xmin, ymin, xmax, ymax)</span>
+<span class="sd">        scores (numpy.ndarray): Corresponding scores for each box</span>
+<span class="sd">        overlapThresh (float):  Overlap threshold for boxes to merge</span>
+<span class="sd">        classes (numpy.ndarray, optional): Class ids for each box.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        (tuple): a tuple containing:</span>
+<span class="sd">            - boxes (list): nms boxes</span>
+<span class="sd">            - scores (list): nms scores</span>
+<span class="sd">            - classes (list, optional): nms classes if specified</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">boxes</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;i&quot;</span><span class="p">:</span>
+        <span class="n">boxes</span> <span class="o">=</span> <span class="n">boxes</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">scores</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;i&quot;</span><span class="p">:</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+
+    <span class="n">pick</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">boxes</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">boxes</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">boxes</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">boxes</span><span class="p">[:,</span> <span class="mi">3</span><span class="p">]</span>
+    <span class="n">area</span> <span class="o">=</span> <span class="p">(</span><span class="n">x2</span> <span class="o">-</span> <span class="n">x1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">last</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">idxs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">idxs</span><span class="p">[</span><span class="n">last</span><span class="p">]</span>
+        <span class="n">pick</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+        <span class="n">xx1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">x1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x1</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:</span><span class="n">last</span><span class="p">]])</span>
+        <span class="n">yy1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">y1</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y1</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:</span><span class="n">last</span><span class="p">]])</span>
+        <span class="n">xx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">x2</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:</span><span class="n">last</span><span class="p">]])</span>
+        <span class="n">yy2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">y2</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:</span><span class="n">last</span><span class="p">]])</span>
+
+        <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">xx2</span> <span class="o">-</span> <span class="n">xx1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">yy2</span> <span class="o">-</span> <span class="n">yy1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">overlap</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="n">area</span><span class="p">[</span><span class="n">idxs</span><span class="p">[:</span><span class="n">last</span><span class="p">]]</span>
+
+        <span class="c1"># delete all indexes from the index list that have</span>
+        <span class="n">idxs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">idxs</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(([</span><span class="n">last</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">overlap</span> <span class="o">&gt;</span> <span class="n">overlapThresh</span><span class="p">)[</span><span class="mi">0</span><span class="p">])))</span>
+
+    <span class="k">if</span> <span class="n">classes</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">boxes</span><span class="p">[</span><span class="n">pick</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="n">pick</span><span class="p">],</span> <span class="n">classes</span><span class="p">[</span><span class="n">pick</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">boxes</span><span class="p">[</span><span class="n">pick</span><span class="p">],</span> <span class="n">scores</span><span class="p">[</span><span class="n">pick</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="draw_tracks"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.draw_tracks">[docs]</a><span class="k">def</span> <span class="nf">draw_tracks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">tracks</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Draw on input image.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        image (numpy.ndarray): image</span>
+<span class="sd">        tracks (list): list of tracks to be drawn on the image.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray : image with the track-ids drawn on it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">for</span> <span class="n">trk</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>
+
+        <span class="n">trk_id</span> <span class="o">=</span> <span class="n">trk</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">xmin</span> <span class="o">=</span> <span class="n">trk</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">ymin</span> <span class="o">=</span> <span class="n">trk</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">trk</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">height</span> <span class="o">=</span> <span class="n">trk</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+
+        <span class="n">xcentroid</span><span class="p">,</span> <span class="n">ycentroid</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">xmin</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">width</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ymin</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">height</span><span class="p">)</span>
+
+        <span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;ID </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">trk_id</span><span class="p">)</span>
+
+        <span class="n">cv</span><span class="o">.</span><span class="n">putText</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="p">(</span><span class="n">xcentroid</span> <span class="o">-</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ycentroid</span> <span class="o">-</span> <span class="mi">10</span><span class="p">),</span> <span class="n">cv</span><span class="o">.</span><span class="n">FONT_HERSHEY_SIMPLEX</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">cv</span><span class="o">.</span><span class="n">circle</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="p">(</span><span class="n">xcentroid</span><span class="p">,</span> <span class="n">ycentroid</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">image</span></div>
+
+
+<div class="viewcode-block" id="load_labelsjson"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.load_labelsjson">[docs]</a><span class="k">def</span> <span class="nf">load_labelsjson</span><span class="p">(</span><span class="n">json_file</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">json</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">labels</span> <span class="o">=</span> <span class="p">{</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+    <span class="k">return</span> <span class="n">labels</span></div>
+
+
+<div class="viewcode-block" id="dict2jsonfile"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.dict2jsonfile">[docs]</a><span class="k">def</span> <span class="nf">dict2jsonfile</span><span class="p">(</span><span class="n">dict_data</span><span class="p">,</span> <span class="n">json_file_path</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">json</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">json_file_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">outfile</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">dict_data</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">get_centroid</span><span class="p">(</span><span class="n">bb</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bb</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+    
+    <span class="n">bb2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">get_centroid</span><span class="p">(</span><span class="n">bb2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">bb2</span><span class="p">,</span> <span class="n">c2</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mi">0</span><span class="p">:</span> <span class="s1">&#39;background&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;aeroplane&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;bicycle&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;bird&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="s1">&#39;boat&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="s1">&#39;bottle&#39;</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="s1">&#39;bus&#39;</span><span class="p">,</span>
+            <span class="mi">7</span><span class="p">:</span> <span class="s1">&#39;car&#39;</span><span class="p">,</span> <span class="mi">8</span><span class="p">:</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="mi">9</span><span class="p">:</span> <span class="s1">&#39;chair&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">:</span> <span class="s1">&#39;cow&#39;</span><span class="p">,</span> <span class="mi">11</span><span class="p">:</span> <span class="s1">&#39;diningtable&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">:</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="mi">13</span><span class="p">:</span> <span class="s1">&#39;horse&#39;</span><span class="p">,</span> <span class="mi">14</span><span class="p">:</span> <span class="s1">&#39;motorbike&#39;</span><span class="p">,</span>
+            <span class="mi">15</span><span class="p">:</span> <span class="s1">&#39;person&#39;</span><span class="p">,</span> <span class="mi">16</span><span class="p">:</span> <span class="s1">&#39;pottedplant&#39;</span><span class="p">,</span> <span class="mi">17</span><span class="p">:</span> <span class="s1">&#39;sheep&#39;</span><span class="p">,</span> <span class="mi">18</span><span class="p">:</span> <span class="s1">&#39;sofa&#39;</span><span class="p">,</span> <span class="mi">19</span><span class="p">:</span> <span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="mi">20</span><span class="p">:</span> <span class="s1">&#39;tvmonitor&#39;</span>
+        <span class="p">}</span>
+    <span class="n">dict2jsonfile</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="s1">&#39;../../examples/pretrained_models/caffemodel_weights/ssd_mobilenet_caffe_names.json&#39;</span><span class="p">)</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Aditya M. Deshpande.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
