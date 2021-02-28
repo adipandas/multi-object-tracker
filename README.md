@@ -12,7 +12,6 @@ Easy to use implementation of various multi-object tracking algorithms.
 ![Cars with YOLO][cars-yolo-output]  |  ![Cows with tf-SSD][cows-tf-ssd-output]
 Video source: [link](https://flic.kr/p/L6qyxj) | Video source: [link](https://flic.kr/p/26WeEWy)
 
-
 ## Available Multi Object Trackers
 
 ```
@@ -53,24 +52,19 @@ The interface for each tracker is simple and similar. Please refer the example t
 
 ```
 from motrackers import CentroidTracker # or IOUTracker, CentroidKF_Tracker, SORT
-
 input_data = ...
 detector = ...
 tracker = CentroidTracker(...) # or IOUTracker(...), CentroidKF_Tracker(...), SORT(...)
-
 while True:
     done, image = <read(input_data)>
     if done:
         break
-
     detection_bboxes, detection_confidences, detection_class_ids = detector.detect(image)
     # NOTE: 
     # * `detection_bboxes` are numpy.ndarray of shape (n, 4) with each row containing (bb_left, bb_top, bb_width, bb_height)
     # * `detection_confidences` are numpy.ndarray of shape (n,);
     # * `detection_class_ids` are numpy.ndarray of shape (n,).
-
     output_tracks = tracker.track(detection_bboxes, detection_confidences, detection_class_ids)
-    
     # `output_tracks` is a list with each element containing tuple of
     # (<frame>, <id>, <bb_left>, <bb_top>, <bb_width>, <bb_height>, <conf>, <x>, <y>, <z>)
     for track in output_tracks:
@@ -79,21 +73,19 @@ while True:
         print(track)
 ```
 
-Please refer [examples](https://github.com/adipandas/multi-object-tracker/tree/master/examples) folder of this repository for more details.
-You can clone and run the examples as shown [here](examples/readme.md).
+Please refer [examples](https://github.com/adipandas/multi-object-tracker/tree/master/examples) folder of this repository for more details. You can clone and run the examples.
 
 ## Pretrained object detection models
 
 You will have to download the pretrained weights for the neural-network models. 
 The shell scripts for downloading these are provided [here](https://github.com/adipandas/multi-object-tracker/tree/master/examples/pretrained_models) below respective folders.
-Please refer [DOWNLOAD_WEIGHTS.md](DOWNLOAD_WEIGHTS.md) for more details.
+Please refer [DOWNLOAD_WEIGHTS.md](https://github.com/adipandas/multi-object-tracker/blob/master/DOWNLOAD_WEIGHTS.md) for more details.
 
 ### Notes
 * There are some variations in implementations as compared to what appeared in papers of `SORT` and `IoU Tracker`.
 * In case you find any bugs in the algorithm, I will be happy to accept your pull request or you can create an issue to point it out.
 
 ## References, Credits and Contributions
-
 Please see [REFERENCES.md](docs/readme/REFERENCES.md) and [CONTRIBUTING.md](docs/readme/CONTRIBUTING.md).
 
 ## Citation

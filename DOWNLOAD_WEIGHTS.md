@@ -1,9 +1,9 @@
-## Instructions to download pretrained neural-network weights.
-
+## Download pretrained neural-network weights.
 [[Webpage](https://adipandas.github.io/multi-object-tracker/)]
 [[GitHub](https://github.com/adipandas/multi-object-tracker)]
 
 ##### YOLOv3
+
 ```
 cd multi-object-tracker
 cd ./examples/pretrained_models/yolo_weights

@@ -4,7 +4,7 @@ from motrackers.kalman_tracker import KFTracker2D, KFTrackerSORT, KFTracker4D
 
 class Track:
     """
-    Track
+    Track containing attributes to track various objects.
 
     Parameters
     ----------
@@ -22,6 +22,8 @@ class Track:
         Number of times the object or track was not tracked by tracker in consecutive frames.
     iou_score : float
         Intersection over union score.
+    data_output_format: str
+        Output format for data in tracker. Options ``['mot_challenge', 'visdrone_challenge']``. Default is ``mot_challenge``.
     kwargs : dict
         Additional key word arguments.
 
@@ -163,6 +165,9 @@ class Track:
         return mot_tuple
 
     def predict(self):
+        """
+        Implement to prediction the next estimate of track.
+        """
         raise NotImplemented
 
     @staticmethod
@@ -173,6 +178,31 @@ class Track:
 class KFTrackSORT(Track):
     """
     Track based on Kalman filter tracker used for SORT MOT-Algorithm.
+
+    Parameters
+    ----------
+    track_id : int
+        Track Id
+    frame_id : int
+        Camera frame id.
+    bbox : numpy.ndarray
+        Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.
+    detection_confidence : float
+        Detection confidence of the object (probability).
+    class_id : Object
+        Class label id.
+    lost : int
+        Number of times the object or track was not tracked by tracker in consecutive frames.
+    iou_score : float
+        Intersection over union score.
+    data_output_format: str
+        Output format for data in tracker. Options ``['mot_challenge', 'visdrone_challenge']``. Default is ``mot_challenge``.
+    process_noise_scale: float
+        Process noise covariance scale or covariance magnitude as scalar value.
+    measurement_noise_scale: float
+        Measurement noise covariance scale or covariance magnitude as scalar value.
+    kwargs : dict
+        Additional key word arguments.
     """
     def __init__(self, track_id, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0.,
                  data_output_format='mot_challenge', process_noise_scale=1.0, measurement_noise_scale=1.0, **kwargs):
@@ -183,6 +213,13 @@ class KFTrackSORT(Track):
                          iou_score=iou_score, data_output_format=data_output_format, **kwargs)
 
     def predict(self):
+        """
+        Predicts the next estimate of the bounding box of the track.
+
+        Returns:
+            numpy.ndarray: Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.
+
+        """
         if (self.kf.x[6] + self.kf.x[2]) <= 0:
             self.kf.x[6] *= 0.0
 
@@ -206,6 +243,31 @@ class KFTrackSORT(Track):
 class KFTrack4DSORT(Track):
     """
     Track based on Kalman filter tracker used for SORT MOT-Algorithm.
+
+    Parameters
+    ----------
+    track_id : int
+        Track Id
+    frame_id : int
+        Camera frame id.
+    bbox : numpy.ndarray
+        Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.
+    detection_confidence : float
+        Detection confidence of the object (probability).
+    class_id : Object
+        Class label id.
+    lost : int
+        Number of times the object or track was not tracked by tracker in consecutive frames.
+    iou_score : float
+        Intersection over union score.
+    data_output_format: str
+        Output format for data in tracker. Options ``['mot_challenge', 'visdrone_challenge']``. Default is ``mot_challenge``.
+    process_noise_scale: float
+        Process noise covariance scale or covariance magnitude as scalar value.
+    measurement_noise_scale: float
+        Measurement noise covariance scale or covariance magnitude as scalar value.
+    kwargs : dict
+        Additional key word arguments.
     """
     def __init__(self, track_id, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0.,
                  data_output_format='mot_challenge', process_noise_scale=1.0, measurement_noise_scale=1.0,
@@ -230,6 +292,31 @@ class KFTrack4DSORT(Track):
 class KFTrackCentroid(Track):
     """
     Track based on Kalman filter used for Centroid Tracking of bounding box in MOT.
+
+    Parameters
+    ----------
+    track_id : int
+        Track Id
+    frame_id : int
+        Camera frame id.
+    bbox : numpy.ndarray
+        Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.
+    detection_confidence : float
+        Detection confidence of the object (probability).
+    class_id : Object
+        Class label id.
+    lost : int
+        Number of times the object or track was not tracked by tracker in consecutive frames.
+    iou_score : float
+        Intersection over union score.
+    data_output_format: str
+        Output format for data in tracker. Options ``['mot_challenge', 'visdrone_challenge']``. Default is ``mot_challenge``.
+    process_noise_scale: float
+        Process noise covariance scale or covariance magnitude as scalar value.
+    measurement_noise_scale: float
+        Measurement noise covariance scale or covariance magnitude as scalar value.
+    kwargs : dict
+        Additional key word arguments.
     """
     def __init__(self, track_id, frame_id, bbox, detection_confidence, class_id=None, lost=0, iou_score=0.,
                  data_output_format='mot_challenge', process_noise_scale=1.0, measurement_noise_scale=1.0, **kwargs):
@@ -239,6 +326,13 @@ class KFTrackCentroid(Track):
                          iou_score=iou_score, data_output_format=data_output_format, **kwargs)
 
     def predict(self):
+        """
+        Predicts the next estimate of the bounding box of the track.
+
+        Returns:
+            numpy.ndarray: Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.
+
+        """
         s = self.kf.predict()
         xmid, ymid = s[0], s[3]
         w, h = self.bbox[2], self.bbox[3]
