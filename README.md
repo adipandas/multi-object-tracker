@@ -86,7 +86,7 @@ Please refer [DOWNLOAD_WEIGHTS.md](https://github.com/adipandas/multi-object-tra
 * In case you find any bugs in the algorithm, I will be happy to accept your pull request or you can create an issue to point it out.
 
 ## References, Credits and Contributions
-Please see [REFERENCES.md](docs/readme/REFERENCES.md) and [CONTRIBUTING.md](docs/readme/CONTRIBUTING.md).
+Please see [REFERENCES.md](https://github.com/adipandas/multi-object-tracker/blob/master/docs/readme/REFERENCES.md) and [CONTRIBUTING.md](https://github.com/adipandas/multi-object-tracker/blob/master/docs/readme/CONTRIBUTING.md).
 
 ## Citation
 
