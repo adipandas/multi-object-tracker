@@ -171,26 +171,17 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track containing attributes to track various objects.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    frame_id : int</span>
-<span class="sd">        Camera frame id.</span>
-<span class="sd">    track_id : int</span>
-<span class="sd">        Track Id</span>
-<span class="sd">    bbox : numpy.ndarray</span>
-<span class="sd">        Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
-<span class="sd">    detection_confidence : float</span>
-<span class="sd">        Detection confidence of the object (probability).</span>
-<span class="sd">    class_id : Object</span>
-<span class="sd">        Class label id.</span>
-<span class="sd">    lost : int</span>
-<span class="sd">        Number of times the object or track was not tracked by tracker in consecutive frames.</span>
-<span class="sd">    iou_score : float</span>
-<span class="sd">        Intersection over union score.</span>
-<span class="sd">    data_output_format: str</span>
-<span class="sd">        Output format for data in tracker. Options ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
-<span class="sd">    kwargs : dict</span>
-<span class="sd">        Additional key word arguments.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        frame_id (int): Camera frame id.</span>
+<span class="sd">        track_id (int): Track Id</span>
+<span class="sd">        bbox (numpy.ndarray): Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
+<span class="sd">        detection_confidence (float): Detection confidence of the object (probability).</span>
+<span class="sd">        class_id (str or int): Class label id.</span>
+<span class="sd">        lost (int): Number of times the object or track was not tracked by tracker in consecutive frames.</span>
+<span class="sd">        iou_score (float): Intersection over union score.</span>
+<span class="sd">        data_output_format (str): Output format for data in tracker.</span>
+<span class="sd">            Options include ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
+<span class="sd">        kwargs (dict): Additional key word arguments.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -233,32 +224,19 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the track.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        frame_id : int</span>
-<span class="sd">            Camera frame id.</span>
-<span class="sd">        bbox : numpy.ndarray</span>
-<span class="sd">            Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
-<span class="sd">        detection_confidence : float</span>
-<span class="sd">            Detection confidence of the object (probability).</span>
-<span class="sd">        class_id : Object</span>
-<span class="sd">            Class label id.</span>
-<span class="sd">        lost : int</span>
-<span class="sd">            Number of times the object or track was not tracked by tracker in consecutive frames.</span>
-<span class="sd">        iou_score : float</span>
-<span class="sd">            Intersection over union score.</span>
-<span class="sd">        kwargs : dict</span>
-<span class="sd">            Additional key word arguments.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-
+<span class="sd">        Args:</span>
+<span class="sd">            frame_id (int): Camera frame id.</span>
+<span class="sd">            bbox (numpy.ndarray): Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
+<span class="sd">            detection_confidence (float): Detection confidence of the object (probability).</span>
+<span class="sd">            class_id (int or str): Class label id.</span>
+<span class="sd">            lost (int): Number of times the object or track was not tracked by tracker in consecutive frames.</span>
+<span class="sd">            iou_score (float): Intersection over union score.</span>
+<span class="sd">            kwargs (dict): Additional key word arguments.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">class_id</span> <span class="o">=</span> <span class="n">class_id</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bbox</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">detection_confidence</span> <span class="o">=</span> <span class="n">detection_confidence</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frame_id</span> <span class="o">=</span> <span class="n">frame_id</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">lost</span> <span class="o">=</span> <span class="n">lost</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">iou_score</span> <span class="o">=</span> <span class="n">iou_score</span>
 
         <span class="k">if</span> <span class="n">lost</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -278,9 +256,9 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the centroid of the bounding box.</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        numpy.ndarray: Centroid (x, y) of bounding box.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: Centroid (x, y) of bounding box.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
 
@@ -289,14 +267,12 @@
 <span class="sd">        Get the tracker data in MOT challenge format as a tuple of elements containing</span>
 <span class="sd">        `(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)`</span>
 
-<span class="sd">        References</span>
-<span class="sd">        ----------</span>
-<span class="sd">        - Website : https://motchallenge.net/</span>
+<span class="sd">        References:</span>
+<span class="sd">            - Website : https://motchallenge.net/</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        mot_tuple : tuple</span>
-<span class="sd">            Tuple of 10 elements representing `(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)`.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple of 10 elements representing `(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)`.</span>
+
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mot_tuple</span> <span class="o">=</span> <span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">frame_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">detection_confidence</span><span class="p">,</span>
@@ -310,17 +286,14 @@
 <span class="sd">        `(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height, score, object_category,</span>
 <span class="sd">        truncation, occlusion)`.</span>
 
-<span class="sd">        References</span>
-<span class="sd">        ----------</span>
-<span class="sd">        - Website : http://aiskyeye.com/</span>
-<span class="sd">        - Paper : https://arxiv.org/abs/2001.06303</span>
-<span class="sd">        - GitHub : https://github.com/VisDrone/VisDrone2018-MOT-toolkit</span>
-<span class="sd">        - GitHub : https://github.com/VisDrone/</span>
+<span class="sd">        References:</span>
+<span class="sd">            - Website : http://aiskyeye.com/</span>
+<span class="sd">            - Paper : https://arxiv.org/abs/2001.06303</span>
+<span class="sd">            - GitHub : https://github.com/VisDrone/VisDrone2018-MOT-toolkit</span>
+<span class="sd">            - GitHub : https://github.com/VisDrone/</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        mot_tuple : tuple</span>
-<span class="sd">            Tuple containing the elements as `(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height,</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple containing the elements as `(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height,</span>
 <span class="sd">            score, object_category, truncation, occlusion)`.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mot_tuple</span> <span class="o">=</span> <span class="p">(</span>
@@ -344,30 +317,19 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    track_id : int</span>
-<span class="sd">        Track Id</span>
-<span class="sd">    frame_id : int</span>
-<span class="sd">        Camera frame id.</span>
-<span class="sd">    bbox : numpy.ndarray</span>
-<span class="sd">        Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
-<span class="sd">    detection_confidence : float</span>
-<span class="sd">        Detection confidence of the object (probability).</span>
-<span class="sd">    class_id : Object</span>
-<span class="sd">        Class label id.</span>
-<span class="sd">    lost : int</span>
-<span class="sd">        Number of times the object or track was not tracked by tracker in consecutive frames.</span>
-<span class="sd">    iou_score : float</span>
-<span class="sd">        Intersection over union score.</span>
-<span class="sd">    data_output_format: str</span>
-<span class="sd">        Output format for data in tracker. Options ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
-<span class="sd">    process_noise_scale: float</span>
-<span class="sd">        Process noise covariance scale or covariance magnitude as scalar value.</span>
-<span class="sd">    measurement_noise_scale: float</span>
-<span class="sd">        Measurement noise covariance scale or covariance magnitude as scalar value.</span>
-<span class="sd">    kwargs : dict</span>
-<span class="sd">        Additional key word arguments.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        track_id (int): Track Id</span>
+<span class="sd">        frame_id (int): Camera frame id.</span>
+<span class="sd">        bbox (numpy.ndarray): Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
+<span class="sd">        detection_confidence (float): Detection confidence of the object (probability).</span>
+<span class="sd">        class_id (str or int): Class label id.</span>
+<span class="sd">        lost (int): Number of times the object or track was not tracked by tracker in consecutive frames.</span>
+<span class="sd">        iou_score (float): Intersection over union score.</span>
+<span class="sd">        data_output_format (str): Output format for data in tracker.</span>
+<span class="sd">            Options ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
+<span class="sd">        process_noise_scale (float): Process noise covariance scale or covariance magnitude as scalar value.</span>
+<span class="sd">        measurement_noise_scale (float): Measurement noise covariance scale or covariance magnitude as scalar value.</span>
+<span class="sd">        kwargs (dict): Additional key word arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
                  <span class="n">data_output_format</span><span class="o">=</span><span class="s1">&#39;mot_challenge&#39;</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -409,30 +371,20 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    track_id : int</span>
-<span class="sd">        Track Id</span>
-<span class="sd">    frame_id : int</span>
-<span class="sd">        Camera frame id.</span>
-<span class="sd">    bbox : numpy.ndarray</span>
-<span class="sd">        Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
-<span class="sd">    detection_confidence : float</span>
-<span class="sd">        Detection confidence of the object (probability).</span>
-<span class="sd">    class_id : Object</span>
-<span class="sd">        Class label id.</span>
-<span class="sd">    lost : int</span>
-<span class="sd">        Number of times the object or track was not tracked by tracker in consecutive frames.</span>
-<span class="sd">    iou_score : float</span>
-<span class="sd">        Intersection over union score.</span>
-<span class="sd">    data_output_format: str</span>
-<span class="sd">        Output format for data in tracker. Options ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
-<span class="sd">    process_noise_scale: float</span>
-<span class="sd">        Process noise covariance scale or covariance magnitude as scalar value.</span>
-<span class="sd">    measurement_noise_scale: float</span>
-<span class="sd">        Measurement noise covariance scale or covariance magnitude as scalar value.</span>
-<span class="sd">    kwargs : dict</span>
-<span class="sd">        Additional key word arguments.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        track_id (int): Track Id</span>
+<span class="sd">        frame_id (int): Camera frame id.</span>
+<span class="sd">        bbox (numpy.ndarray): Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
+<span class="sd">        detection_confidence (float): Detection confidence of the object (probability).</span>
+<span class="sd">        class_id (str or int): Class label id.</span>
+<span class="sd">        lost (int): Number of times the object or track was not tracked by tracker in consecutive frames.</span>
+<span class="sd">        iou_score (float): Intersection over union score.</span>
+<span class="sd">        data_output_format (str): Output format for data in tracker.</span>
+<span class="sd">            Options ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
+<span class="sd">        process_noise_scale (float): Process noise covariance scale or covariance magnitude as scalar value.</span>
+<span class="sd">        measurement_noise_scale (float): Measurement noise covariance scale or covariance magnitude as scalar value.</span>
+<span class="sd">        kwargs (dict): Additional key word arguments.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
                  <span class="n">data_output_format</span><span class="o">=</span><span class="s1">&#39;mot_challenge&#39;</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
@@ -458,30 +410,19 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter used for Centroid Tracking of bounding box in MOT.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    track_id : int</span>
-<span class="sd">        Track Id</span>
-<span class="sd">    frame_id : int</span>
-<span class="sd">        Camera frame id.</span>
-<span class="sd">    bbox : numpy.ndarray</span>
-<span class="sd">        Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
-<span class="sd">    detection_confidence : float</span>
-<span class="sd">        Detection confidence of the object (probability).</span>
-<span class="sd">    class_id : Object</span>
-<span class="sd">        Class label id.</span>
-<span class="sd">    lost : int</span>
-<span class="sd">        Number of times the object or track was not tracked by tracker in consecutive frames.</span>
-<span class="sd">    iou_score : float</span>
-<span class="sd">        Intersection over union score.</span>
-<span class="sd">    data_output_format: str</span>
-<span class="sd">        Output format for data in tracker. Options ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
-<span class="sd">    process_noise_scale: float</span>
-<span class="sd">        Process noise covariance scale or covariance magnitude as scalar value.</span>
-<span class="sd">    measurement_noise_scale: float</span>
-<span class="sd">        Measurement noise covariance scale or covariance magnitude as scalar value.</span>
-<span class="sd">    kwargs : dict</span>
-<span class="sd">        Additional key word arguments.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        track_id (int): Track Id</span>
+<span class="sd">        frame_id (int): Camera frame id.</span>
+<span class="sd">        bbox (numpy.ndarray): Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</span>
+<span class="sd">        detection_confidence (float): Detection confidence of the object (probability).</span>
+<span class="sd">        class_id (str or int): Class label id.</span>
+<span class="sd">        lost (int): Number of times the object or track was not tracked by tracker in consecutive frames.</span>
+<span class="sd">        iou_score (float): Intersection over union score.</span>
+<span class="sd">        data_output_format (str): Output format for data in tracker.</span>
+<span class="sd">            Options ``[&#39;mot_challenge&#39;, &#39;visdrone_challenge&#39;]``. Default is ``mot_challenge``.</span>
+<span class="sd">        process_noise_scale (float): Process noise covariance scale or covariance magnitude as scalar value.</span>
+<span class="sd">        measurement_noise_scale (float): Measurement noise covariance scale or covariance magnitude as scalar value.</span>
+<span class="sd">        kwargs (dict): Additional key word arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
                  <span class="n">data_output_format</span><span class="o">=</span><span class="s1">&#39;mot_challenge&#39;</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>

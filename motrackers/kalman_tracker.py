@@ -5,22 +5,14 @@ class KalmanFilter:
     """
     Kalman Filter Implementation.
 
-    Parameters
-    ----------
-    transition_matrix: numpy.ndarray
-        Transition matrix of shape (n, n).
-    measurement_matrix: numpy.ndarray
-        Measurement matrix of shape (m, n).
-    control_matrix: numpy.ndarray
-        Control matrix of shape (m, n).
-    process_noise_covariance: numpy.ndarray
-        Covariance matrix of shape (n, n).
-    measurement_noise_covariance: numpy.ndarray
-        Covariance matrix of shape (m, m).
-    prediction_covariance: numpy.ndarray
-        Predicted (a priori) estimate covariance of shape (n, n).
-    initial_state: numpy.ndarray
-        Initial state of shape (n,).
+    Args:
+        transition_matrix (numpy.ndarray): Transition matrix of shape ``(n, n)``.
+        measurement_matrix (numpy.ndarray): Measurement matrix of shape ``(m, n)``.
+        control_matrix (numpy.ndarray): Control matrix of shape ``(m, n)``.
+        process_noise_covariance (numpy.ndarray): Covariance matrix of shape ``(n, n)``.
+        measurement_noise_covariance (numpy.ndarray): Covariance matrix of shape ``(m, m)``.
+        prediction_covariance (numpy.ndarray): Predicted (a priori) estimate covariance of shape ``(n, n)``.
+        initial_state (numpy.ndarray): Initial state of shape ``(n,)``.
 
     """
 
@@ -60,7 +52,7 @@ class KalmanFilter:
             u (float or int or numpy.ndarray): Control input. Default is `0`.
 
         Returns:
-            numpy.ndarray : State vector of shape (n,).
+            numpy.ndarray : State vector of shape `(n,)`.
 
         """
         self.x = np.dot(self.transition_matrix, self.x) + np.dot(self.control_matrix, u)
@@ -76,10 +68,7 @@ class KalmanFilter:
         Measurement update of Kalman Filter.
 
         Args:
-            z (numpy.ndarray): Measurement vector of the system with shape (m,).
-
-        Returns:
-
+            z (numpy.ndarray): Measurement vector of the system with shape ``(m,)``.
         """
         y = z - np.dot(self.measurement_matrix, self.x)
 
@@ -101,6 +90,15 @@ class KalmanFilter:
 
 
 def get_process_covariance_matrix(dt):
+    """
+    Generates a process noise covariance matrix for constant acceleration motion.
+
+    Args:
+        dt (float): Timestep.
+
+    Returns:
+        numpy.ndarray: Process covariance matrix of shape `(3, 3)`.
+    """
     # a = np.array([
     #     [0.25 * dt ** 4, 0.5 * dt ** 3, 0.5 * dt ** 2],
     #     [0.5 * dt ** 3, dt ** 2, dt],
@@ -116,8 +114,17 @@ def get_process_covariance_matrix(dt):
 
 
 def get_transition_matrix(dt):
-    a = np.array([[1., dt, dt * dt * 0.5], [0., 1., dt], [0., 0., 1.]])
-    return a
+    """
+    Generate the transition matrix for constant acceleration motion.
+
+    Args:
+        dt (float): Timestep.
+
+    Returns:
+        numpy.ndarray: Transition matrix of shape ``(3, 3)``.
+
+    """
+    return np.array([[1., dt, dt * dt * 0.5], [0., 1., dt], [0., 0., 1.]])
 
 
 class KFTrackerConstantAcceleration(KalmanFilter):
@@ -194,12 +201,13 @@ class KFTracker4D(KFTrackerConstantAcceleration):
 
 class KFTrackerSORT(KalmanFilter):
     """
+    Kalman filter for ``SORT``.
 
     Args:
-        bbox (numpy.ndarray): Bounding box coordinates as (xmid, ymid, area, aspect_ratio).
+        bbox (numpy.ndarray): Bounding box coordinates as ``(xmid, ymid, area, aspect_ratio)``.
         time_step (float or int): Time step.
         process_noise_scale (float): Scale (a.k.a covariance) of the process noise.
-        measurement_noise_scale (float): Scale (a.k.a covariance) of the measurement noise.
+        measurement_noise_scale (float): Scale (a.k.a. covariance) of the measurement noise.
     """
     def __init__(self, bbox, process_noise_scale=1.0, measurement_noise_scale=1.0, time_step=1):
         assert bbox.shape[0] == 4, bbox.shape

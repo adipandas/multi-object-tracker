@@ -171,15 +171,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate centroids for multiple bounding boxes.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    bboxes : numpy.ndarray</span>
-<span class="sd">        Array of shape `(n, 4)` or of shape `(4,)`.</span>
-<span class="sd">        Where each row contains `(xmin, ymin, width, height)`.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        bboxes (numpy.ndarray): Array of shape `(n, 4)` or of shape `(4,)` where</span>
+<span class="sd">            each row contains `(xmin, ymin, width, height)`.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    numpy.ndarray : Centroid (x, y) coordinates of shape `(n, 2)` or `(2,)`.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Centroid (x, y) coordinates of shape `(n, 2)` or `(2,)`.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -207,17 +204,14 @@
 <span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
 <span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    bbox1 : numpy.array, list of floats</span>
-<span class="sd">            bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.</span>
-<span class="sd">    bbox2 : numpy.array, list of floats</span>
-<span class="sd">            bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        bbox1 (numpy.array or list[floats]): Bounding box of length 4 containing</span>
+<span class="sd">            ``(x-top-left, y-top-left, x-bottom-right, y-bottom-right)``.</span>
+<span class="sd">        bbox2 (numpy.array or list[floats]): Bounding box of length 4 containing</span>
+<span class="sd">            ``(x-top-left, y-top-left, x-bottom-right, y-bottom-right)``.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    iou: float</span>
-<span class="sd">         intersection-over-onion of bbox1, bbox2.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: intersection-over-onion of bbox1, bbox2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">bbox1</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">bbox1</span><span class="p">]</span>
@@ -251,17 +245,12 @@
 <span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
 <span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    bbox1 : numpy.array, list of floats</span>
-<span class="sd">            bounding box in format (x-top-left, y-top-left, width, height) of length 4.</span>
-<span class="sd">    bbox2 : numpy.array, list of floats</span>
-<span class="sd">            bounding box in format (x-top-left, y-top-left, width, height) of length 4.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        bbox1 (numpy.array or list[floats]): bounding box of length 4 containing ``(x-top-left, y-top-left, width, height)``.</span>
+<span class="sd">        bbox2 (numpy.array or list[floats]): bounding box of length 4 containing ``(x-top-left, y-top-left, width, height)``.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    iou: float</span>
-<span class="sd">         intersection-over-onion of bbox1, bbox2.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        float: intersection-over-onion of bbox1, bbox2.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">bbox1</span> <span class="o">=</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">bbox1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">bbox1</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
     <span class="n">bbox2</span> <span class="o">=</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="n">bbox2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">bbox2</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
@@ -275,13 +264,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmin, ymin, xmax, ymax) format to (xmin, ymin, width, height).</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    xyxy : numpy.ndarray</span>
+<span class="sd">    Args:</span>
+<span class="sd">        xyxy (numpy.ndarray):</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    numpy.ndarray : Bounding box coordinates (xmin, ymin, width, height).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Bounding box coordinates (xmin, ymin, width, height).</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -302,14 +289,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmin, ymin, width, height) to (xmin, ymin, xmax, ymax) format.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    xywh : numpy.ndarray</span>
-<span class="sd">        Bounding box coordinates as (xmin, ymin, width, height)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        xywh (numpy.ndarray): Bounding box coordinates as `(xmin, ymin, width, height)`.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    numpy.ndarray : bounding box coordinates as (xmin, ymin, xmax, ymax)</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray : Bounding box coordinates as `(xmin, ymin, xmax, ymax)`.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -329,14 +313,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmid, ymid, width, height) to (xmin, ymin, width, height) format.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    midwh : numpy.ndarray</span>
-<span class="sd">        Bounding box coordinates (xmid, ymid, width, height)</span>
+<span class="sd">    Args:</span>
+<span class="sd">        midwh (numpy.ndarray): Bounding box coordinates (xmid, ymid, width, height).</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    numpy.ndarray : Bounding box coordinates (xmin, ymin, width, height).</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Bounding box coordinates (xmin, ymin, width, height).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">midwh</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
@@ -354,18 +335,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the complement of intersection of two sets of indices.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    big_set_indices :  numpy.ndarray</span>
-<span class="sd">        Indices of big set.</span>
-<span class="sd">    small_set_indices : numpy.ndarray</span>
-<span class="sd">        Indices of small set.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        big_set_indices (numpy.ndarray): Indices of big set.</span>
+<span class="sd">        small_set_indices (numpy.ndarray): Indices of small set.</span>
 
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    intersection_complement : numpy.ndarray</span>
-<span class="sd">        Indices of set which is complementary to intersection of two input sets.</span>
-
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Indices of set which is complementary to intersection of two input sets.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">assert</span> <span class="n">big_set_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">small_set_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
     <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">big_set_indices</span><span class="p">)</span>
@@ -386,7 +361,7 @@
 <span class="sd">        classes (numpy.ndarray, optional): Class ids for each box.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        (tuple): a tuple containing:</span>
+<span class="sd">        tuple: a tuple containing:</span>
 <span class="sd">            - boxes (list): nms boxes</span>
 <span class="sd">            - scores (list): nms scores</span>
 <span class="sd">            - classes (list, optional): nms classes if specified</span>
@@ -442,7 +417,7 @@
 <span class="sd">        tracks (list): list of tracks to be drawn on the image.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        numpy.ndarray : image with the track-ids drawn on it.</span>
+<span class="sd">        numpy.ndarray: image with the track-ids drawn on it.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">for</span> <span class="n">trk</span> <span class="ow">in</span> <span class="n">tracks</span><span class="p">:</span>

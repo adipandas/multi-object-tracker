@@ -64,7 +64,7 @@ if __name__ == '__main__':
     )
 
     parser.add_argument(
-        '--tracker', type=str, default='IOUTracker',
+        '--tracker', type=str, default='CentroidKF_Tracker',
         help="Tracker used to track objects. Options include ['CentroidTracker', 'CentroidKF_Tracker', 'SORT']")
 
     args = parser.parse_args()

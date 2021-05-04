@@ -7,16 +7,11 @@ class Detector:
     """
     Abstract class for detector.
 
-    Parameters
-    ----------
-    object_names : dict
-       Dictionary containing (key, value) as (class_id, class_name) for object detector.
-    confidence_threshold: float
-        Confidence threshold for object detection.
-    nms_threshold : float
-        Threshold for non-maximal suppression.
-    draw_bboxes : bool
-       If true, draw bounding boxes on the image is possible.
+    Args:
+        object_names (dict): Dictionary containing (key, value) as (class_id, class_name) for object detector.
+        confidence_threshold (float): Confidence threshold for object detection.
+        nms_threshold (float): Threshold for non-maximal suppression.
+        draw_bboxes (bool): If true, draw bounding boxes on the image is possible.
     """
 
     def __init__(self, object_names, confidence_threshold, nms_threshold, draw_bboxes=True):
@@ -34,13 +29,11 @@ class Detector:
         """
         Forward pass for the detector with input image.
 
-        Parameters
-        ----------
-        image : numpy.ndarray
+        Args:
+            image (numpy.ndarray): Input image.
 
-        Returns
-        -------
-        detections : numpy.ndarray
+        Returns:
+            numpy.ndarray: detections
         """
         raise NotImplemented
 
@@ -48,18 +41,14 @@ class Detector:
         """
         Detect objects in the input image.
 
-        Parameters
-        ----------
-        image : numpy.ndarray
-            Input image.
+        Args:
+            image (numpy.ndarray): Input image.
 
-        Returns
-        -------
-        tuple :
-            Tuple containing the following elements
-                - bboxes : (numpy.ndarray) Bounding boxes with shape (n, 4) containing detected objects with each row as `(xmin, ymin, width, height)`.
-                - confidences : (numpy.ndarray) Confidence or detection probabilities if the detected objects with shape (n,).
-                - class_ids (numpy.ndarray) : Class_ids or label_ids of detected objects with shape (n, 4)
+        Returns:
+            tuple: Tuple containing the following elements:
+                - bboxes (numpy.ndarray): Bounding boxes with shape (n, 4) containing detected objects with each row as `(xmin, ymin, width, height)`.
+                - confidences (numpy.ndarray): Confidence or detection probabilities if the detected objects with shape (n,).
+                - class_ids (numpy.ndarray): Class_ids or label_ids of detected objects with shape (n, 4)
 
         """
         if self.width is None or self.height is None:
@@ -92,20 +81,14 @@ class Detector:
         """
         Draw the bounding boxes about detected objects in the image.
 
-        Parameters
-        ----------
-        image : numpy.ndarray
-            Image or video frame.
-        bboxes : numpy.ndarray
-            Bounding boxes pixel coordinates as (xmin, ymin, width, height)
-        confidences : numpy.ndarray
-            Detection confidence or detection probability.
-        class_ids : numpy.ndarray
-            Array containing class ids (aka label ids) of each detected object.
+        Args:
+            image (numpy.ndarray): Image or video frame.
+            bboxes (numpy.ndarray): Bounding boxes pixel coordinates as (xmin, ymin, width, height)
+            confidences (numpy.ndarray): Detection confidence or detection probability.
+            class_ids (numpy.ndarray): Array containing class ids (aka label ids) of each detected object.
 
-        Returns
-        -------
-        numpy.ndarray : image with the bounding boxes drawn on it.
+        Returns:
+            numpy.ndarray: image with the bounding boxes drawn on it.
         """
 
         for bb, conf, cid in zip(bboxes, confidences, class_ids):

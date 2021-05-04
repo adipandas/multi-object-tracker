@@ -172,16 +172,11 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Abstract class for detector.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    object_names : dict</span>
-<span class="sd">       Dictionary containing (key, value) as (class_id, class_name) for object detector.</span>
-<span class="sd">    confidence_threshold: float</span>
-<span class="sd">        Confidence threshold for object detection.</span>
-<span class="sd">    nms_threshold : float</span>
-<span class="sd">        Threshold for non-maximal suppression.</span>
-<span class="sd">    draw_bboxes : bool</span>
-<span class="sd">       If true, draw bounding boxes on the image is possible.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        object_names (dict): Dictionary containing (key, value) as (class_id, class_name) for object detector.</span>
+<span class="sd">        confidence_threshold (float): Confidence threshold for object detection.</span>
+<span class="sd">        nms_threshold (float): Threshold for non-maximal suppression.</span>
+<span class="sd">        draw_bboxes (bool): If true, draw bounding boxes on the image is possible.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_names</span><span class="p">,</span> <span class="n">confidence_threshold</span><span class="p">,</span> <span class="n">nms_threshold</span><span class="p">,</span> <span class="n">draw_bboxes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -199,13 +194,11 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Forward pass for the detector with input image.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        image : numpy.ndarray</span>
+<span class="sd">        Args:</span>
+<span class="sd">            image (numpy.ndarray): Input image.</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        detections : numpy.ndarray</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: detections</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="bp">NotImplemented</span></div>
 
@@ -213,18 +206,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Detect objects in the input image.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        image : numpy.ndarray</span>
-<span class="sd">            Input image.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            image (numpy.ndarray): Input image.</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        tuple :</span>
-<span class="sd">            Tuple containing the following elements</span>
-<span class="sd">                - bboxes : (numpy.ndarray) Bounding boxes with shape (n, 4) containing detected objects with each row as `(xmin, ymin, width, height)`.</span>
-<span class="sd">                - confidences : (numpy.ndarray) Confidence or detection probabilities if the detected objects with shape (n,).</span>
-<span class="sd">                - class_ids (numpy.ndarray) : Class_ids or label_ids of detected objects with shape (n, 4)</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Tuple containing the following elements:</span>
+<span class="sd">                - bboxes (numpy.ndarray): Bounding boxes with shape (n, 4) containing detected objects with each row as `(xmin, ymin, width, height)`.</span>
+<span class="sd">                - confidences (numpy.ndarray): Confidence or detection probabilities if the detected objects with shape (n,).</span>
+<span class="sd">                - class_ids (numpy.ndarray): Class_ids or label_ids of detected objects with shape (n, 4)</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -257,20 +246,14 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Draw the bounding boxes about detected objects in the image.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        image : numpy.ndarray</span>
-<span class="sd">            Image or video frame.</span>
-<span class="sd">        bboxes : numpy.ndarray</span>
-<span class="sd">            Bounding boxes pixel coordinates as (xmin, ymin, width, height)</span>
-<span class="sd">        confidences : numpy.ndarray</span>
-<span class="sd">            Detection confidence or detection probability.</span>
-<span class="sd">        class_ids : numpy.ndarray</span>
-<span class="sd">            Array containing class ids (aka label ids) of each detected object.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            image (numpy.ndarray): Image or video frame.</span>
+<span class="sd">            bboxes (numpy.ndarray): Bounding boxes pixel coordinates as (xmin, ymin, width, height)</span>
+<span class="sd">            confidences (numpy.ndarray): Detection confidence or detection probability.</span>
+<span class="sd">            class_ids (numpy.ndarray): Array containing class ids (aka label ids) of each detected object.</span>
 
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        numpy.ndarray : image with the bounding boxes drawn on it.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            numpy.ndarray: image with the bounding boxes drawn on it.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">for</span> <span class="n">bb</span><span class="p">,</span> <span class="n">conf</span><span class="p">,</span> <span class="n">cid</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">confidences</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">):</span>

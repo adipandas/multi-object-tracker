@@ -177,17 +177,20 @@
 <span class="sd">    Assigns detected bounding boxes to tracked bounding boxes using IoU as a distance metric.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        bbox_tracks (numpy.ndarray): tracked bounding boxes with shape (n, 4) each row as (xmin, ymin, width, height).</span>
-<span class="sd">        bbox_detections (numpy.ndarray): detection bounding boxes with shape (m, 4) each row as (xmin, ymin, width, height).</span>
-<span class="sd">        distance_threshold (float): Minimum distance between the tracked object and new detection to consider for assignment.</span>
+<span class="sd">        bbox_tracks (numpy.ndarray): Tracked bounding boxes with shape `(n, 4)`</span>
+<span class="sd">            and each row as `(xmin, ymin, width, height)`.</span>
+<span class="sd">        bbox_detections (numpy.ndarray): detection bounding boxes with shape `(m, 4)` and</span>
+<span class="sd">            each row as `(xmin, ymin, width, height)`.</span>
+<span class="sd">        distance_threshold (float): Minimum distance between the tracked object</span>
+<span class="sd">            and new detection to consider for assignment.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        tuple: Tuple containing the following elements:</span>
-<span class="sd">            - matches (numpy.ndarray):  Array of shape `(n, 2)` where `n` is number of pairs formed after</span>
-<span class="sd">                matching tracks to detections. This is an array of tuples with each element as matched pair</span>
-<span class="sd">                of indices`(track_index, detection_index)`.</span>
-<span class="sd">            - unmatched_detections (numpy.ndarray):  Array of shape `(m,)` where `m` is number of unmatched detections.</span>
-<span class="sd">            - unmatched_tracks (numpy.ndarray):  Array of shape `(k,)` where `k` is the number of unmatched tracks.</span>
+<span class="sd">            - matches (numpy.ndarray): Array of shape `(n, 2)` where `n` is number of pairs formed after</span>
+<span class="sd">            matching tracks to detections. This is an array of tuples with each element as matched pair</span>
+<span class="sd">            of indices`(track_index, detection_index)`.</span>
+<span class="sd">            - unmatched_detections (numpy.ndarray): Array of shape `(m,)` where `m` is number of unmatched detections.</span>
+<span class="sd">            - unmatched_tracks (numpy.ndarray): Array of shape `(k,)` where `k` is the number of unmatched tracks.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">if</span> <span class="p">(</span><span class="n">bbox_tracks</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">bbox_detections</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
@@ -236,18 +239,14 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kalman filter based tracking of multiple detected objects.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    max_lost : int</span>
-<span class="sd">        Maximum number of consecutive frames object was not detected.</span>
-<span class="sd">    tracker_output_format : str</span>
-<span class="sd">        Output format of the tracker.</span>
-<span class="sd">    process_noise_scale : float or numpy.ndarray</span>
-<span class="sd">        Process noise covariance matrix of shape (3, 3) or covariance magnitude as scalar value.</span>
-<span class="sd">    measurement_noise_scale : float or numpy.ndarray</span>
-<span class="sd">        Measurement noise covariance matrix of shape (1,) or covariance magnitude as scalar value.</span>
-<span class="sd">    time_step : int or float</span>
-<span class="sd">        Time step for Kalman Filter.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        max_lost (int): Maximum number of consecutive frames object was not detected.</span>
+<span class="sd">        tracker_output_format (str): Output format of the tracker.</span>
+<span class="sd">        process_noise_scale (float or numpy.ndarray): Process noise covariance matrix of shape (3, 3) or</span>
+<span class="sd">            covariance magnitude as scalar value.</span>
+<span class="sd">        measurement_noise_scale (float or numpy.ndarray): Measurement noise covariance matrix of shape (1,)</span>
+<span class="sd">            or covariance magnitude as scalar value.</span>
+<span class="sd">        time_step (int or float): Time step for Kalman Filter.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -284,33 +283,43 @@
             <span class="n">bbox_tracks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">predict</span><span class="p">())</span>
         <span class="n">bbox_tracks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bbox_tracks</span><span class="p">)</span>
 
-        <span class="n">matches</span><span class="p">,</span> <span class="n">unmatched_detections</span><span class="p">,</span> <span class="n">unmatched_tracks</span> <span class="o">=</span> <span class="n">assign_tracks2detection_centroid_distances</span><span class="p">(</span>
-            <span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">,</span> <span class="n">distance_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">centroid_distance_threshold</span>
-        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bboxes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bbox_tracks</span><span class="p">)):</span>
+                <span class="n">track_id</span> <span class="o">=</span> <span class="n">track_ids</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox_tracks</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">confidence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">detection_confidence</span>
+                <span class="n">cid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">class_id</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="o">=</span><span class="n">confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">cid</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">lost</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lost</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_remove_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">matches</span><span class="p">,</span> <span class="n">unmatched_detections</span><span class="p">,</span> <span class="n">unmatched_tracks</span> <span class="o">=</span> <span class="n">assign_tracks2detection_centroid_distances</span><span class="p">(</span>
+                <span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">,</span> <span class="n">distance_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">centroid_distance_threshold</span>
+            <span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">matches</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
-            <span class="n">t</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
-            <span class="n">track_id</span> <span class="o">=</span> <span class="n">track_ids</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
-            <span class="n">bbox</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="p">:]</span>
-            <span class="n">cid</span> <span class="o">=</span> <span class="n">class_ids</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
-            <span class="n">confidence</span> <span class="o">=</span> <span class="n">detection_scores</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">matches</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="n">t</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">track_id</span> <span class="o">=</span> <span class="n">track_ids</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+                <span class="n">bbox</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">cid</span> <span class="o">=</span> <span class="n">class_ids</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                <span class="n">confidence</span> <span class="o">=</span> <span class="n">detection_scores</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">unmatched_detections</span><span class="p">:</span>
-            <span class="n">bbox</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="p">:]</span>
-            <span class="n">cid</span> <span class="o">=</span> <span class="n">class_ids</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
-            <span class="n">confidence</span> <span class="o">=</span> <span class="n">detection_scores</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_add_track</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">cid</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">unmatched_detections</span><span class="p">:</span>
+                <span class="n">bbox</span> <span class="o">=</span> <span class="n">bboxes</span><span class="p">[</span><span class="n">d</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">cid</span> <span class="o">=</span> <span class="n">class_ids</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                <span class="n">confidence</span> <span class="o">=</span> <span class="n">detection_scores</span><span class="p">[</span><span class="n">d</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_add_track</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">cid</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">unmatched_tracks</span><span class="p">:</span>
-            <span class="n">track_id</span> <span class="o">=</span> <span class="n">track_ids</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
-            <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox_tracks</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="p">:]</span>
-            <span class="n">confidence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">detection_confidence</span>
-            <span class="n">cid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">class_id</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_update_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">unmatched_tracks</span><span class="p">:</span>
+                <span class="n">track_id</span> <span class="o">=</span> <span class="n">track_ids</span><span class="p">[</span><span class="n">t</span><span class="p">]</span>
+                <span class="n">bbox</span> <span class="o">=</span> <span class="n">bbox_tracks</span><span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="p">:]</span>
+                <span class="n">confidence</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">detection_confidence</span>
+                <span class="n">cid</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">class_id</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">confidence</span><span class="p">,</span> <span class="n">cid</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">lost</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lost</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_remove_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">lost</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lost</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_remove_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
 
         <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_tracks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">outputs</span></div></div>

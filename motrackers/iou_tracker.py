@@ -10,18 +10,12 @@ class IOUTracker(Tracker):
     ----------
     * Implementation of this algorithm is heavily based on https://github.com/bochinski/iou-tracker
 
-    Parameters
-    ----------
-    max_lost : int
-        Maximum number of consecutive frames object was not detected.
-    tracker_output_format : str
-        Output format of the tracker.
-    min_detection_confidence : float
-        Threshold for minimum detection confidence.
-    max_detection_confidence : float
-        Threshold for max. detection confidence.
-    iou_threshold : float
-        Intersection over union minimum value.
+    Args:
+        max_lost (int): Maximum number of consecutive frames object was not detected.
+        tracker_output_format (str): Output format of the tracker.
+        min_detection_confidence (float): Threshold for minimum detection confidence.
+        max_detection_confidence (float): Threshold for max. detection confidence.
+        iou_threshold (float): Intersection over union minimum value.
     """
 
     def __init__(

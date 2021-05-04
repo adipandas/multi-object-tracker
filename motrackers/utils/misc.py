@@ -6,15 +6,12 @@ def get_centroid(bboxes):
     """
     Calculate centroids for multiple bounding boxes.
 
-    Parameters
-    ----------
-    bboxes : numpy.ndarray
-        Array of shape `(n, 4)` or of shape `(4,)`.
-        Where each row contains `(xmin, ymin, width, height)`.
+    Args:
+        bboxes (numpy.ndarray): Array of shape `(n, 4)` or of shape `(4,)` where
+            each row contains `(xmin, ymin, width, height)`.
 
-    Returns
-    -------
-    numpy.ndarray : Centroid (x, y) coordinates of shape `(n, 2)` or `(2,)`.
+    Returns:
+        numpy.ndarray: Centroid (x, y) coordinates of shape `(n, 2)` or `(2,)`.
 
     """
 
@@ -42,17 +39,14 @@ def iou(bbox1, bbox2):
     Calculates the intersection-over-union of two bounding boxes.
     Source: https://github.com/bochinski/iou-tracker/blob/master/util.py
 
-    Parameters
-    ----------
-    bbox1 : numpy.array, list of floats
-            bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.
-    bbox2 : numpy.array, list of floats
-            bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.
+    Args:
+        bbox1 (numpy.array or list[floats]): Bounding box of length 4 containing
+            ``(x-top-left, y-top-left, x-bottom-right, y-bottom-right)``.
+        bbox2 (numpy.array or list[floats]): Bounding box of length 4 containing
+            ``(x-top-left, y-top-left, x-bottom-right, y-bottom-right)``.
 
-    Returns
-    -------
-    iou: float
-         intersection-over-onion of bbox1, bbox2.
+    Returns:
+        float: intersection-over-onion of bbox1, bbox2.
     """
 
     bbox1 = [float(x) for x in bbox1]
@@ -86,17 +80,12 @@ def iou_xywh(bbox1, bbox2):
     Calculates the intersection-over-union of two bounding boxes.
     Source: https://github.com/bochinski/iou-tracker/blob/master/util.py
 
-    Parameters
-    ----------
-    bbox1 : numpy.array, list of floats
-            bounding box in format (x-top-left, y-top-left, width, height) of length 4.
-    bbox2 : numpy.array, list of floats
-            bounding box in format (x-top-left, y-top-left, width, height) of length 4.
+    Args:
+        bbox1 (numpy.array or list[floats]): bounding box of length 4 containing ``(x-top-left, y-top-left, width, height)``.
+        bbox2 (numpy.array or list[floats]): bounding box of length 4 containing ``(x-top-left, y-top-left, width, height)``.
 
-    Returns
-    -------
-    iou: float
-         intersection-over-onion of bbox1, bbox2.
+    Returns:
+        float: intersection-over-onion of bbox1, bbox2.
     """
     bbox1 = bbox1[0], bbox1[1], bbox1[0]+bbox1[2], bbox1[1]+bbox1[3]
     bbox2 = bbox2[0], bbox2[1], bbox2[0]+bbox2[2], bbox2[1]+bbox2[3]
@@ -110,13 +99,11 @@ def xyxy2xywh(xyxy):
     """
     Convert bounding box coordinates from (xmin, ymin, xmax, ymax) format to (xmin, ymin, width, height).
 
-    Parameters
-    ----------
-    xyxy : numpy.ndarray
+    Args:
+        xyxy (numpy.ndarray):
 
-    Returns
-    -------
-    numpy.ndarray : Bounding box coordinates (xmin, ymin, width, height).
+    Returns:
+        numpy.ndarray: Bounding box coordinates (xmin, ymin, width, height).
 
     """
 
@@ -137,14 +124,11 @@ def xywh2xyxy(xywh):
     """
     Convert bounding box coordinates from (xmin, ymin, width, height) to (xmin, ymin, xmax, ymax) format.
 
-    Parameters
-    ----------
-    xywh : numpy.ndarray
-        Bounding box coordinates as (xmin, ymin, width, height)
+    Args:
+        xywh (numpy.ndarray): Bounding box coordinates as `(xmin, ymin, width, height)`.
 
-    Returns
-    -------
-    numpy.ndarray : bounding box coordinates as (xmin, ymin, xmax, ymax)
+    Returns:
+        numpy.ndarray : Bounding box coordinates as `(xmin, ymin, xmax, ymax)`.
 
     """
 
@@ -164,14 +148,11 @@ def midwh2xywh(midwh):
     """
     Convert bounding box coordinates from (xmid, ymid, width, height) to (xmin, ymin, width, height) format.
 
-    Parameters
-    ----------
-    midwh : numpy.ndarray
-        Bounding box coordinates (xmid, ymid, width, height)
+    Args:
+        midwh (numpy.ndarray): Bounding box coordinates (xmid, ymid, width, height).
 
-    Returns
-    -------
-    numpy.ndarray : Bounding box coordinates (xmin, ymin, width, height).
+    Returns:
+        numpy.ndarray: Bounding box coordinates (xmin, ymin, width, height).
     """
 
     if len(midwh.shape) == 2:
@@ -189,18 +170,12 @@ def intersection_complement_indices(big_set_indices, small_set_indices):
     """
     Get the complement of intersection of two sets of indices.
 
-    Parameters
-    ----------
-    big_set_indices :  numpy.ndarray
-        Indices of big set.
-    small_set_indices : numpy.ndarray
-        Indices of small set.
+    Args:
+        big_set_indices (numpy.ndarray): Indices of big set.
+        small_set_indices (numpy.ndarray): Indices of small set.
 
-    Returns
-    -------
-    intersection_complement : numpy.ndarray
-        Indices of set which is complementary to intersection of two input sets.
-
+    Returns:
+        numpy.ndarray: Indices of set which is complementary to intersection of two input sets.
     """
     assert big_set_indices.shape[0] >= small_set_indices.shape[1]
     n = len(big_set_indices)
@@ -221,7 +196,7 @@ def nms(boxes, scores, overlapThresh, classes=None):
         classes (numpy.ndarray, optional): Class ids for each box.
 
     Returns:
-        (tuple): a tuple containing:
+        tuple: a tuple containing:
             - boxes (list): nms boxes
             - scores (list): nms scores
             - classes (list, optional): nms classes if specified
@@ -277,7 +252,7 @@ def draw_tracks(image, tracks):
         tracks (list): list of tracks to be drawn on the image.
 
     Returns:
-        numpy.ndarray : image with the track-ids drawn on it.
+        numpy.ndarray: image with the track-ids drawn on it.
     """
 
     for trk in tracks:

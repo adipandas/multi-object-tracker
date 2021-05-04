@@ -175,18 +175,12 @@
 <span class="sd">    ----------</span>
 <span class="sd">    * Implementation of this algorithm is heavily based on https://github.com/bochinski/iou-tracker</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    max_lost : int</span>
-<span class="sd">        Maximum number of consecutive frames object was not detected.</span>
-<span class="sd">    tracker_output_format : str</span>
-<span class="sd">        Output format of the tracker.</span>
-<span class="sd">    min_detection_confidence : float</span>
-<span class="sd">        Threshold for minimum detection confidence.</span>
-<span class="sd">    max_detection_confidence : float</span>
-<span class="sd">        Threshold for max. detection confidence.</span>
-<span class="sd">    iou_threshold : float</span>
-<span class="sd">        Intersection over union minimum value.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        max_lost (int): Maximum number of consecutive frames object was not detected.</span>
+<span class="sd">        tracker_output_format (str): Output format of the tracker.</span>
+<span class="sd">        min_detection_confidence (float): Threshold for minimum detection confidence.</span>
+<span class="sd">        max_detection_confidence (float): Threshold for max. detection confidence.</span>
+<span class="sd">        iou_threshold (float): Intersection over union minimum value.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>

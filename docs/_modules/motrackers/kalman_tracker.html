@@ -170,22 +170,14 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kalman Filter Implementation.</span>
 
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    transition_matrix: numpy.ndarray</span>
-<span class="sd">        Transition matrix of shape (n, n).</span>
-<span class="sd">    measurement_matrix: numpy.ndarray</span>
-<span class="sd">        Measurement matrix of shape (m, n).</span>
-<span class="sd">    control_matrix: numpy.ndarray</span>
-<span class="sd">        Control matrix of shape (m, n).</span>
-<span class="sd">    process_noise_covariance: numpy.ndarray</span>
-<span class="sd">        Covariance matrix of shape (n, n).</span>
-<span class="sd">    measurement_noise_covariance: numpy.ndarray</span>
-<span class="sd">        Covariance matrix of shape (m, m).</span>
-<span class="sd">    prediction_covariance: numpy.ndarray</span>
-<span class="sd">        Predicted (a priori) estimate covariance of shape (n, n).</span>
-<span class="sd">    initial_state: numpy.ndarray</span>
-<span class="sd">        Initial state of shape (n,).</span>
+<span class="sd">    Args:</span>
+<span class="sd">        transition_matrix (numpy.ndarray): Transition matrix of shape ``(n, n)``.</span>
+<span class="sd">        measurement_matrix (numpy.ndarray): Measurement matrix of shape ``(m, n)``.</span>
+<span class="sd">        control_matrix (numpy.ndarray): Control matrix of shape ``(m, n)``.</span>
+<span class="sd">        process_noise_covariance (numpy.ndarray): Covariance matrix of shape ``(n, n)``.</span>
+<span class="sd">        measurement_noise_covariance (numpy.ndarray): Covariance matrix of shape ``(m, m)``.</span>
+<span class="sd">        prediction_covariance (numpy.ndarray): Predicted (a priori) estimate covariance of shape ``(n, n)``.</span>
+<span class="sd">        initial_state (numpy.ndarray): Initial state of shape ``(n,)``.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -225,7 +217,7 @@
 <span class="sd">            u (float or int or numpy.ndarray): Control input. Default is `0`.</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            numpy.ndarray : State vector of shape (n,).</span>
+<span class="sd">            numpy.ndarray : State vector of shape `(n,)`.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">transition_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">control_matrix</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span>
@@ -241,10 +233,7 @@
 <span class="sd">        Measurement update of Kalman Filter.</span>
 
 <span class="sd">        Args:</span>
-<span class="sd">            z (numpy.ndarray): Measurement vector of the system with shape (m,).</span>
-
-<span class="sd">        Returns:</span>
-
+<span class="sd">            z (numpy.ndarray): Measurement vector of the system with shape ``(m,)``.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">z</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">measurement_matrix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">)</span>
 
@@ -266,6 +255,15 @@
 
 
 <span class="k">def</span> <span class="nf">get_process_covariance_matrix</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates a process noise covariance matrix for constant acceleration motion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dt (float): Timestep.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Process covariance matrix of shape `(3, 3)`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># a = np.array([</span>
     <span class="c1">#     [0.25 * dt ** 4, 0.5 * dt ** 3, 0.5 * dt ** 2],</span>
     <span class="c1">#     [0.5 * dt ** 3, dt ** 2, dt],</span>
@@ -281,8 +279,17 @@
 
 
 <span class="k">def</span> <span class="nf">get_transition_matrix</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
-    <span class="k">return</span> <span class="n">a</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generate the transition matrix for constant acceleration motion.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        dt (float): Timestep.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        numpy.ndarray: Transition matrix of shape ``(3, 3)``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">dt</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">]])</span>
 
 
 <div class="viewcode-block" id="KFTrackerConstantAcceleration"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTrackerConstantAcceleration">[docs]</a><span class="k">class</span> <span class="nc">KFTrackerConstantAcceleration</span><span class="p">(</span><span class="n">KalmanFilter</span><span class="p">):</span>
@@ -359,12 +366,13 @@
 
 <div class="viewcode-block" id="KFTrackerSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTrackerSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrackerSORT</span><span class="p">(</span><span class="n">KalmanFilter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Kalman filter for ``SORT``.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        bbox (numpy.ndarray): Bounding box coordinates as (xmid, ymid, area, aspect_ratio).</span>
+<span class="sd">        bbox (numpy.ndarray): Bounding box coordinates as ``(xmid, ymid, area, aspect_ratio)``.</span>
 <span class="sd">        time_step (float or int): Time step.</span>
 <span class="sd">        process_noise_scale (float): Scale (a.k.a covariance) of the process noise.</span>
-<span class="sd">        measurement_noise_scale (float): Scale (a.k.a covariance) of the measurement noise.</span>
+<span class="sd">        measurement_noise_scale (float): Scale (a.k.a. covariance) of the measurement noise.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
         <span class="k">assert</span> <span class="n">bbox</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">4</span><span class="p">,</span> <span class="n">bbox</span><span class="o">.</span><span class="n">shape</span>

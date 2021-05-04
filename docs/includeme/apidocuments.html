@@ -205,14 +205,14 @@ This tracker is also referred as <code class="docutils literal notranslate"><spa
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>bboxes</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em>) – Array of bounding boxes with each bbox as a tuple containing <cite>(xmin, ymin, width, height)</cite>.</p></li>
 <li><p><strong>class_ids</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em>) – Array of Class ID or label ID.</p></li>
-<li><p><strong>detection_scores</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em>) – Array of detection scores (aka. detection probabilities).</p></li>
+<li><p><strong>detection_scores</strong> (<em>list</em><em> or </em><em>numpy.ndarray</em>) – Array of detection scores (a.k.a. detection probabilities).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>detections</strong> – Data for detections as list of tuples containing <cite>(bbox, class_id, detection_score)</cite>.</p>
+<dd class="field-even"><p>Data for detections as list of tuples containing <cite>(bbox, class_id, detection_score)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list[Tuple]</p>
+<dd class="field-odd"><p>detections (list[Tuple])</p>
 </dd>
 </dl>
 </dd></dl>
@@ -231,8 +231,7 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>outputs</strong> – List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements
-<cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
+<dd class="field-even"><p>List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements <cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
@@ -252,22 +251,17 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bbox_tracks</strong> (<em>numpy.ndarray</em>) – </p></li>
-<li><p><strong>bbox_detections</strong> (<em>numpy.ndarray</em>) – </p></li>
-<li><p><strong>iou_threshold</strong> (<em>float</em>) – </p></li>
+<li><p><strong>bbox_tracks</strong> (<em>numpy.ndarray</em>) – Bounding boxes of shape <cite>(N, 4)</cite> where <cite>N</cite> is number of objects already being tracked.</p></li>
+<li><p><strong>bbox_detections</strong> (<em>numpy.ndarray</em>) – Bounding boxes of shape <cite>(M, 4)</cite> where <cite>M</cite> is number of objects that are newly detected.</p></li>
+<li><p><strong>iou_threshold</strong> (<em>float</em>) – IOU threashold.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>Tuple containing the following elements</dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>matches: (numpy.ndarray) Array of shape <cite>(n, 2)</cite> where <cite>n</cite> is number of pairs formed after</dt><dd><p>matching tracks to detections. This is an array of tuples with each element as matched pair
-of indices`(track_index, detection_index)`.</p>
-</dd>
-</dl>
-</li>
-<li><p>unmatched_detections : (numpy.ndarray) Array of shape <cite>(m,)</cite> where <cite>m</cite> is number of unmatched detections.</p></li>
-<li><p>unmatched_tracks : (numpy.ndarray) Array of shape <cite>(k,)</cite> where <cite>k</cite> is the number of unmatched tracks.</p></li>
+<dt>Tuple contains the following elements in the given order:</dt><dd><ul class="simple">
+<li><p>matches (numpy.ndarray): Array of shape <cite>(n, 2)</cite> where <cite>n</cite> is number of pairs formed after matching tracks to detections. This is an array of tuples with each element as matched pair of indices`(track_index, detection_index)`.</p></li>
+<li><p>unmatched_detections (numpy.ndarray): Array of shape <cite>(m,)</cite> where <cite>m</cite> is number of unmatched detections.</p></li>
+<li><p>unmatched_tracks (numpy.ndarray): Array of shape <cite>(k,)</cite> where <cite>k</cite> is the number of unmatched tracks.</p></li>
 </ul>
 </dd>
 </dl>
@@ -289,8 +283,10 @@ of indices`(track_index, detection_index)`.</p>
 <li><p><strong>max_lost</strong> (<em>int</em>) – Max. number of times a object is lost while tracking.</p></li>
 <li><p><strong>tracker_output_format</strong> (<em>str</em>) – Output format of the tracker.</p></li>
 <li><p><strong>iou_threshold</strong> (<em>float</em>) – Intersection over union minimum value.</p></li>
-<li><p><strong>process_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Process noise covariance matrix of shape (3, 3) or covariance magnitude as scalar value.</p></li>
-<li><p><strong>measurement_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Measurement noise covariance matrix of shape (1,) or covariance magnitude as scalar value.</p></li>
+<li><p><strong>process_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Process noise covariance matrix of shape (3, 3)
+or covariance magnitude as scalar value.</p></li>
+<li><p><strong>measurement_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Measurement noise covariance matrix of shape (1,)
+or covariance magnitude as scalar value.</p></li>
 <li><p><strong>time_step</strong> (<em>int</em><em> or </em><em>float</em>) – Time step for Kalman Filter.</p></li>
 </ul>
 </dd>
@@ -309,8 +305,7 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>outputs</strong> – List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements
-<cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
+<dd class="field-even"><p>List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements <cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
@@ -356,8 +351,7 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>outputs</strong> – List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements
-<cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
+<dd class="field-even"><p>List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements <cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
@@ -377,23 +371,23 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bbox_tracks</strong> (<em>numpy.ndarray</em>) – tracked bounding boxes with shape (n, 4) each row as (xmin, ymin, width, height).</p></li>
-<li><p><strong>bbox_detections</strong> (<em>numpy.ndarray</em>) – detection bounding boxes with shape (m, 4) each row as (xmin, ymin, width, height).</p></li>
-<li><p><strong>distance_threshold</strong> (<em>float</em>) – Minimum distance between the tracked object and new detection to consider for assignment.</p></li>
+<li><p><strong>bbox_tracks</strong> (<em>numpy.ndarray</em>) – Tracked bounding boxes with shape <cite>(n, 4)</cite>
+and each row as <cite>(xmin, ymin, width, height)</cite>.</p></li>
+<li><p><strong>bbox_detections</strong> (<em>numpy.ndarray</em>) – detection bounding boxes with shape <cite>(m, 4)</cite> and
+each row as <cite>(xmin, ymin, width, height)</cite>.</p></li>
+<li><p><strong>distance_threshold</strong> (<em>float</em>) – Minimum distance between the tracked object
+and new detection to consider for assignment.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl class="simple">
+<dd class="field-even"><p><dl>
 <dt>Tuple containing the following elements:</dt><dd><ul class="simple">
-<li><dl class="simple">
-<dt>matches (numpy.ndarray):  Array of shape <cite>(n, 2)</cite> where <cite>n</cite> is number of pairs formed after</dt><dd><p>matching tracks to detections. This is an array of tuples with each element as matched pair
-of indices`(track_index, detection_index)`.</p>
-</dd>
-</dl>
-</li>
-<li><p>unmatched_detections (numpy.ndarray):  Array of shape <cite>(m,)</cite> where <cite>m</cite> is number of unmatched detections.</p></li>
-<li><p>unmatched_tracks (numpy.ndarray):  Array of shape <cite>(k,)</cite> where <cite>k</cite> is the number of unmatched tracks.</p></li>
+<li><p>matches (numpy.ndarray): Array of shape <cite>(n, 2)</cite> where <cite>n</cite> is number of pairs formed after</p></li>
 </ul>
+<p>matching tracks to detections. This is an array of tuples with each element as matched pair
+of indices`(track_index, detection_index)`.
+- unmatched_detections (numpy.ndarray): Array of shape <cite>(m,)</cite> where <cite>m</cite> is number of unmatched detections.
+- unmatched_tracks (numpy.ndarray): Array of shape <cite>(k,)</cite> where <cite>k</cite> is the number of unmatched tracks.</p>
 </dd>
 </dl>
 </p>
@@ -413,8 +407,10 @@ of indices`(track_index, detection_index)`.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>max_lost</strong> (<em>int</em>) – Maximum number of consecutive frames object was not detected.</p></li>
 <li><p><strong>tracker_output_format</strong> (<em>str</em>) – Output format of the tracker.</p></li>
-<li><p><strong>process_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Process noise covariance matrix of shape (3, 3) or covariance magnitude as scalar value.</p></li>
-<li><p><strong>measurement_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Measurement noise covariance matrix of shape (1,) or covariance magnitude as scalar value.</p></li>
+<li><p><strong>process_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Process noise covariance matrix of shape (3, 3) or
+covariance magnitude as scalar value.</p></li>
+<li><p><strong>measurement_noise_scale</strong> (<em>float</em><em> or </em><em>numpy.ndarray</em>) – Measurement noise covariance matrix of shape (1,)
+or covariance magnitude as scalar value.</p></li>
 <li><p><strong>time_step</strong> (<em>int</em><em> or </em><em>float</em>) – Time step for Kalman Filter.</p></li>
 </ul>
 </dd>
@@ -433,8 +429,7 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>outputs</strong> – List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements
-<cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
+<dd class="field-even"><p>List of tracks being currently tracked by the tracker. Each track is represented by the tuple with elements <cite>(frame_id, track_id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list</p>
@@ -458,10 +453,11 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 <li><p><strong>track_id</strong> (<em>int</em>) – Track Id</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em> or </em><em>int</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
-<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker. Options <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
+<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker.
+Options include <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
 </ul>
 </dd>
@@ -472,10 +468,10 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 <dd><p>Return the centroid of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>numpy.ndarray</strong></p>
+<dd class="field-odd"><p>Centroid (x, y) of bounding box.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Centroid (x, y) of bounding box.</p>
+<dd class="field-even"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -491,7 +487,7 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>mot_tuple</strong> – Tuple of 10 elements representing <cite>(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
+<dd class="field-odd"><p>Tuple of 10 elements representing <cite>(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite>.</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>tuple</p>
@@ -514,7 +510,7 @@ truncation, occlusion)</cite>.</p>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p><strong>mot_tuple</strong> – Tuple containing the elements as <cite>(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height,
+<dd class="field-odd"><p>Tuple containing the elements as <cite>(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height,
 score, object_category, truncation, occlusion)</cite>.</p>
 </dd>
 <dt class="field-even">Return type</dt>
@@ -539,7 +535,7 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <li><p><strong>frame_id</strong> (<em>int</em>) – Camera frame id.</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>int</em><em> or </em><em>str</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
@@ -561,10 +557,11 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <li><p><strong>frame_id</strong> (<em>int</em>) – Camera frame id.</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em> or </em><em>int</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
-<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker. Options <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
+<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker.
+Options <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
 <li><p><strong>process_noise_scale</strong> (<em>float</em>) – Process noise covariance scale or covariance magnitude as scalar value.</p></li>
 <li><p><strong>measurement_noise_scale</strong> (<em>float</em>) – Measurement noise covariance scale or covariance magnitude as scalar value.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
@@ -595,7 +592,7 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <li><p><strong>frame_id</strong> (<em>int</em>) – Camera frame id.</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>int</em><em> or </em><em>str</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
@@ -617,10 +614,11 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <li><p><strong>frame_id</strong> (<em>int</em>) – Camera frame id.</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em> or </em><em>int</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
-<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker. Options <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
+<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker.
+Options <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
 <li><p><strong>process_noise_scale</strong> (<em>float</em>) – Process noise covariance scale or covariance magnitude as scalar value.</p></li>
 <li><p><strong>measurement_noise_scale</strong> (<em>float</em>) – Measurement noise covariance scale or covariance magnitude as scalar value.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
@@ -643,7 +641,7 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <li><p><strong>frame_id</strong> (<em>int</em>) – Camera frame id.</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>int</em><em> or </em><em>str</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
@@ -665,10 +663,11 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <li><p><strong>frame_id</strong> (<em>int</em>) – Camera frame id.</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>str</em><em> or </em><em>int</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
-<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker. Options <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
+<li><p><strong>data_output_format</strong> (<em>str</em>) – Output format for data in tracker.
+Options <code class="docutils literal notranslate"><span class="pre">['mot_challenge',</span> <span class="pre">'visdrone_challenge']</span></code>. Default is <code class="docutils literal notranslate"><span class="pre">mot_challenge</span></code>.</p></li>
 <li><p><strong>process_noise_scale</strong> (<em>float</em>) – Process noise covariance scale or covariance magnitude as scalar value.</p></li>
 <li><p><strong>measurement_noise_scale</strong> (<em>float</em>) – Measurement noise covariance scale or covariance magnitude as scalar value.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
@@ -699,7 +698,7 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <li><p><strong>frame_id</strong> (<em>int</em>) – Camera frame id.</p></li>
 <li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box pixel coordinates as (xmin, ymin, width, height) of the track.</p></li>
 <li><p><strong>detection_confidence</strong> (<em>float</em>) – Detection confidence of the object (probability).</p></li>
-<li><p><strong>class_id</strong> (<em>Object</em>) – Class label id.</p></li>
+<li><p><strong>class_id</strong> (<em>int</em><em> or </em><em>str</em>) – Class label id.</p></li>
 <li><p><strong>lost</strong> (<em>int</em>) – Number of times the object or track was not tracked by tracker in consecutive frames.</p></li>
 <li><p><strong>iou_score</strong> (<em>float</em>) – Intersection over union score.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key word arguments.</p></li>
@@ -720,13 +719,13 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>transition_matrix</strong> (<em>numpy.ndarray</em>) – Transition matrix of shape (n, n).</p></li>
-<li><p><strong>measurement_matrix</strong> (<em>numpy.ndarray</em>) – Measurement matrix of shape (m, n).</p></li>
-<li><p><strong>control_matrix</strong> (<em>numpy.ndarray</em>) – Control matrix of shape (m, n).</p></li>
-<li><p><strong>process_noise_covariance</strong> (<em>numpy.ndarray</em>) – Covariance matrix of shape (n, n).</p></li>
-<li><p><strong>measurement_noise_covariance</strong> (<em>numpy.ndarray</em>) – Covariance matrix of shape (m, m).</p></li>
-<li><p><strong>prediction_covariance</strong> (<em>numpy.ndarray</em>) – Predicted (a priori) estimate covariance of shape (n, n).</p></li>
-<li><p><strong>initial_state</strong> (<em>numpy.ndarray</em>) – Initial state of shape (n,).</p></li>
+<li><p><strong>transition_matrix</strong> (<em>numpy.ndarray</em>) – Transition matrix of shape <code class="docutils literal notranslate"><span class="pre">(n,</span> <span class="pre">n)</span></code>.</p></li>
+<li><p><strong>measurement_matrix</strong> (<em>numpy.ndarray</em>) – Measurement matrix of shape <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n)</span></code>.</p></li>
+<li><p><strong>control_matrix</strong> (<em>numpy.ndarray</em>) – Control matrix of shape <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">n)</span></code>.</p></li>
+<li><p><strong>process_noise_covariance</strong> (<em>numpy.ndarray</em>) – Covariance matrix of shape <code class="docutils literal notranslate"><span class="pre">(n,</span> <span class="pre">n)</span></code>.</p></li>
+<li><p><strong>measurement_noise_covariance</strong> (<em>numpy.ndarray</em>) – Covariance matrix of shape <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">m)</span></code>.</p></li>
+<li><p><strong>prediction_covariance</strong> (<em>numpy.ndarray</em>) – Predicted (a priori) estimate covariance of shape <code class="docutils literal notranslate"><span class="pre">(n,</span> <span class="pre">n)</span></code>.</p></li>
+<li><p><strong>initial_state</strong> (<em>numpy.ndarray</em>) – Initial state of shape <code class="docutils literal notranslate"><span class="pre">(n,)</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -739,7 +738,7 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <dd class="field-odd"><p><strong>u</strong> (<em>float</em><em> or </em><em>int</em><em> or </em><em>numpy.ndarray</em>) – Control input. Default is <cite>0</cite>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>State vector of shape (n,).</p>
+<dd class="field-even"><p>State vector of shape <cite>(n,)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -753,10 +752,9 @@ score, object_category, truncation, occlusion)</cite>.</p>
 <dd><p>Measurement update of Kalman Filter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – Measurement vector of the system with shape (m,).</p>
+<dd class="field-odd"><p><strong>z</strong> (<em>numpy.ndarray</em>) – Measurement vector of the system with shape <code class="docutils literal notranslate"><span class="pre">(m,)</span></code>.</p>
 </dd>
 </dl>
-<p>Returns:</p>
 </dd></dl>
 
 </dd></dl>
@@ -797,13 +795,14 @@ or covariance magnitude as scalar value.</p></li>
 <dl class="py class">
 <dt id="motrackers.kalman_tracker.KFTrackerSORT">
 <em class="property">class </em><code class="sig-prename descclassname">motrackers.kalman_tracker.</code><code class="sig-name descname">KFTrackerSORT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTrackerSORT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTrackerSORT" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Kalman filter for <code class="docutils literal notranslate"><span class="pre">SORT</span></code>.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box coordinates as (xmid, ymid, area, aspect_ratio).</p></li>
+<li><p><strong>bbox</strong> (<em>numpy.ndarray</em>) – Bounding box coordinates as <code class="docutils literal notranslate"><span class="pre">(xmid,</span> <span class="pre">ymid,</span> <span class="pre">area,</span> <span class="pre">aspect_ratio)</span></code>.</p></li>
 <li><p><strong>time_step</strong> (<em>float</em><em> or </em><em>int</em>) – Time step.</p></li>
 <li><p><strong>process_noise_scale</strong> (<em>float</em>) – Scale (a.k.a covariance) of the process noise.</p></li>
-<li><p><strong>measurement_noise_scale</strong> (<em>float</em>) – Scale (a.k.a covariance) of the measurement noise.</p></li>
+<li><p><strong>measurement_noise_scale</strong> (<em>float</em>) – Scale (a.k.a. covariance) of the measurement noise.</p></li>
 </ul>
 </dd>
 </dl>
@@ -836,10 +835,10 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>Tuple containing the following elements</dt><dd><ul class="simple">
-<li><p>bboxes : (numpy.ndarray) Bounding boxes with shape (n, 4) containing detected objects with each row as <cite>(xmin, ymin, width, height)</cite>.</p></li>
-<li><p>confidences : (numpy.ndarray) Confidence or detection probabilities if the detected objects with shape (n,).</p></li>
-<li><p>class_ids (numpy.ndarray) : Class_ids or label_ids of detected objects with shape (n, 4)</p></li>
+<dt>Tuple containing the following elements:</dt><dd><ul class="simple">
+<li><p>bboxes (numpy.ndarray): Bounding boxes with shape (n, 4) containing detected objects with each row as <cite>(xmin, ymin, width, height)</cite>.</p></li>
+<li><p>confidences (numpy.ndarray): Confidence or detection probabilities if the detected objects with shape (n,).</p></li>
+<li><p>class_ids (numpy.ndarray): Class_ids or label_ids of detected objects with shape (n, 4)</p></li>
 </ul>
 </dd>
 </dl>
@@ -865,10 +864,10 @@ or covariance magnitude as scalar value.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>numpy.ndarray</strong></p>
+<dd class="field-even"><p>image with the bounding boxes drawn on it.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>image with the bounding boxes drawn on it.</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -879,10 +878,10 @@ or covariance magnitude as scalar value.</p></li>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – Input image.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>detections</strong></p>
+<dd class="field-even"><p>detections</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -915,10 +914,10 @@ or covariance magnitude as scalar value.</p></li>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – Input image.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>detections</strong></p>
+<dd class="field-even"><p>detections</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -951,10 +950,10 @@ or covariance magnitude as scalar value.</p></li>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – Input image.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>detections</strong></p>
+<dd class="field-even"><p>detections</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -991,10 +990,10 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><dl class="simple">
-<dt>Tuple containing the following elements</dt><dd><ul class="simple">
-<li><p>bboxes : (numpy.ndarray) Bounding boxes with shape (n, 4) containing detected objects with each row as <cite>(xmin, ymin, width, height)</cite>.</p></li>
-<li><p>confidences : (numpy.ndarray) Confidence or detection probabilities if the detected objects with shape (n,).</p></li>
-<li><p>class_ids (numpy.ndarray) : Class_ids or label_ids of detected objects with shape (n, 4)</p></li>
+<dt>Tuple containing the following elements:</dt><dd><ul class="simple">
+<li><p>bboxes (numpy.ndarray): Bounding boxes with shape (n, 4) containing detected objects with each row as <cite>(xmin, ymin, width, height)</cite>.</p></li>
+<li><p>confidences (numpy.ndarray): Confidence or detection probabilities if the detected objects with shape (n,).</p></li>
+<li><p>class_ids (numpy.ndarray): Class_ids or label_ids of detected objects with shape (n, 4)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1012,10 +1011,10 @@ or covariance magnitude as scalar value.</p></li>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – </p>
+<dd class="field-odd"><p><strong>image</strong> (<em>numpy.ndarray</em>) – Input image.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>detections</strong></p>
+<dd class="field-even"><p>detections</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -1034,14 +1033,14 @@ or covariance magnitude as scalar value.</p></li>
 <dd><p>Calculate centroids for multiple bounding boxes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>bboxes</strong> (<em>numpy.ndarray</em>) – Array of shape <cite>(n, 4)</cite> or of shape <cite>(4,)</cite>.
-Where each row contains <cite>(xmin, ymin, width, height)</cite>.</p>
+<dd class="field-odd"><p><strong>bboxes</strong> (<em>numpy.ndarray</em>) – Array of shape <cite>(n, 4)</cite> or of shape <cite>(4,)</cite> where
+each row contains <cite>(xmin, ymin, width, height)</cite>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>numpy.ndarray</strong></p>
+<dd class="field-even"><p>Centroid (x, y) coordinates of shape <cite>(n, 2)</cite> or <cite>(2,)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Centroid (x, y) coordinates of shape <cite>(n, 2)</cite> or <cite>(2,)</cite>.</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1054,12 +1053,14 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bbox1</strong> (<em>numpy.array</em><em>, </em><em>list of floats</em>) – bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.</p></li>
-<li><p><strong>bbox2</strong> (<em>numpy.array</em><em>, </em><em>list of floats</em>) – bounding box in format (x-top-left, y-top-left, x-bottom-right, y-bottom-right) of length 4.</p></li>
+<li><p><strong>bbox1</strong> (<em>numpy.array</em><em> or </em><em>list</em><em>[</em><em>floats</em><em>]</em>) – Bounding box of length 4 containing
+<code class="docutils literal notranslate"><span class="pre">(x-top-left,</span> <span class="pre">y-top-left,</span> <span class="pre">x-bottom-right,</span> <span class="pre">y-bottom-right)</span></code>.</p></li>
+<li><p><strong>bbox2</strong> (<em>numpy.array</em><em> or </em><em>list</em><em>[</em><em>floats</em><em>]</em>) – Bounding box of length 4 containing
+<code class="docutils literal notranslate"><span class="pre">(x-top-left,</span> <span class="pre">y-top-left,</span> <span class="pre">x-bottom-right,</span> <span class="pre">y-bottom-right)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>iou</strong> – intersection-over-onion of bbox1, bbox2.</p>
+<dd class="field-even"><p>intersection-over-onion of bbox1, bbox2.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
@@ -1075,12 +1076,12 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>bbox1</strong> (<em>numpy.array</em><em>, </em><em>list of floats</em>) – bounding box in format (x-top-left, y-top-left, width, height) of length 4.</p></li>
-<li><p><strong>bbox2</strong> (<em>numpy.array</em><em>, </em><em>list of floats</em>) – bounding box in format (x-top-left, y-top-left, width, height) of length 4.</p></li>
+<li><p><strong>bbox1</strong> (<em>numpy.array</em><em> or </em><em>list</em><em>[</em><em>floats</em><em>]</em>) – bounding box of length 4 containing <code class="docutils literal notranslate"><span class="pre">(x-top-left,</span> <span class="pre">y-top-left,</span> <span class="pre">width,</span> <span class="pre">height)</span></code>.</p></li>
+<li><p><strong>bbox2</strong> (<em>numpy.array</em><em> or </em><em>list</em><em>[</em><em>floats</em><em>]</em>) – bounding box of length 4 containing <code class="docutils literal notranslate"><span class="pre">(x-top-left,</span> <span class="pre">y-top-left,</span> <span class="pre">width,</span> <span class="pre">height)</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>iou</strong> – intersection-over-onion of bbox1, bbox2.</p>
+<dd class="field-even"><p>intersection-over-onion of bbox1, bbox2.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>float</p>
@@ -1097,10 +1098,10 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 <dd class="field-odd"><p><strong>xyxy</strong> (<em>numpy.ndarray</em>) – </p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>numpy.ndarray</strong></p>
+<dd class="field-even"><p>Bounding box coordinates (xmin, ymin, width, height).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Bounding box coordinates (xmin, ymin, width, height)</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1111,13 +1112,13 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 <dd><p>Convert bounding box coordinates from (xmin, ymin, width, height) to (xmin, ymin, xmax, ymax) format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>xywh</strong> (<em>numpy.ndarray</em>) – Bounding box coordinates as (xmin, ymin, width, height)</p>
+<dd class="field-odd"><p><strong>xywh</strong> (<em>numpy.ndarray</em>) – Bounding box coordinates as <cite>(xmin, ymin, width, height)</cite>.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>numpy.ndarray</strong></p>
+<dd class="field-even"><p>Bounding box coordinates as <cite>(xmin, ymin, xmax, ymax)</cite>.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>bounding box coordinates as (xmin, ymin, xmax, ymax)</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1128,13 +1129,13 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 <dd><p>Convert bounding box coordinates from (xmid, ymid, width, height) to (xmin, ymin, width, height) format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>midwh</strong> (<em>numpy.ndarray</em>) – Bounding box coordinates (xmid, ymid, width, height)</p>
+<dd class="field-odd"><p><strong>midwh</strong> (<em>numpy.ndarray</em>) – Bounding box coordinates (xmid, ymid, width, height).</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>numpy.ndarray</strong></p>
+<dd class="field-even"><p>Bounding box coordinates (xmin, ymin, width, height).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Bounding box coordinates (xmin, ymin, width, height)</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1151,7 +1152,7 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>intersection_complement</strong> – Indices of set which is complementary to intersection of two input sets.</p>
+<dd class="field-even"><p>Indices of set which is complementary to intersection of two input sets.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -1184,7 +1185,7 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>(tuple)</p>
+<dd class="field-odd"><p>tuple</p>
 </dd>
 </dl>
 </dd></dl>

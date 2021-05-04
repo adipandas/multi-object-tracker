@@ -12,17 +12,20 @@ def assign_tracks2detection_centroid_distances(bbox_tracks, bbox_detections, dis
     Assigns detected bounding boxes to tracked bounding boxes using IoU as a distance metric.
 
     Args:
-        bbox_tracks (numpy.ndarray): tracked bounding boxes with shape (n, 4) each row as (xmin, ymin, width, height).
-        bbox_detections (numpy.ndarray): detection bounding boxes with shape (m, 4) each row as (xmin, ymin, width, height).
-        distance_threshold (float): Minimum distance between the tracked object and new detection to consider for assignment.
+        bbox_tracks (numpy.ndarray): Tracked bounding boxes with shape `(n, 4)`
+            and each row as `(xmin, ymin, width, height)`.
+        bbox_detections (numpy.ndarray): detection bounding boxes with shape `(m, 4)` and
+            each row as `(xmin, ymin, width, height)`.
+        distance_threshold (float): Minimum distance between the tracked object
+            and new detection to consider for assignment.
 
     Returns:
         tuple: Tuple containing the following elements:
-            - matches (numpy.ndarray):  Array of shape `(n, 2)` where `n` is number of pairs formed after
-                matching tracks to detections. This is an array of tuples with each element as matched pair
-                of indices`(track_index, detection_index)`.
-            - unmatched_detections (numpy.ndarray):  Array of shape `(m,)` where `m` is number of unmatched detections.
-            - unmatched_tracks (numpy.ndarray):  Array of shape `(k,)` where `k` is the number of unmatched tracks.
+            - matches (numpy.ndarray): Array of shape `(n, 2)` where `n` is number of pairs formed after
+            matching tracks to detections. This is an array of tuples with each element as matched pair
+            of indices`(track_index, detection_index)`.
+            - unmatched_detections (numpy.ndarray): Array of shape `(m,)` where `m` is number of unmatched detections.
+            - unmatched_tracks (numpy.ndarray): Array of shape `(k,)` where `k` is the number of unmatched tracks.
     """
 
     if (bbox_tracks.size == 0) or (bbox_detections.size == 0):
@@ -71,18 +74,14 @@ class CentroidKF_Tracker(Tracker):
     """
     Kalman filter based tracking of multiple detected objects.
 
-    Parameters
-    ----------
-    max_lost : int
-        Maximum number of consecutive frames object was not detected.
-    tracker_output_format : str
-        Output format of the tracker.
-    process_noise_scale : float or numpy.ndarray
-        Process noise covariance matrix of shape (3, 3) or covariance magnitude as scalar value.
-    measurement_noise_scale : float or numpy.ndarray
-        Measurement noise covariance matrix of shape (1,) or covariance magnitude as scalar value.
-    time_step : int or float
-        Time step for Kalman Filter.
+    Args:
+        max_lost (int): Maximum number of consecutive frames object was not detected.
+        tracker_output_format (str): Output format of the tracker.
+        process_noise_scale (float or numpy.ndarray): Process noise covariance matrix of shape (3, 3) or
+            covariance magnitude as scalar value.
+        measurement_noise_scale (float or numpy.ndarray): Measurement noise covariance matrix of shape (1,)
+            or covariance magnitude as scalar value.
+        time_step (int or float): Time step for Kalman Filter.
     """
 
     def __init__(
@@ -119,33 +118,43 @@ class CentroidKF_Tracker(Tracker):
             bbox_tracks.append(self.tracks[track_id].predict())
         bbox_tracks = np.array(bbox_tracks)
 
-        matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_centroid_distances(
-            bbox_tracks, bbox_detections, distance_threshold=self.centroid_distance_threshold
-        )
+        if len(bboxes) == 0:
+            for i in range(len(bbox_tracks)):
+                track_id = track_ids[i]
+                bbox = bbox_tracks[i, :]
+                confidence = self.tracks[track_id].detection_confidence
+                cid = self.tracks[track_id].class_id
+                self._update_track(track_id, self.frame_count, bbox, detection_confidence=confidence, class_id=cid, lost=1)
+                if self.tracks[track_id].lost > self.max_lost:
+                    self._remove_track(track_id)
+        else:
+            matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_centroid_distances(
+                bbox_tracks, bbox_detections, distance_threshold=self.centroid_distance_threshold
+            )
 
-        for i in range(matches.shape[0]):
-            t, d = matches[i, :]
-            track_id = track_ids[t]
-            bbox = bboxes[d, :]
-            cid = class_ids[d]
-            confidence = detection_scores[d]
-            self._update_track(track_id, self.frame_count, bbox, confidence, cid, lost=0)
+            for i in range(matches.shape[0]):
+                t, d = matches[i, :]
+                track_id = track_ids[t]
+                bbox = bboxes[d, :]
+                cid = class_ids[d]
+                confidence = detection_scores[d]
+                self._update_track(track_id, self.frame_count, bbox, confidence, cid, lost=0)
 
-        for d in unmatched_detections:
-            bbox = bboxes[d, :]
-            cid = class_ids[d]
-            confidence = detection_scores[d]
-            self._add_track(self.frame_count, bbox, confidence, cid)
+            for d in unmatched_detections:
+                bbox = bboxes[d, :]
+                cid = class_ids[d]
+                confidence = detection_scores[d]
+                self._add_track(self.frame_count, bbox, confidence, cid)
 
-        for t in unmatched_tracks:
-            track_id = track_ids[t]
-            bbox = bbox_tracks[t, :]
-            confidence = self.tracks[track_id].detection_confidence
-            cid = self.tracks[track_id].class_id
-            self._update_track(track_id, self.frame_count, bbox, confidence, cid, lost=1)
+            for t in unmatched_tracks:
+                track_id = track_ids[t]
+                bbox = bbox_tracks[t, :]
+                confidence = self.tracks[track_id].detection_confidence
+                cid = self.tracks[track_id].class_id
+                self._update_track(track_id, self.frame_count, bbox, confidence, cid, lost=1)
 
-            if self.tracks[track_id].lost > self.max_lost:
-                self._remove_track(track_id)
+                if self.tracks[track_id].lost > self.max_lost:
+                    self._remove_track(track_id)
 
         outputs = self._get_tracks(self.tracks)
         return outputs
