@@ -64,7 +64,7 @@ while True:
     # * `detection_bboxes` are numpy.ndarray of shape (n, 4) with each row containing (bb_left, bb_top, bb_width, bb_height)
     # * `detection_confidences` are numpy.ndarray of shape (n,);
     # * `detection_class_ids` are numpy.ndarray of shape (n,).
-    output_tracks = tracker.track(detection_bboxes, detection_confidences, detection_class_ids)
+    output_tracks = tracker.update(detection_bboxes, detection_confidences, detection_class_ids)
     # `output_tracks` is a list with each element containing tuple of
     # (<frame>, <id>, <bb_left>, <bb_top>, <bb_width>, <bb_height>, <conf>, <x>, <y>, <z>)
     for track in output_tracks:
