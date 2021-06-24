@@ -102,15 +102,3 @@ If you use this repository in your work, please consider citing it with:
 }
 ```
 
-```
-@software{aditya_m_deshpande_2020_3951169,
-  author       = {Aditya M. Deshpande},
-  title        = {Multi-object trackers in Python},
-  month        = jul,
-  year         = 2020,
-  publisher    = {Zenodo},
-  version      = {v1.0.0},
-  doi          = {10.5281/zenodo.3951169},
-  url          = {https://doi.org/10.5281/zenodo.3951169}
-}
-```
