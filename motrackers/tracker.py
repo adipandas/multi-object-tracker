@@ -102,7 +102,7 @@ class Tracker:
             detections (list[Tuple]): Data for detections as list of tuples containing `(bbox, class_id, detection_score)`.
         """
 
-        new_bboxes = np.array(bboxes, dtype='int')
+        new_bboxes = np.array(bboxes, dtype='float')
         new_class_ids = np.array(class_ids, dtype='int')
         new_detection_scores = np.array(detection_scores)
 
