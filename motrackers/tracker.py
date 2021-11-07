@@ -144,7 +144,7 @@ class Tracker:
 
         if len(track_ids):
             track_centroids = np.array([self.tracks[tid].centroid for tid in track_ids])
-            detection_centroids = get_centroid(bboxes)
+            detection_centroids = get_centroid(np.asarray(bboxes))
 
             centroid_distances = distance.cdist(track_centroids, detection_centroids)
 
