@@ -5,3 +5,4 @@ opencv-contrib-python
 pandas
 motmetrics
 setuptools
+ipyfilechooser
