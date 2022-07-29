@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 setup(
@@ -13,5 +13,6 @@ setup(
         'scipy',
         'opencv-contrib-python',
         'motmetrics'
-    ]
+    ],
+    packages=find_packages()
 )
