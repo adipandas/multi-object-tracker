@@ -22,7 +22,8 @@ dependencies = [
 "opencv-python",
 "pandas",
 "motmetrics",
-"setuptools"
+"setuptools",
+"ipyfilechooser"
 ]
 
 [project.urls]
