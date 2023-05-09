@@ -1,69 +1,33 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>motrackers.track &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../index.html" class="icon icon-home"> Multi-object trackers in Python
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -71,18 +35,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../includeme/readmefile.html">Multi-object trackers in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../includeme/readmefile.html#example-tf-mobilenetssd-centroidtracker">Example: <cite>TF-MobileNetSSD + CentroidTracker</cite></a></li>
@@ -99,76 +52,37 @@
 <li class="toctree-l1"><a class="reference internal" href="../../includeme/apidocuments.html#contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../index.html">Multi-object trackers in Python</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../index.html">Module code</a> &raquo;</li>
-        
       <li>motrackers.track</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for motrackers.track</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">motrackers.kalman_tracker</span> <span class="kn">import</span> <span class="n">KFTracker2D</span><span class="p">,</span> <span class="n">KFTrackerSORT</span><span class="p">,</span> <span class="n">KFTracker4D</span>
 
 
 <div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track containing attributes to track various objects.</span>
 
 <span class="sd">    Args:</span>
@@ -221,7 +135,7 @@
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 <div class="viewcode-block" id="Track.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the track.</span>
 
 <span class="sd">        Args:</span>
@@ -253,7 +167,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the centroid of the bounding box.</span>
 
 <span class="sd">        Returns:</span>
@@ -263,7 +177,7 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
 
 <div class="viewcode-block" id="Track.get_mot_challenge_format"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_mot_challenge_format">[docs]</a>    <span class="k">def</span> <span class="nf">get_mot_challenge_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the tracker data in MOT challenge format as a tuple of elements containing</span>
 <span class="sd">        `(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)`</span>
 
@@ -281,7 +195,7 @@
         <span class="k">return</span> <span class="n">mot_tuple</span></div>
 
 <div class="viewcode-block" id="Track.get_vis_drone_format"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_vis_drone_format">[docs]</a>    <span class="k">def</span> <span class="nf">get_vis_drone_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Track data output in VISDRONE Challenge format with tuple as</span>
 <span class="sd">        `(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height, score, object_category,</span>
 <span class="sd">        truncation, occlusion)`.</span>
@@ -303,7 +217,7 @@
         <span class="k">return</span> <span class="n">mot_tuple</span></div>
 
 <div class="viewcode-block" id="Track.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Implement to prediction the next estimate of track.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="bp">NotImplemented</span></div>
@@ -314,7 +228,7 @@
 
 
 <div class="viewcode-block" id="KFTrackSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrackSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
 <span class="sd">    Args:</span>
@@ -340,7 +254,7 @@
                          <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="n">data_output_format</span><span class="o">=</span><span class="n">data_output_format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KFTrackSORT.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts the next estimate of the bounding box of the track.</span>
 
 <span class="sd">        Returns:</span>
@@ -368,7 +282,7 @@
 
 
 <div class="viewcode-block" id="KFTrack4DSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrack4DSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
 <span class="sd">    Args:</span>
@@ -407,7 +321,7 @@
 
 
 <div class="viewcode-block" id="KFTrackCentroid"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid">[docs]</a><span class="k">class</span> <span class="nc">KFTrackCentroid</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter used for Centroid Tracking of bounding box in MOT.</span>
 
 <span class="sd">    Args:</span>
@@ -432,7 +346,7 @@
                          <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="n">data_output_format</span><span class="o">=</span><span class="n">data_output_format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KFTrackCentroid.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts the next estimate of the bounding box of the track.</span>
 
 <span class="sd">        Returns:</span>
@@ -453,46 +367,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Aditya M. Deshpande.
-
-    </p>
+    <p>&#169; Copyright 2021, Aditya M. Deshpande.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

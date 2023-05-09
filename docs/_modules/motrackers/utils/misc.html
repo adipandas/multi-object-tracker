@@ -1,69 +1,33 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
-  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>motrackers.utils.misc &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
-    
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../../../index.html" class="icon icon-home"> Multi-object trackers in Python
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -71,18 +35,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../includeme/readmefile.html">Multi-object trackers in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../includeme/readmefile.html#example-tf-mobilenetssd-centroidtracker">Example: <cite>TF-MobileNetSSD + CentroidTracker</cite></a></li>
@@ -99,76 +52,37 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../includeme/apidocuments.html#contributor-covenant-code-of-conduct">Contributor Covenant Code of Conduct</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../../../index.html">Multi-object trackers in Python</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-        
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-        
       <li>motrackers.utils.misc</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
+             
   <h1>Source code for motrackers.utils.misc</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">cv2</span> <span class="k">as</span> <span class="nn">cv</span>
 
 
 <div class="viewcode-block" id="get_centroid"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.get_centroid">[docs]</a><span class="k">def</span> <span class="nf">get_centroid</span><span class="p">(</span><span class="n">bboxes</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate centroids for multiple bounding boxes.</span>
 
 <span class="sd">    Args:</span>
@@ -200,7 +114,7 @@
 
 
 <div class="viewcode-block" id="iou"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.iou">[docs]</a><span class="k">def</span> <span class="nf">iou</span><span class="p">(</span><span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
 <span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
 
@@ -241,7 +155,7 @@
 
 
 <div class="viewcode-block" id="iou_xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.iou_xywh">[docs]</a><span class="k">def</span> <span class="nf">iou_xywh</span><span class="p">(</span><span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
 <span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
 
@@ -261,7 +175,7 @@
 
 
 <div class="viewcode-block" id="xyxy2xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.xyxy2xywh">[docs]</a><span class="k">def</span> <span class="nf">xyxy2xywh</span><span class="p">(</span><span class="n">xyxy</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmin, ymin, xmax, ymax) format to (xmin, ymin, width, height).</span>
 
 <span class="sd">    Args:</span>
@@ -286,7 +200,7 @@
 
 
 <div class="viewcode-block" id="xywh2xyxy"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.xywh2xyxy">[docs]</a><span class="k">def</span> <span class="nf">xywh2xyxy</span><span class="p">(</span><span class="n">xywh</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmin, ymin, width, height) to (xmin, ymin, xmax, ymax) format.</span>
 
 <span class="sd">    Args:</span>
@@ -310,7 +224,7 @@
 
 
 <div class="viewcode-block" id="midwh2xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.midwh2xywh">[docs]</a><span class="k">def</span> <span class="nf">midwh2xywh</span><span class="p">(</span><span class="n">midwh</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmid, ymid, width, height) to (xmin, ymin, width, height) format.</span>
 
 <span class="sd">    Args:</span>
@@ -332,7 +246,7 @@
 
 
 <div class="viewcode-block" id="intersection_complement_indices"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.intersection_complement_indices">[docs]</a><span class="k">def</span> <span class="nf">intersection_complement_indices</span><span class="p">(</span><span class="n">big_set_indices</span><span class="p">,</span> <span class="n">small_set_indices</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the complement of intersection of two sets of indices.</span>
 
 <span class="sd">    Args:</span>
@@ -351,7 +265,7 @@
 
 
 <div class="viewcode-block" id="nms"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.nms">[docs]</a><span class="k">def</span> <span class="nf">nms</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">overlapThresh</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Non-maximum suppression. based on Malisiewicz et al.</span>
 
 <span class="sd">    Args:</span>
@@ -409,7 +323,7 @@
 
 
 <div class="viewcode-block" id="draw_tracks"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.draw_tracks">[docs]</a><span class="k">def</span> <span class="nf">draw_tracks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">tracks</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Draw on input image.</span>
 
 <span class="sd">    Args:</span>
@@ -471,46 +385,30 @@
 </pre></div>
 
            </div>
-           
           </div>
           <footer>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Aditya M. Deshpande.
-
-    </p>
+    <p>&#169; Copyright 2021, Aditya M. Deshpande.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

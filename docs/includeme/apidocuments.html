@@ -1,70 +1,35 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Tracker &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../_static/js/theme.js"></script>
-
-    
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Multi-object trackers in Python" href="readmefile.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="../index.html" class="icon icon-home"> Multi-object trackers in Python
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -72,30 +37,127 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="readmefile.html">Multi-object trackers in Python</a></li>
 <li class="toctree-l1"><a class="reference internal" href="readmefile.html#example-tf-mobilenetssd-centroidtracker">Example: <cite>TF-MobileNetSSD + CentroidTracker</cite></a></li>
 <li class="toctree-l1"><a class="reference internal" href="readmefile.html#example-yolov3-centroidtracker">Example: <cite>YOLOv3 + CentroidTracker</cite></a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tracker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#sort">SORT</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#iou-tracker">IOU Tracker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#kalman-filter-based-centroid-tracker">Kalman Filter based Centroid Tracker</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#tracks">Tracks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#kalman-filters">Kalman Filters</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#object-detection">Object Detection</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tracker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.tracker.Tracker"><code class="docutils literal notranslate"><span class="pre">Tracker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.tracker.Tracker.preprocess_input"><code class="docutils literal notranslate"><span class="pre">Tracker.preprocess_input()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.tracker.Tracker.update"><code class="docutils literal notranslate"><span class="pre">Tracker.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#sort">SORT</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.sort_tracker.assign_tracks2detection_iou"><code class="docutils literal notranslate"><span class="pre">assign_tracks2detection_iou()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.sort_tracker.SORT"><code class="docutils literal notranslate"><span class="pre">SORT</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.sort_tracker.SORT.update"><code class="docutils literal notranslate"><span class="pre">SORT.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#iou-tracker">IOU Tracker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.iou_tracker.IOUTracker"><code class="docutils literal notranslate"><span class="pre">IOUTracker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.iou_tracker.IOUTracker.update"><code class="docutils literal notranslate"><span class="pre">IOUTracker.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#kalman-filter-based-centroid-tracker">Kalman Filter based Centroid Tracker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.centroid_kf_tracker.assign_tracks2detection_centroid_distances"><code class="docutils literal notranslate"><span class="pre">assign_tracks2detection_centroid_distances()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.centroid_kf_tracker.CentroidKF_Tracker"><code class="docutils literal notranslate"><span class="pre">CentroidKF_Tracker</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.centroid_kf_tracker.CentroidKF_Tracker.update"><code class="docutils literal notranslate"><span class="pre">CentroidKF_Tracker.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#tracks">Tracks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.track.Track"><code class="docutils literal notranslate"><span class="pre">Track</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.Track.centroid"><code class="docutils literal notranslate"><span class="pre">Track.centroid</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.Track.get_mot_challenge_format"><code class="docutils literal notranslate"><span class="pre">Track.get_mot_challenge_format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.Track.get_vis_drone_format"><code class="docutils literal notranslate"><span class="pre">Track.get_vis_drone_format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.Track.predict"><code class="docutils literal notranslate"><span class="pre">Track.predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.Track.update"><code class="docutils literal notranslate"><span class="pre">Track.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.track.KFTrackSORT"><code class="docutils literal notranslate"><span class="pre">KFTrackSORT</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.KFTrackSORT.predict"><code class="docutils literal notranslate"><span class="pre">KFTrackSORT.predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.KFTrackSORT.update"><code class="docutils literal notranslate"><span class="pre">KFTrackSORT.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.track.KFTrack4DSORT"><code class="docutils literal notranslate"><span class="pre">KFTrack4DSORT</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.KFTrack4DSORT.predict"><code class="docutils literal notranslate"><span class="pre">KFTrack4DSORT.predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.KFTrack4DSORT.update"><code class="docutils literal notranslate"><span class="pre">KFTrack4DSORT.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.track.KFTrackCentroid"><code class="docutils literal notranslate"><span class="pre">KFTrackCentroid</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.KFTrackCentroid.predict"><code class="docutils literal notranslate"><span class="pre">KFTrackCentroid.predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.track.KFTrackCentroid.update"><code class="docutils literal notranslate"><span class="pre">KFTrackCentroid.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#kalman-filters">Kalman Filters</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.kalman_tracker.KalmanFilter"><code class="docutils literal notranslate"><span class="pre">KalmanFilter</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.kalman_tracker.KalmanFilter.predict"><code class="docutils literal notranslate"><span class="pre">KalmanFilter.predict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.kalman_tracker.KalmanFilter.update"><code class="docutils literal notranslate"><span class="pre">KalmanFilter.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.kalman_tracker.KFTrackerConstantAcceleration"><code class="docutils literal notranslate"><span class="pre">KFTrackerConstantAcceleration</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.kalman_tracker.KFTracker1D"><code class="docutils literal notranslate"><span class="pre">KFTracker1D</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.kalman_tracker.KFTracker2D"><code class="docutils literal notranslate"><span class="pre">KFTracker2D</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.kalman_tracker.KFTracker4D"><code class="docutils literal notranslate"><span class="pre">KFTracker4D</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.kalman_tracker.KFTrackerSORT"><code class="docutils literal notranslate"><span class="pre">KFTrackerSORT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#object-detection">Object Detection</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.detectors.detector.Detector"><code class="docutils literal notranslate"><span class="pre">Detector</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.detectors.detector.Detector.detect"><code class="docutils literal notranslate"><span class="pre">Detector.detect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.detectors.detector.Detector.draw_bboxes"><code class="docutils literal notranslate"><span class="pre">Detector.draw_bboxes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.detectors.detector.Detector.forward"><code class="docutils literal notranslate"><span class="pre">Detector.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.detectors.caffe.Caffe_SSDMobileNet"><code class="docutils literal notranslate"><span class="pre">Caffe_SSDMobileNet</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.detectors.caffe.Caffe_SSDMobileNet.forward"><code class="docutils literal notranslate"><span class="pre">Caffe_SSDMobileNet.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.detectors.tf.TF_SSDMobileNetV2"><code class="docutils literal notranslate"><span class="pre">TF_SSDMobileNetV2</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.detectors.tf.TF_SSDMobileNetV2.forward"><code class="docutils literal notranslate"><span class="pre">TF_SSDMobileNetV2.forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.detectors.yolo.YOLOv3"><code class="docutils literal notranslate"><span class="pre">YOLOv3</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.detectors.yolo.YOLOv3.detect"><code class="docutils literal notranslate"><span class="pre">YOLOv3.detect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#motrackers.detectors.yolo.YOLOv3.forward"><code class="docutils literal notranslate"><span class="pre">YOLOv3.forward()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="#utilities">Utilities</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.get_centroid"><code class="docutils literal notranslate"><span class="pre">get_centroid()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.iou"><code class="docutils literal notranslate"><span class="pre">iou()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.iou_xywh"><code class="docutils literal notranslate"><span class="pre">iou_xywh()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.xyxy2xywh"><code class="docutils literal notranslate"><span class="pre">xyxy2xywh()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.xywh2xyxy"><code class="docutils literal notranslate"><span class="pre">xywh2xyxy()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.midwh2xywh"><code class="docutils literal notranslate"><span class="pre">midwh2xywh()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.intersection_complement_indices"><code class="docutils literal notranslate"><span class="pre">intersection_complement_indices()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.nms"><code class="docutils literal notranslate"><span class="pre">nms()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.draw_tracks"><code class="docutils literal notranslate"><span class="pre">draw_tracks()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.load_labelsjson"><code class="docutils literal notranslate"><span class="pre">load_labelsjson()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.misc.dict2jsonfile"><code class="docutils literal notranslate"><span class="pre">dict2jsonfile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.create_filechooser"><code class="docutils literal notranslate"><span class="pre">create_filechooser()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_caffemodel_prototxt"><code class="docutils literal notranslate"><span class="pre">select_caffemodel_prototxt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_caffemodel_weights"><code class="docutils literal notranslate"><span class="pre">select_caffemodel_weights()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_caffemodel"><code class="docutils literal notranslate"><span class="pre">select_caffemodel()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_videofile"><code class="docutils literal notranslate"><span class="pre">select_videofile()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_yolo_weights"><code class="docutils literal notranslate"><span class="pre">select_yolo_weights()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_coco_labels"><code class="docutils literal notranslate"><span class="pre">select_coco_labels()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_yolo_config"><code class="docutils literal notranslate"><span class="pre">select_yolo_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_yolo_model"><code class="docutils literal notranslate"><span class="pre">select_yolo_model()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_pbtxt"><code class="docutils literal notranslate"><span class="pre">select_pbtxt()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_tfmobilenet_weights"><code class="docutils literal notranslate"><span class="pre">select_tfmobilenet_weights()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#motrackers.utils.filechooser_utils.select_tfmobilenet"><code class="docutils literal notranslate"><span class="pre">select_tfmobilenet()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#download-pretrained-neural-network-weights">Download pretrained neural-network weights.</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#yolov3">YOLOv3</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tensorflow-mobilenetssdv2">TensorFlow - MobileNetSSDv2</a></li>
@@ -116,76 +178,35 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="../index.html">Multi-object trackers in Python</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Tracker</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="../_sources/includeme/apidocuments.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="tracker">
-<h1>Tracker<a class="headerlink" href="#tracker" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="tracker">
+<h1>Tracker<a class="headerlink" href="#tracker" title="Permalink to this heading"></a></h1>
 <dl class="py class">
-<dt id="motrackers.tracker.Tracker">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.tracker.</code><code class="sig-name descname">Tracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_lost</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">tracker_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/tracker.html#Tracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.tracker.Tracker" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.tracker.Tracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.tracker.</span></span><span class="sig-name descname"><span class="pre">Tracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/tracker.html#Tracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.tracker.Tracker" title="Permalink to this definition"></a></dt>
 <dd><p>Greedy Tracker with tracking based on <code class="docutils literal notranslate"><span class="pre">centroid</span></code> location of the bounding box of the object.
 This tracker is also referred as <code class="docutils literal notranslate"><span class="pre">CentroidTracker</span></code> in this repository.</p>
 <dl class="field-list simple">
@@ -197,8 +218,8 @@ This tracker is also referred as <code class="docutils literal notranslate"><spa
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.tracker.Tracker.preprocess_input">
-<em class="property">static </em><code class="sig-name descname">preprocess_input</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bboxes</span></em>, <em class="sig-param"><span class="n">class_ids</span></em>, <em class="sig-param"><span class="n">detection_scores</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/tracker.html#Tracker.preprocess_input"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.tracker.Tracker.preprocess_input" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.tracker.Tracker.preprocess_input">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">preprocess_input</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bboxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_scores</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/tracker.html#Tracker.preprocess_input"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.tracker.Tracker.preprocess_input" title="Permalink to this definition"></a></dt>
 <dd><p>Preprocess the input data.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -218,8 +239,8 @@ This tracker is also referred as <code class="docutils literal notranslate"><spa
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.tracker.Tracker.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bboxes</span></em>, <em class="sig-param"><span class="n">detection_scores</span></em>, <em class="sig-param"><span class="n">class_ids</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/tracker.html#Tracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.tracker.Tracker.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.tracker.Tracker.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bboxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/tracker.html#Tracker.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.tracker.Tracker.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the tracker based on the new bounding boxes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -241,12 +262,12 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 
 </dd></dl>
 
-</div>
-<div class="section" id="sort">
-<h1>SORT<a class="headerlink" href="#sort" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="sort">
+<h1>SORT<a class="headerlink" href="#sort" title="Permalink to this heading"></a></h1>
 <dl class="py function">
-<dt id="motrackers.sort_tracker.assign_tracks2detection_iou">
-<code class="sig-prename descclassname">motrackers.sort_tracker.</code><code class="sig-name descname">assign_tracks2detection_iou</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bbox_tracks</span></em>, <em class="sig-param"><span class="n">bbox_detections</span></em>, <em class="sig-param"><span class="n">iou_threshold</span><span class="o">=</span><span class="default_value">0.3</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/sort_tracker.html#assign_tracks2detection_iou"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.sort_tracker.assign_tracks2detection_iou" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.sort_tracker.assign_tracks2detection_iou">
+<span class="sig-prename descclassname"><span class="pre">motrackers.sort_tracker.</span></span><span class="sig-name descname"><span class="pre">assign_tracks2detection_iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox_tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/sort_tracker.html#assign_tracks2detection_iou"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.sort_tracker.assign_tracks2detection_iou" title="Permalink to this definition"></a></dt>
 <dd><p>Assigns detected bounding boxes to tracked bounding boxes using IoU as a distance metric.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -274,8 +295,8 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.sort_tracker.SORT">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.sort_tracker.</code><code class="sig-name descname">SORT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">tracker_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em>, <em class="sig-param"><span class="n">iou_threshold</span><span class="o">=</span><span class="default_value">0.3</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/sort_tracker.html#SORT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.sort_tracker.SORT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.sort_tracker.SORT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.sort_tracker.</span></span><span class="sig-name descname"><span class="pre">SORT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/sort_tracker.html#SORT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.sort_tracker.SORT" title="Permalink to this definition"></a></dt>
 <dd><p>SORT - Multi object tracker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -292,8 +313,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.sort_tracker.SORT.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bboxes</span></em>, <em class="sig-param"><span class="n">detection_scores</span></em>, <em class="sig-param"><span class="n">class_ids</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/sort_tracker.html#SORT.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.sort_tracker.SORT.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.sort_tracker.SORT.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bboxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/sort_tracker.html#SORT.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.sort_tracker.SORT.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the tracker based on the new bounding boxes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -315,12 +336,12 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 
 </dd></dl>
 
-</div>
-<div class="section" id="iou-tracker">
-<h1>IOU Tracker<a class="headerlink" href="#iou-tracker" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="iou-tracker">
+<h1>IOU Tracker<a class="headerlink" href="#iou-tracker" title="Permalink to this heading"></a></h1>
 <dl class="py class">
-<dt id="motrackers.iou_tracker.IOUTracker">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.iou_tracker.</code><code class="sig-name descname">IOUTracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_lost</span><span class="o">=</span><span class="default_value">2</span></em>, <em class="sig-param"><span class="n">iou_threshold</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">min_detection_confidence</span><span class="o">=</span><span class="default_value">0.4</span></em>, <em class="sig-param"><span class="n">max_detection_confidence</span><span class="o">=</span><span class="default_value">0.7</span></em>, <em class="sig-param"><span class="n">tracker_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/iou_tracker.html#IOUTracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.iou_tracker.IOUTracker" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.iou_tracker.IOUTracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.iou_tracker.</span></span><span class="sig-name descname"><span class="pre">IOUTracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_detection_confidence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_detection_confidence</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.7</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/iou_tracker.html#IOUTracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.iou_tracker.IOUTracker" title="Permalink to this definition"></a></dt>
 <dd><p>Intersection over Union Tracker.</p>
 <p class="rubric">References</p>
 <ul class="simple">
@@ -338,8 +359,8 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.iou_tracker.IOUTracker.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bboxes</span></em>, <em class="sig-param"><span class="n">detection_scores</span></em>, <em class="sig-param"><span class="n">class_ids</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/iou_tracker.html#IOUTracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.iou_tracker.IOUTracker.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.iou_tracker.IOUTracker.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bboxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/iou_tracker.html#IOUTracker.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.iou_tracker.IOUTracker.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the tracker based on the new bounding boxes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -361,12 +382,12 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 
 </dd></dl>
 
-</div>
-<div class="section" id="kalman-filter-based-centroid-tracker">
-<h1>Kalman Filter based Centroid Tracker<a class="headerlink" href="#kalman-filter-based-centroid-tracker" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="kalman-filter-based-centroid-tracker">
+<h1>Kalman Filter based Centroid Tracker<a class="headerlink" href="#kalman-filter-based-centroid-tracker" title="Permalink to this heading"></a></h1>
 <dl class="py function">
-<dt id="motrackers.centroid_kf_tracker.assign_tracks2detection_centroid_distances">
-<code class="sig-prename descclassname">motrackers.centroid_kf_tracker.</code><code class="sig-name descname">assign_tracks2detection_centroid_distances</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bbox_tracks</span></em>, <em class="sig-param"><span class="n">bbox_detections</span></em>, <em class="sig-param"><span class="n">distance_threshold</span><span class="o">=</span><span class="default_value">10.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/centroid_kf_tracker.html#assign_tracks2detection_centroid_distances"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.centroid_kf_tracker.assign_tracks2detection_centroid_distances" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.centroid_kf_tracker.assign_tracks2detection_centroid_distances">
+<span class="sig-prename descclassname"><span class="pre">motrackers.centroid_kf_tracker.</span></span><span class="sig-name descname"><span class="pre">assign_tracks2detection_centroid_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox_tracks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox_detections</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/centroid_kf_tracker.html#assign_tracks2detection_centroid_distances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.centroid_kf_tracker.assign_tracks2detection_centroid_distances" title="Permalink to this definition"></a></dt>
 <dd><p>Assigns detected bounding boxes to tracked bounding boxes using IoU as a distance metric.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -380,14 +401,12 @@ and new detection to consider for assignment.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><dl>
+<dd class="field-even"><p><dl class="simple">
 <dt>Tuple containing the following elements:</dt><dd><ul class="simple">
-<li><p>matches (numpy.ndarray): Array of shape <cite>(n, 2)</cite> where <cite>n</cite> is number of pairs formed after</p></li>
+<li><p>matches (numpy.ndarray): Array of shape <cite>(n, 2)</cite> where <cite>n</cite> is number of pairs formed after matching tracks to detections. This is an array of tuples with each element as matched pair of indices`(track_index, detection_index)`.</p></li>
+<li><p>unmatched_detections (numpy.ndarray): Array of shape <cite>(m,)</cite> where <cite>m</cite> is number of unmatched detections.</p></li>
+<li><p>unmatched_tracks (numpy.ndarray): Array of shape <cite>(k,)</cite> where <cite>k</cite> is the number of unmatched tracks.</p></li>
 </ul>
-<p>matching tracks to detections. This is an array of tuples with each element as matched pair
-of indices`(track_index, detection_index)`.
-- unmatched_detections (numpy.ndarray): Array of shape <cite>(m,)</cite> where <cite>m</cite> is number of unmatched detections.
-- unmatched_tracks (numpy.ndarray): Array of shape <cite>(k,)</cite> where <cite>k</cite> is the number of unmatched tracks.</p>
 </dd>
 </dl>
 </p>
@@ -399,8 +418,8 @@ of indices`(track_index, detection_index)`.
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.centroid_kf_tracker.CentroidKF_Tracker">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.centroid_kf_tracker.</code><code class="sig-name descname">CentroidKF_Tracker</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">max_lost</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">centroid_distance_threshold</span><span class="o">=</span><span class="default_value">30.0</span></em>, <em class="sig-param"><span class="n">tracker_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/centroid_kf_tracker.html#CentroidKF_Tracker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.centroid_kf_tracker.CentroidKF_Tracker" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.centroid_kf_tracker.CentroidKF_Tracker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.centroid_kf_tracker.</span></span><span class="sig-name descname"><span class="pre">CentroidKF_Tracker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">centroid_distance_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">30.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracker_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/centroid_kf_tracker.html#CentroidKF_Tracker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.centroid_kf_tracker.CentroidKF_Tracker" title="Permalink to this definition"></a></dt>
 <dd><p>Kalman filter based tracking of multiple detected objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -416,8 +435,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.centroid_kf_tracker.CentroidKF_Tracker.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bboxes</span></em>, <em class="sig-param"><span class="n">detection_scores</span></em>, <em class="sig-param"><span class="n">class_ids</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/centroid_kf_tracker.html#CentroidKF_Tracker.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.centroid_kf_tracker.CentroidKF_Tracker.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.centroid_kf_tracker.CentroidKF_Tracker.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bboxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/centroid_kf_tracker.html#CentroidKF_Tracker.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.centroid_kf_tracker.CentroidKF_Tracker.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the tracker based on the new bounding boxes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -439,12 +458,12 @@ coordinates of bounding box as tuple <cite>(top-left-x, top-left-y, width, heigh
 
 </dd></dl>
 
-</div>
-<div class="section" id="tracks">
-<h1>Tracks<a class="headerlink" href="#tracks" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="tracks">
+<h1>Tracks<a class="headerlink" href="#tracks" title="Permalink to this heading"></a></h1>
 <dl class="py class">
-<dt id="motrackers.track.Track">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.track.</code><code class="sig-name descname">Track</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">track_id</span></em>, <em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">data_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.Track" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.Track">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.track.</span></span><span class="sig-name descname"><span class="pre">Track</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.Track" title="Permalink to this definition"></a></dt>
 <dd><p>Track containing attributes to track various objects.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -462,9 +481,9 @@ Options include <code class="docutils literal notranslate"><span class="pre">['m
 </ul>
 </dd>
 </dl>
-<dl class="py method">
-<dt id="motrackers.track.Track.centroid">
-<em class="property">property </em><code class="sig-name descname">centroid</code><a class="headerlink" href="#motrackers.track.Track.centroid" title="Permalink to this definition">¶</a></dt>
+<dl class="py property">
+<dt class="sig sig-object py" id="motrackers.track.Track.centroid">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">centroid</span></span><a class="headerlink" href="#motrackers.track.Track.centroid" title="Permalink to this definition"></a></dt>
 <dd><p>Return the centroid of the bounding box.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -477,8 +496,8 @@ Options include <code class="docutils literal notranslate"><span class="pre">['m
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.track.Track.get_mot_challenge_format">
-<code class="sig-name descname">get_mot_challenge_format</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.get_mot_challenge_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.Track.get_mot_challenge_format" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.Track.get_mot_challenge_format">
+<span class="sig-name descname"><span class="pre">get_mot_challenge_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.get_mot_challenge_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.Track.get_mot_challenge_format" title="Permalink to this definition"></a></dt>
 <dd><p>Get the tracker data in MOT challenge format as a tuple of elements containing
 <cite>(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)</cite></p>
 <p class="rubric">References</p>
@@ -496,8 +515,8 @@ Options include <code class="docutils literal notranslate"><span class="pre">['m
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.track.Track.get_vis_drone_format">
-<code class="sig-name descname">get_vis_drone_format</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.get_vis_drone_format"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.Track.get_vis_drone_format" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.Track.get_vis_drone_format">
+<span class="sig-name descname"><span class="pre">get_vis_drone_format</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.get_vis_drone_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.Track.get_vis_drone_format" title="Permalink to this definition"></a></dt>
 <dd><p>Track data output in VISDRONE Challenge format with tuple as
 <cite>(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height, score, object_category,
 truncation, occlusion)</cite>.</p>
@@ -520,14 +539,14 @@ score, object_category, truncation, occlusion)</cite>.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.track.Track.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.Track.predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.Track.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.Track.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Implement to prediction the next estimate of track.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.track.Track.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.Track.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.Track.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#Track.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.Track.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the track.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -547,8 +566,8 @@ score, object_category, truncation, occlusion)</cite>.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.track.KFTrackSORT">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.track.</code><code class="sig-name descname">KFTrackSORT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">track_id</span></em>, <em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">data_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackSORT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrackSORT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrackSORT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.track.</span></span><span class="sig-name descname"><span class="pre">KFTrackSORT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackSORT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrackSORT" title="Permalink to this definition"></a></dt>
 <dd><p>Track based on Kalman filter tracker used for SORT MOT-Algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -569,8 +588,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.track.KFTrackSORT.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackSORT.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrackSORT.predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrackSORT.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackSORT.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrackSORT.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts the next estimate of the bounding box of the track.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -583,8 +602,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.track.KFTrackSORT.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackSORT.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrackSORT.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrackSORT.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackSORT.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrackSORT.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the track.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -604,8 +623,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.track.KFTrack4DSORT">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.track.</code><code class="sig-name descname">KFTrack4DSORT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">track_id</span></em>, <em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">data_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">kf_time_step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrack4DSORT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrack4DSORT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrack4DSORT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.track.</span></span><span class="sig-name descname"><span class="pre">KFTrack4DSORT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kf_time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrack4DSORT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrack4DSORT" title="Permalink to this definition"></a></dt>
 <dd><p>Track based on Kalman filter tracker used for SORT MOT-Algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -626,14 +645,14 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.track.KFTrack4DSORT.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrack4DSORT.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrack4DSORT.predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrack4DSORT.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrack4DSORT.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrack4DSORT.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Implement to prediction the next estimate of track.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.track.KFTrack4DSORT.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrack4DSORT.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrack4DSORT.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrack4DSORT.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrack4DSORT.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrack4DSORT.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the track.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -653,8 +672,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.track.KFTrackCentroid">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.track.</code><code class="sig-name descname">KFTrackCentroid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">track_id</span></em>, <em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="n">data_output_format</span><span class="o">=</span><span class="default_value">'mot_challenge'</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackCentroid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrackCentroid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrackCentroid">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.track.</span></span><span class="sig-name descname"><span class="pre">KFTrackCentroid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">track_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_output_format</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'mot_challenge'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackCentroid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrackCentroid" title="Permalink to this definition"></a></dt>
 <dd><p>Track based on Kalman filter used for Centroid Tracking of bounding box in MOT.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -675,8 +694,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.track.KFTrackCentroid.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackCentroid.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrackCentroid.predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrackCentroid.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackCentroid.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrackCentroid.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts the next estimate of the bounding box of the track.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -689,8 +708,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.track.KFTrackCentroid.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">frame_id</span></em>, <em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">detection_confidence</span></em>, <em class="sig-param"><span class="n">class_id</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">lost</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">iou_score</span><span class="o">=</span><span class="default_value">0.0</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackCentroid.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.track.KFTrackCentroid.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.track.KFTrackCentroid.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">frame_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detection_confidence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_id</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lost</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iou_score</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/track.html#KFTrackCentroid.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.track.KFTrackCentroid.update" title="Permalink to this definition"></a></dt>
 <dd><p>Update the track.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -709,12 +728,12 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 
 </dd></dl>
 
-</div>
-<div class="section" id="kalman-filters">
-<h1>Kalman Filters<a class="headerlink" href="#kalman-filters" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="kalman-filters">
+<h1>Kalman Filters<a class="headerlink" href="#kalman-filters" title="Permalink to this heading"></a></h1>
 <dl class="py class">
-<dt id="motrackers.kalman_tracker.KalmanFilter">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.kalman_tracker.</code><code class="sig-name descname">KalmanFilter</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">transition_matrix</span></em>, <em class="sig-param"><span class="n">measurement_matrix</span></em>, <em class="sig-param"><span class="n">control_matrix</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">process_noise_covariance</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">measurement_noise_covariance</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">prediction_covariance</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">initial_state</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KalmanFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KalmanFilter" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KalmanFilter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.kalman_tracker.</span></span><span class="sig-name descname"><span class="pre">KalmanFilter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">transition_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control_matrix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_covariance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_covariance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prediction_covariance</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KalmanFilter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KalmanFilter" title="Permalink to this definition"></a></dt>
 <dd><p>Kalman Filter Implementation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -730,8 +749,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.kalman_tracker.KalmanFilter.predict">
-<code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">u</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KalmanFilter.predict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KalmanFilter.predict" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KalmanFilter.predict">
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KalmanFilter.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KalmanFilter.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Prediction step of Kalman Filter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -747,8 +766,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.kalman_tracker.KalmanFilter.update">
-<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">z</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KalmanFilter.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KalmanFilter.update" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KalmanFilter.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KalmanFilter.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KalmanFilter.update" title="Permalink to this definition"></a></dt>
 <dd><p>Measurement update of Kalman Filter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -760,8 +779,8 @@ Options <code class="docutils literal notranslate"><span class="pre">['mot_chall
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.kalman_tracker.KFTrackerConstantAcceleration">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.kalman_tracker.</code><code class="sig-name descname">KFTrackerConstantAcceleration</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_measurement</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTrackerConstantAcceleration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTrackerConstantAcceleration" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KFTrackerConstantAcceleration">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.kalman_tracker.</span></span><span class="sig-name descname"><span class="pre">KFTrackerConstantAcceleration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_measurement</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTrackerConstantAcceleration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTrackerConstantAcceleration" title="Permalink to this definition"></a></dt>
 <dd><p>Kalman Filter with constant acceleration kinematic model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -778,23 +797,23 @@ or covariance magnitude as scalar value.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.kalman_tracker.KFTracker1D">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.kalman_tracker.</code><code class="sig-name descname">KFTracker1D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_measurement</span><span class="o">=</span><span class="default_value">array([0.0])</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTracker1D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTracker1D" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KFTracker1D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.kalman_tracker.</span></span><span class="sig-name descname"><span class="pre">KFTracker1D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_measurement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.0])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTracker1D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTracker1D" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.kalman_tracker.KFTracker2D">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.kalman_tracker.</code><code class="sig-name descname">KFTracker2D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_measurement</span><span class="o">=</span><span class="default_value">array([0.0, 0.0])</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTracker2D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTracker2D" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KFTracker2D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.kalman_tracker.</span></span><span class="sig-name descname"><span class="pre">KFTracker2D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_measurement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.0,</span> <span class="pre">0.0])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTracker2D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTracker2D" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.kalman_tracker.KFTracker4D">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.kalman_tracker.</code><code class="sig-name descname">KFTracker4D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">initial_measurement</span><span class="o">=</span><span class="default_value">array([0.0, 0.0, 0.0, 0.0])</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTracker4D"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTracker4D" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KFTracker4D">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.kalman_tracker.</span></span><span class="sig-name descname"><span class="pre">KFTracker4D</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_measurement</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">array([0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0,</span> <span class="pre">0.0])</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTracker4D"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTracker4D" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.kalman_tracker.KFTrackerSORT">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.kalman_tracker.</code><code class="sig-name descname">KFTrackerSORT</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bbox</span></em>, <em class="sig-param"><span class="n">process_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">measurement_noise_scale</span><span class="o">=</span><span class="default_value">1.0</span></em>, <em class="sig-param"><span class="n">time_step</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTrackerSORT"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTrackerSORT" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.kalman_tracker.KFTrackerSORT">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.kalman_tracker.</span></span><span class="sig-name descname"><span class="pre">KFTrackerSORT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">process_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measurement_noise_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/kalman_tracker.html#KFTrackerSORT"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.kalman_tracker.KFTrackerSORT" title="Permalink to this definition"></a></dt>
 <dd><p>Kalman filter for <code class="docutils literal notranslate"><span class="pre">SORT</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -808,12 +827,12 @@ or covariance magnitude as scalar value.</p></li>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="object-detection">
-<h1>Object Detection<a class="headerlink" href="#object-detection" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="object-detection">
+<h1>Object Detection<a class="headerlink" href="#object-detection" title="Permalink to this heading"></a></h1>
 <dl class="py class">
-<dt id="motrackers.detectors.detector.Detector">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.detectors.detector.</code><code class="sig-name descname">Detector</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">object_names</span></em>, <em class="sig-param"><span class="n">confidence_threshold</span></em>, <em class="sig-param"><span class="n">nms_threshold</span></em>, <em class="sig-param"><span class="n">draw_bboxes</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.detector.Detector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.detectors.detector.</span></span><span class="sig-name descname"><span class="pre">Detector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_names</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nms_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_bboxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector" title="Permalink to this definition"></a></dt>
 <dd><p>Abstract class for detector.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -826,8 +845,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.detectors.detector.Detector.detect">
-<code class="sig-name descname">detect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector.detect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector.detect" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.detector.Detector.detect">
+<span class="sig-name descname"><span class="pre">detect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector.detect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector.detect" title="Permalink to this definition"></a></dt>
 <dd><p>Detect objects in the input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -851,8 +870,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.detectors.detector.Detector.draw_bboxes">
-<code class="sig-name descname">draw_bboxes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">bboxes</span></em>, <em class="sig-param"><span class="n">confidences</span></em>, <em class="sig-param"><span class="n">class_ids</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector.draw_bboxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector.draw_bboxes" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.detector.Detector.draw_bboxes">
+<span class="sig-name descname"><span class="pre">draw_bboxes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bboxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidences</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">class_ids</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector.draw_bboxes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector.draw_bboxes" title="Permalink to this definition"></a></dt>
 <dd><p>Draw the bounding boxes about detected objects in the image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -873,8 +892,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.detectors.detector.Detector.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector.forward" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.detector.Detector.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/detector.html#Detector.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.detector.Detector.forward" title="Permalink to this definition"></a></dt>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -892,8 +911,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.detectors.caffe.Caffe_SSDMobileNet">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.detectors.caffe.</code><code class="sig-name descname">Caffe_SSDMobileNet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights_path</span></em>, <em class="sig-param"><span class="n">configfile_path</span></em>, <em class="sig-param"><span class="n">labels_path</span></em>, <em class="sig-param"><span class="n">confidence_threshold</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">nms_threshold</span><span class="o">=</span><span class="default_value">0.2</span></em>, <em class="sig-param"><span class="n">draw_bboxes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">use_gpu</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/caffe.html#Caffe_SSDMobileNet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.caffe.Caffe_SSDMobileNet" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.caffe.Caffe_SSDMobileNet">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.detectors.caffe.</span></span><span class="sig-name descname"><span class="pre">Caffe_SSDMobileNet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">configfile_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nms_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_bboxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/caffe.html#Caffe_SSDMobileNet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.caffe.Caffe_SSDMobileNet" title="Permalink to this definition"></a></dt>
 <dd><p>Caffe SSD MobileNet model for Object Detection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -909,8 +928,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.detectors.caffe.Caffe_SSDMobileNet.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/caffe.html#Caffe_SSDMobileNet.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.caffe.Caffe_SSDMobileNet.forward" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.caffe.Caffe_SSDMobileNet.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/caffe.html#Caffe_SSDMobileNet.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.caffe.Caffe_SSDMobileNet.forward" title="Permalink to this definition"></a></dt>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -928,8 +947,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.detectors.tf.TF_SSDMobileNetV2">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.detectors.tf.</code><code class="sig-name descname">TF_SSDMobileNetV2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights_path</span></em>, <em class="sig-param"><span class="n">configfile_path</span></em>, <em class="sig-param"><span class="n">labels_path</span></em>, <em class="sig-param"><span class="n">confidence_threshold</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">nms_threshold</span><span class="o">=</span><span class="default_value">0.4</span></em>, <em class="sig-param"><span class="n">draw_bboxes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">use_gpu</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/tf.html#TF_SSDMobileNetV2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.tf.TF_SSDMobileNetV2" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.tf.TF_SSDMobileNetV2">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.detectors.tf.</span></span><span class="sig-name descname"><span class="pre">TF_SSDMobileNetV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">configfile_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nms_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_bboxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/tf.html#TF_SSDMobileNetV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.tf.TF_SSDMobileNetV2" title="Permalink to this definition"></a></dt>
 <dd><p>Tensorflow SSD MobileNetv2 model for Object Detection.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -945,8 +964,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.detectors.tf.TF_SSDMobileNetV2.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/tf.html#TF_SSDMobileNetV2.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.tf.TF_SSDMobileNetV2.forward" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.tf.TF_SSDMobileNetV2.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/tf.html#TF_SSDMobileNetV2.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.tf.TF_SSDMobileNetV2.forward" title="Permalink to this definition"></a></dt>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -964,8 +983,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd></dl>
 
 <dl class="py class">
-<dt id="motrackers.detectors.yolo.YOLOv3">
-<em class="property">class </em><code class="sig-prename descclassname">motrackers.detectors.yolo.</code><code class="sig-name descname">YOLOv3</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weights_path</span></em>, <em class="sig-param"><span class="n">configfile_path</span></em>, <em class="sig-param"><span class="n">labels_path</span></em>, <em class="sig-param"><span class="n">confidence_threshold</span><span class="o">=</span><span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">nms_threshold</span><span class="o">=</span><span class="default_value">0.2</span></em>, <em class="sig-param"><span class="n">draw_bboxes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">use_gpu</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/yolo.html#YOLOv3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.yolo.YOLOv3" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.yolo.YOLOv3">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">motrackers.detectors.yolo.</span></span><span class="sig-name descname"><span class="pre">YOLOv3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weights_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">configfile_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">labels_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confidence_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nms_threshold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">draw_bboxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_gpu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/yolo.html#YOLOv3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.yolo.YOLOv3" title="Permalink to this definition"></a></dt>
 <dd><p>YOLOv3 Object Detector Module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -981,8 +1000,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd>
 </dl>
 <dl class="py method">
-<dt id="motrackers.detectors.yolo.YOLOv3.detect">
-<code class="sig-name descname">detect</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/yolo.html#YOLOv3.detect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.yolo.YOLOv3.detect" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.yolo.YOLOv3.detect">
+<span class="sig-name descname"><span class="pre">detect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/yolo.html#YOLOv3.detect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.yolo.YOLOv3.detect" title="Permalink to this definition"></a></dt>
 <dd><p>Detect objects in the input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1006,8 +1025,8 @@ or covariance magnitude as scalar value.</p></li>
 </dd></dl>
 
 <dl class="py method">
-<dt id="motrackers.detectors.yolo.YOLOv3.forward">
-<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/yolo.html#YOLOv3.forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.detectors.yolo.YOLOv3.forward" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.detectors.yolo.YOLOv3.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/detectors/yolo.html#YOLOv3.forward"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.detectors.yolo.YOLOv3.forward" title="Permalink to this definition"></a></dt>
 <dd><p>Forward pass for the detector with input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1024,12 +1043,12 @@ or covariance magnitude as scalar value.</p></li>
 
 </dd></dl>
 
-</div>
-<div class="section" id="utilities">
-<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h1>
+</section>
+<section id="utilities">
+<h1>Utilities<a class="headerlink" href="#utilities" title="Permalink to this heading"></a></h1>
 <dl class="py function">
-<dt id="motrackers.utils.misc.get_centroid">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">get_centroid</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bboxes</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#get_centroid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.get_centroid" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.get_centroid">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">get_centroid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bboxes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#get_centroid"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.get_centroid" title="Permalink to this definition"></a></dt>
 <dd><p>Calculate centroids for multiple bounding boxes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1046,8 +1065,8 @@ each row contains <cite>(xmin, ymin, width, height)</cite>.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.iou">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">iou</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bbox1</span></em>, <em class="sig-param"><span class="n">bbox2</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#iou"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.iou" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.iou">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">iou</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#iou"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.iou" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the intersection-over-union of two bounding boxes.
 Source: <a class="reference external" href="https://github.com/bochinski/iou-tracker/blob/master/util.py">https://github.com/bochinski/iou-tracker/blob/master/util.py</a></p>
 <dl class="field-list simple">
@@ -1069,8 +1088,8 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.iou_xywh">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">iou_xywh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bbox1</span></em>, <em class="sig-param"><span class="n">bbox2</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#iou_xywh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.iou_xywh" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.iou_xywh">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">iou_xywh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bbox1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bbox2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#iou_xywh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.iou_xywh" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the intersection-over-union of two bounding boxes.
 Source: <a class="reference external" href="https://github.com/bochinski/iou-tracker/blob/master/util.py">https://github.com/bochinski/iou-tracker/blob/master/util.py</a></p>
 <dl class="field-list simple">
@@ -1090,8 +1109,8 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.xyxy2xywh">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">xyxy2xywh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xyxy</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#xyxy2xywh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.xyxy2xywh" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.xyxy2xywh">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">xyxy2xywh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xyxy</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#xyxy2xywh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.xyxy2xywh" title="Permalink to this definition"></a></dt>
 <dd><p>Convert bounding box coordinates from (xmin, ymin, xmax, ymax) format to (xmin, ymin, width, height).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1107,8 +1126,8 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.xywh2xyxy">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">xywh2xyxy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">xywh</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#xywh2xyxy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.xywh2xyxy" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.xywh2xyxy">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">xywh2xyxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">xywh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#xywh2xyxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.xywh2xyxy" title="Permalink to this definition"></a></dt>
 <dd><p>Convert bounding box coordinates from (xmin, ymin, width, height) to (xmin, ymin, xmax, ymax) format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1124,8 +1143,8 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.midwh2xywh">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">midwh2xywh</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">midwh</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#midwh2xywh"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.midwh2xywh" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.midwh2xywh">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">midwh2xywh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">midwh</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#midwh2xywh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.midwh2xywh" title="Permalink to this definition"></a></dt>
 <dd><p>Convert bounding box coordinates from (xmid, ymid, width, height) to (xmin, ymin, width, height) format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1141,8 +1160,8 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.intersection_complement_indices">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">intersection_complement_indices</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">big_set_indices</span></em>, <em class="sig-param"><span class="n">small_set_indices</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#intersection_complement_indices"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.intersection_complement_indices" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.intersection_complement_indices">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">intersection_complement_indices</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">big_set_indices</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">small_set_indices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#intersection_complement_indices"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.intersection_complement_indices" title="Permalink to this definition"></a></dt>
 <dd><p>Get the complement of intersection of two sets of indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1161,8 +1180,8 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.nms">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">nms</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">boxes</span></em>, <em class="sig-param"><span class="n">scores</span></em>, <em class="sig-param"><span class="n">overlapThresh</span></em>, <em class="sig-param"><span class="n">classes</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#nms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.nms" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.nms">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">nms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">boxes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scores</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overlapThresh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#nms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.nms" title="Permalink to this definition"></a></dt>
 <dd><p>Non-maximum suppression. based on Malisiewicz et al.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1191,8 +1210,8 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.draw_tracks">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">draw_tracks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">tracks</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#draw_tracks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.draw_tracks" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.draw_tracks">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">draw_tracks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tracks</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#draw_tracks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.draw_tracks" title="Permalink to this definition"></a></dt>
 <dd><p>Draw on input image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1211,110 +1230,110 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 </dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.load_labelsjson">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">load_labelsjson</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">json_file</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#load_labelsjson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.load_labelsjson" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.load_labelsjson">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">load_labelsjson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">json_file</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#load_labelsjson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.load_labelsjson" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.misc.dict2jsonfile">
-<code class="sig-prename descclassname">motrackers.utils.misc.</code><code class="sig-name descname">dict2jsonfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dict_data</span></em>, <em class="sig-param"><span class="n">json_file_path</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#dict2jsonfile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.misc.dict2jsonfile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.misc.dict2jsonfile">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.misc.</span></span><span class="sig-name descname"><span class="pre">dict2jsonfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dict_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">json_file_path</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/misc.html#dict2jsonfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.misc.dict2jsonfile" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.create_filechooser">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">create_filechooser</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">html_title</span><span class="o">=</span><span class="default_value">'Select File'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#create_filechooser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.create_filechooser" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.create_filechooser">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">create_filechooser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">html_title</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Select</span> <span class="pre">File'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#create_filechooser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.create_filechooser" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_caffemodel_prototxt">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_caffemodel_prototxt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_caffemodel_prototxt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_caffemodel_prototxt" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_caffemodel_prototxt">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_caffemodel_prototxt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_caffemodel_prototxt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_caffemodel_prototxt" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_caffemodel_weights">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_caffemodel_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_caffemodel_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_caffemodel_weights" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_caffemodel_weights">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_caffemodel_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_caffemodel_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_caffemodel_weights" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_caffemodel">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_caffemodel</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_caffemodel"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_caffemodel" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_caffemodel">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_caffemodel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_caffemodel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_caffemodel" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_videofile">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_videofile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_videofile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_videofile" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_videofile">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_videofile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_videofile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_videofile" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_yolo_weights">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_yolo_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_yolo_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_yolo_weights" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_yolo_weights">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_yolo_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_yolo_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_yolo_weights" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_coco_labels">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_coco_labels</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_coco_labels"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_coco_labels" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_coco_labels">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_coco_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_coco_labels"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_coco_labels" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_yolo_config">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_yolo_config</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_yolo_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_yolo_config" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_yolo_config">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_yolo_config</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_yolo_config"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_yolo_config" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_yolo_model">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_yolo_model</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_yolo_model"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_yolo_model" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_yolo_model">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_yolo_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_yolo_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_yolo_model" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_pbtxt">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_pbtxt</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_pbtxt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_pbtxt" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_pbtxt">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_pbtxt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_pbtxt"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_pbtxt" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_tfmobilenet_weights">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_tfmobilenet_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_tfmobilenet_weights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_tfmobilenet_weights" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_tfmobilenet_weights">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_tfmobilenet_weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_tfmobilenet_weights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_tfmobilenet_weights" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt id="motrackers.utils.filechooser_utils.select_tfmobilenet">
-<code class="sig-prename descclassname">motrackers.utils.filechooser_utils.</code><code class="sig-name descname">select_tfmobilenet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">default_path</span><span class="o">=</span><span class="default_value">'~/'</span></em>, <em class="sig-param"><span class="n">use_dir_icons</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_tfmobilenet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_tfmobilenet" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="motrackers.utils.filechooser_utils.select_tfmobilenet">
+<span class="sig-prename descclassname"><span class="pre">motrackers.utils.filechooser_utils.</span></span><span class="sig-name descname"><span class="pre">select_tfmobilenet</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">default_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'~/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_dir_icons</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/motrackers/utils/filechooser_utils.html#select_tfmobilenet"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#motrackers.utils.filechooser_utils.select_tfmobilenet" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
-<div class="section" id="download-pretrained-neural-network-weights">
-<h2>Download pretrained neural-network weights.<a class="headerlink" href="#download-pretrained-neural-network-weights" title="Permalink to this headline">¶</a></h2>
+<section id="download-pretrained-neural-network-weights">
+<h2>Download pretrained neural-network weights.<a class="headerlink" href="#download-pretrained-neural-network-weights" title="Permalink to this heading"></a></h2>
 <p>[<a class="reference external" href="https://adipandas.github.io/multi-object-tracker/">Webpage</a>]
 [<a class="reference external" href="https://github.com/adipandas/multi-object-tracker">GitHub</a>]</p>
-<div class="section" id="yolov3">
-<h3>YOLOv3<a class="headerlink" href="#yolov3" title="Permalink to this headline">¶</a></h3>
+<section id="yolov3">
+<h3>YOLOv3<a class="headerlink" href="#yolov3" title="Permalink to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">multi</span><span class="o">-</span><span class="nb">object</span><span class="o">-</span><span class="n">tracker</span>
 <span class="n">cd</span> <span class="o">./</span><span class="n">examples</span><span class="o">/</span><span class="n">pretrained_models</span><span class="o">/</span><span class="n">yolo_weights</span>
 <span class="n">sudo</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">get_yolo</span><span class="o">.</span><span class="n">sh</span>
 <span class="o">./</span><span class="n">get_yolo</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="tensorflow-mobilenetssdv2">
-<h3>TensorFlow - MobileNetSSDv2<a class="headerlink" href="#tensorflow-mobilenetssdv2" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="tensorflow-mobilenetssdv2">
+<h3>TensorFlow - MobileNetSSDv2<a class="headerlink" href="#tensorflow-mobilenetssdv2" title="Permalink to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">multi</span><span class="o">-</span><span class="nb">object</span><span class="o">-</span><span class="n">tracker</span>
 <span class="n">cd</span> <span class="o">./</span><span class="n">pretrained_models</span><span class="o">/</span><span class="n">tensorflow_weights</span>
 <span class="n">sudo</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">get_ssd_model</span><span class="o">.</span><span class="n">sh</span>
 <span class="o">./</span><span class="n">get_ssd_model</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="caffemodel-mobilenetssd">
-<h3>Caffemodel - MobileNetSSD<a class="headerlink" href="#caffemodel-mobilenetssd" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="caffemodel-mobilenetssd">
+<h3>Caffemodel - MobileNetSSD<a class="headerlink" href="#caffemodel-mobilenetssd" title="Permalink to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">multi</span><span class="o">-</span><span class="nb">object</span><span class="o">-</span><span class="n">tracker</span>
 <span class="n">cd</span> <span class="o">./</span><span class="n">pretrained_models</span><span class="o">/</span><span class="n">caffemodel_weights</span>
 <span class="n">sudo</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">./</span><span class="n">get_caffemodel</span><span class="o">.</span><span class="n">sh</span>
 <span class="o">./</span><span class="n">get_caffemodel</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="references-and-credits">
-<h1>References and Credits<a class="headerlink" href="#references-and-credits" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+</section>
+<section id="references-and-credits">
+<h1>References and Credits<a class="headerlink" href="#references-and-credits" title="Permalink to this heading"></a></h1>
 <p>[<a class="reference external" href="https://adipandas.github.io/multi-object-tracker/">Webpage</a>]
 [<a class="reference external" href="https://github.com/adipandas/multi-object-tracker">GitHub</a>]</p>
 <p>This work is based on the following literature:</p>
@@ -1327,20 +1346,20 @@ Source: <a class="reference external" href="https://github.com/bochinski/iou-tra
 <li><p>Caffe [<a class="reference external" href="https://caffe.berkeleyvision.org/">website</a>][<a class="reference external" href="https://github.com/BVLC/caffe">GitHub</a>]</p></li>
 <li><p>OpenCV. [<a class="reference external" href="https://github.com/opencv/opencv">GitHub</a>] [<a class="reference external" href="https://opencv.org/">Website</a>]</p></li>
 </ol>
-</div>
-<div class="section" id="contributor-covenant-code-of-conduct">
-<h1>Contributor Covenant Code of Conduct<a class="headerlink" href="#contributor-covenant-code-of-conduct" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="our-pledge">
-<h2>Our Pledge<a class="headerlink" href="#our-pledge" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="contributor-covenant-code-of-conduct">
+<h1>Contributor Covenant Code of Conduct<a class="headerlink" href="#contributor-covenant-code-of-conduct" title="Permalink to this heading"></a></h1>
+<section id="our-pledge">
+<h2>Our Pledge<a class="headerlink" href="#our-pledge" title="Permalink to this heading"></a></h2>
 <p>In the interest of fostering an open and welcoming environment, we as
 contributors and maintainers pledge to making participation in our project and
 our community a harassment-free experience for everyone, regardless of age, body
 size, disability, ethnicity, sex characteristics, gender identity and expression,
 level of experience, education, socio-economic status, nationality, personal
 appearance, race, religion, or sexual identity and orientation.</p>
-</div>
-<div class="section" id="our-standards">
-<h2>Our Standards<a class="headerlink" href="#our-standards" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="our-standards">
+<h2>Our Standards<a class="headerlink" href="#our-standards" title="Permalink to this heading"></a></h2>
 <p>Examples of behavior that contributes to creating a positive environment
 include:</p>
 <ul class="simple">
@@ -1361,9 +1380,9 @@ address, without explicit permission</p></li>
 <li><p>Other conduct which could reasonably be considered inappropriate in a
 professional setting</p></li>
 </ul>
-</div>
-<div class="section" id="our-responsibilities">
-<h2>Our Responsibilities<a class="headerlink" href="#our-responsibilities" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="our-responsibilities">
+<h2>Our Responsibilities<a class="headerlink" href="#our-responsibilities" title="Permalink to this heading"></a></h2>
 <p>Project maintainers are responsible for clarifying the standards of acceptable
 behavior and are expected to take appropriate and fair corrective action in
 response to any instances of unacceptable behavior.</p>
@@ -1372,18 +1391,18 @@ reject comments, commits, code, wiki edits, issues, and other contributions
 that are not aligned to this Code of Conduct, or to ban temporarily or
 permanently any contributor for other behaviors that they deem inappropriate,
 threatening, offensive, or harmful.</p>
-</div>
-<div class="section" id="scope">
-<h2>Scope<a class="headerlink" href="#scope" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="scope">
+<h2>Scope<a class="headerlink" href="#scope" title="Permalink to this heading"></a></h2>
 <p>This Code of Conduct applies both within project spaces and in public spaces
 when an individual is representing the project or its community. Examples of
 representing a project or community include using an official project e-mail
 address, posting via an official social media account, or acting as an appointed
 representative at an online or offline event. Representation of a project may be
 further defined and clarified by project maintainers.</p>
-</div>
-<div class="section" id="enforcement">
-<h2>Enforcement<a class="headerlink" href="#enforcement" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="enforcement">
+<h2>Enforcement<a class="headerlink" href="#enforcement" title="Permalink to this heading"></a></h2>
 <p>Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported by contacting the project team at <a class="reference external" href="mailto:adityadeshpande2010&#37;&#52;&#48;gmail&#46;com">adityadeshpande2010<span>&#64;</span>gmail<span>&#46;</span>com</a>. All
 complaints will be reviewed and investigated and will result in a response that
@@ -1393,61 +1412,44 @@ Further details of specific enforcement policies may be posted separately.</p>
 <p>Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project’s leadership.</p>
-</div>
-<div class="section" id="attribution">
-<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="attribution">
+<h2>Attribution<a class="headerlink" href="#attribution" title="Permalink to this heading"></a></h2>
 <p>This Code of Conduct is adapted from the <a class="reference external" href="https://www.contributor-covenant.org">Contributor Covenant</a>, version 1.4,
 available at <a class="reference external" href="https://www.contributor-covenant.org/version/1/4/code-of-conduct.html">https://www.contributor-covenant.org/version/1/4/code-of-conduct.html</a></p>
 <p>For answers to common questions about this code of conduct, see
 <a class="reference external" href="https://www.contributor-covenant.org/faq">https://www.contributor-covenant.org/faq</a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="readmefile.html" class="btn btn-neutral float-left" title="Multi-object trackers in Python" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Aditya M. Deshpande.
-
-    </p>
+    <p>&#169; Copyright 2021, Aditya M. Deshpande.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
