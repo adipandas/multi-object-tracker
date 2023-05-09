@@ -21,11 +21,10 @@ def assign_tracks2detection_centroid_distances(bbox_tracks, bbox_detections, dis
 
     Returns:
         tuple: Tuple containing the following elements:
-            - matches (numpy.ndarray): Array of shape `(n, 2)` where `n` is number of pairs formed after
-            matching tracks to detections. This is an array of tuples with each element as matched pair
-            of indices`(track_index, detection_index)`.
+            - matches (numpy.ndarray): Array of shape `(n, 2)` where `n` is number of pairs formed after matching tracks to detections. This is an array of tuples with each element as matched pair of indices`(track_index, detection_index)`.
             - unmatched_detections (numpy.ndarray): Array of shape `(m,)` where `m` is number of unmatched detections.
             - unmatched_tracks (numpy.ndarray): Array of shape `(k,)` where `k` is the number of unmatched tracks.
+
     """
 
     if (bbox_tracks.size == 0) or (bbox_detections.size == 0):
