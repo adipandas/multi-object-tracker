@@ -39,6 +39,7 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
 
+      # https://github.com/actions/first-interaction/issues/10#issuecomment-1475121828
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
