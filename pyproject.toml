@@ -26,6 +26,12 @@ dependencies = [
 "ipyfilechooser"
 ]
 
+[project.optional-dependencies]
+docs = [
+    'sphinx',
+    'm2r2'
+]
+
 [project.urls]
 homepath = "https://adipandas.github.io/multi-object-tracker"
 repository = "https://github.com/adipandas/multi-object-tracker"

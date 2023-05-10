@@ -32,7 +32,11 @@ detector.YOLOv3
 ## Installation
 
 Pip install for OpenCV (version 3.4.3 or later) is available [here](https://pypi.org/project/opencv-python/) and can be done with the following command:
+```
+pip install motrackers
+```
 
+Additionally, you can install the package through GitHub instead:
 ```
 git clone https://github.com/adipandas/multi-object-tracker
 cd multi-object-tracker
