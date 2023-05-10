@@ -1,5 +1,5 @@
 [project]
-name = "motrackers"
+name = "motrackers_test"
 version = "0.0.1"
 description = "Multi-object trackers in Python"
 authors = [
