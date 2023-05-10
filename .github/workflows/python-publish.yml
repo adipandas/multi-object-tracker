@@ -1,7 +1,7 @@
 name: Upload motrackers to PyPI
 
 # Making this workflow only run when a new tag is added to the GitHub repo.
-# As done here: 
+# As done here:
 # https://stackoverflow.com/questions/18216991/create-a-tag-in-a-github-repository
 on:
   push:
@@ -15,10 +15,10 @@ jobs:
   build-n-publish:
     name: Build and publish to PyPI
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout source
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v3
