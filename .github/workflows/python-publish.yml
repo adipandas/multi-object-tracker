@@ -18,16 +18,12 @@ jobs:
 
     steps:
       - name: Checkout source
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
           python-version: '3.x'
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install build
 
       - name: Build source and wheel distributions
         run: |
@@ -38,11 +34,12 @@ jobs:
           twine check --strict dist/*
 
       - name: Publish distribution to PyPI
-        uses: pypa/gh-action-pypi-publish@master
+        uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
 
+      # https://github.com/actions/first-interaction/issues/10#issuecomment-1475121828
       - name: Create GitHub Release
         id: create_release
         uses: actions/create-release@v1
