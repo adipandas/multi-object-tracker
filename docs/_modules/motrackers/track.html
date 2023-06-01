@@ -82,7 +82,7 @@
 
 
 <div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track containing attributes to track various objects.</span>
 
 <span class="sd">    Args:</span>
@@ -135,7 +135,7 @@
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
 <div class="viewcode-block" id="Track.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the track.</span>
 
 <span class="sd">        Args:</span>
@@ -167,7 +167,7 @@
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the centroid of the bounding box.</span>
 
 <span class="sd">        Returns:</span>
@@ -177,7 +177,7 @@
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
 
 <div class="viewcode-block" id="Track.get_mot_challenge_format"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_mot_challenge_format">[docs]</a>    <span class="k">def</span> <span class="nf">get_mot_challenge_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the tracker data in MOT challenge format as a tuple of elements containing</span>
 <span class="sd">        `(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)`</span>
 
@@ -195,7 +195,7 @@
         <span class="k">return</span> <span class="n">mot_tuple</span></div>
 
 <div class="viewcode-block" id="Track.get_vis_drone_format"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_vis_drone_format">[docs]</a>    <span class="k">def</span> <span class="nf">get_vis_drone_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Track data output in VISDRONE Challenge format with tuple as</span>
 <span class="sd">        `(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height, score, object_category,</span>
 <span class="sd">        truncation, occlusion)`.</span>
@@ -217,7 +217,7 @@
         <span class="k">return</span> <span class="n">mot_tuple</span></div>
 
 <div class="viewcode-block" id="Track.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Implement to prediction the next estimate of track.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="bp">NotImplemented</span></div>
@@ -228,7 +228,7 @@
 
 
 <div class="viewcode-block" id="KFTrackSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrackSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
 <span class="sd">    Args:</span>
@@ -254,7 +254,7 @@
                          <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="n">data_output_format</span><span class="o">=</span><span class="n">data_output_format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KFTrackSORT.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts the next estimate of the bounding box of the track.</span>
 
 <span class="sd">        Returns:</span>
@@ -282,7 +282,7 @@
 
 
 <div class="viewcode-block" id="KFTrack4DSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrack4DSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
 <span class="sd">    Args:</span>
@@ -321,7 +321,7 @@
 
 
 <div class="viewcode-block" id="KFTrackCentroid"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid">[docs]</a><span class="k">class</span> <span class="nc">KFTrackCentroid</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter used for Centroid Tracking of bounding box in MOT.</span>
 
 <span class="sd">    Args:</span>
@@ -346,7 +346,7 @@
                          <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="n">data_output_format</span><span class="o">=</span><span class="n">data_output_format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="KFTrackCentroid.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts the next estimate of the bounding box of the track.</span>
 
 <span class="sd">        Returns:</span>

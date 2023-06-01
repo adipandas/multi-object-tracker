@@ -82,7 +82,7 @@
 
 
 <div class="viewcode-block" id="get_centroid"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.get_centroid">[docs]</a><span class="k">def</span> <span class="nf">get_centroid</span><span class="p">(</span><span class="n">bboxes</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculate centroids for multiple bounding boxes.</span>
 
 <span class="sd">    Args:</span>
@@ -114,7 +114,7 @@
 
 
 <div class="viewcode-block" id="iou"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.iou">[docs]</a><span class="k">def</span> <span class="nf">iou</span><span class="p">(</span><span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
 <span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
 
@@ -155,7 +155,7 @@
 
 
 <div class="viewcode-block" id="iou_xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.iou_xywh">[docs]</a><span class="k">def</span> <span class="nf">iou_xywh</span><span class="p">(</span><span class="n">bbox1</span><span class="p">,</span> <span class="n">bbox2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the intersection-over-union of two bounding boxes.</span>
 <span class="sd">    Source: https://github.com/bochinski/iou-tracker/blob/master/util.py</span>
 
@@ -175,7 +175,7 @@
 
 
 <div class="viewcode-block" id="xyxy2xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.xyxy2xywh">[docs]</a><span class="k">def</span> <span class="nf">xyxy2xywh</span><span class="p">(</span><span class="n">xyxy</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmin, ymin, xmax, ymax) format to (xmin, ymin, width, height).</span>
 
 <span class="sd">    Args:</span>
@@ -200,7 +200,7 @@
 
 
 <div class="viewcode-block" id="xywh2xyxy"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.xywh2xyxy">[docs]</a><span class="k">def</span> <span class="nf">xywh2xyxy</span><span class="p">(</span><span class="n">xywh</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmin, ymin, width, height) to (xmin, ymin, xmax, ymax) format.</span>
 
 <span class="sd">    Args:</span>
@@ -224,7 +224,7 @@
 
 
 <div class="viewcode-block" id="midwh2xywh"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.midwh2xywh">[docs]</a><span class="k">def</span> <span class="nf">midwh2xywh</span><span class="p">(</span><span class="n">midwh</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert bounding box coordinates from (xmid, ymid, width, height) to (xmin, ymin, width, height) format.</span>
 
 <span class="sd">    Args:</span>
@@ -246,7 +246,7 @@
 
 
 <div class="viewcode-block" id="intersection_complement_indices"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.intersection_complement_indices">[docs]</a><span class="k">def</span> <span class="nf">intersection_complement_indices</span><span class="p">(</span><span class="n">big_set_indices</span><span class="p">,</span> <span class="n">small_set_indices</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Get the complement of intersection of two sets of indices.</span>
 
 <span class="sd">    Args:</span>
@@ -265,7 +265,7 @@
 
 
 <div class="viewcode-block" id="nms"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.nms">[docs]</a><span class="k">def</span> <span class="nf">nms</span><span class="p">(</span><span class="n">boxes</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">overlapThresh</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Non-maximum suppression. based on Malisiewicz et al.</span>
 
 <span class="sd">    Args:</span>
@@ -323,7 +323,7 @@
 
 
 <div class="viewcode-block" id="draw_tracks"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.utils.misc.draw_tracks">[docs]</a><span class="k">def</span> <span class="nf">draw_tracks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">tracks</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Draw on input image.</span>
 
 <span class="sd">    Args:</span>

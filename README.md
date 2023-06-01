@@ -4,7 +4,8 @@
 # Multi-object trackers in Python
 Easy to use implementation of various multi-object tracking algorithms.
 
-[![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)   [![Upload motrackers to PyPI](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml/badge.svg)](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml)
+[![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)   
+[![Upload motrackers to PyPI](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml/badge.svg)](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml)
 
 
 `YOLOv3 + CentroidTracker` |  `TF-MobileNetSSD + CentroidTracker`
@@ -12,22 +13,20 @@ Easy to use implementation of various multi-object tracking algorithms.
 ![Cars with YOLO][cars-yolo-output]  |  ![Cows with tf-SSD][cows-tf-ssd-output]
 Video source: [link](https://flic.kr/p/L6qyxj) | Video source: [link](https://flic.kr/p/26WeEWy)
 
+
 ## Available Multi Object Trackers
 
-```
-CentroidTracker
-IOUTracker
-CentroidKF_Tracker
-SORT
-```
+- CentroidTracker
+- IOUTracker
+- CentroidKF_Tracker
+- SORT
+
 
 ## Available OpenCV-based object detectors:
 
-```
-detector.TF_SSDMobileNetV2
-detector.Caffe_SSDMobileNet
-detector.YOLOv3
-```
+- detector.TF_SSDMobileNetV2
+- detector.Caffe_SSDMobileNet
+- detector.YOLOv3
 
 ## Installation
 

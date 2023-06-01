@@ -85,7 +85,7 @@
 
 
 <div class="viewcode-block" id="Tracker"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.tracker.Tracker">[docs]</a><span class="k">class</span> <span class="nc">Tracker</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Greedy Tracker with tracking based on ``centroid`` location of the bounding box of the object.</span>
 <span class="sd">    This tracker is also referred as ``CentroidTracker`` in this repository.</span>
 
@@ -102,7 +102,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">tracker_output_format</span> <span class="o">=</span> <span class="n">tracker_output_format</span>
 
     <span class="k">def</span> <span class="nf">_add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add a newly detected object to the queue.</span>
 
 <span class="sd">        Args:</span>
@@ -121,7 +121,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">next_track_id</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="k">def</span> <span class="nf">_remove_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Remove tracker data after object is lost.</span>
 
 <span class="sd">        Args:</span>
@@ -131,7 +131,7 @@
         <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">_update_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update track state.</span>
 
 <span class="sd">        Args:</span>
@@ -151,7 +151,7 @@
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">_get_tracks</span><span class="p">(</span><span class="n">tracks</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Output the information of tracks.</span>
 
 <span class="sd">        Args:</span>
@@ -169,7 +169,7 @@
 
 <div class="viewcode-block" id="Tracker.preprocess_input"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.tracker.Tracker.preprocess_input">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">preprocess_input</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">,</span> <span class="n">detection_scores</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Preprocess the input data.</span>
 
 <span class="sd">        Args:</span>
@@ -189,7 +189,7 @@
         <span class="k">return</span> <span class="n">new_detections</span></div>
 
 <div class="viewcode-block" id="Tracker.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.tracker.Tracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">,</span> <span class="n">detection_scores</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the tracker based on the new bounding boxes.</span>
 
 <span class="sd">        Args:</span>

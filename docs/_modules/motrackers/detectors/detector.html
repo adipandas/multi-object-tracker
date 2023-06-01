@@ -83,7 +83,7 @@
 
 
 <div class="viewcode-block" id="Detector"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.detector.Detector">[docs]</a><span class="k">class</span> <span class="nc">Detector</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Abstract class for detector.</span>
 
 <span class="sd">    Args:</span>
@@ -105,7 +105,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">bbox_colors</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,))</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">object_names</span><span class="o">.</span><span class="n">keys</span><span class="p">()}</span>
 
 <div class="viewcode-block" id="Detector.forward"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.detector.Detector.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Forward pass for the detector with input image.</span>
 
 <span class="sd">        Args:</span>
@@ -117,7 +117,7 @@
         <span class="k">raise</span> <span class="bp">NotImplemented</span></div>
 
 <div class="viewcode-block" id="Detector.detect"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.detector.Detector.detect">[docs]</a>    <span class="k">def</span> <span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Detect objects in the input image.</span>
 
 <span class="sd">        Args:</span>
@@ -157,7 +157,7 @@
             <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span></div>
 
 <div class="viewcode-block" id="Detector.draw_bboxes"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.detector.Detector.draw_bboxes">[docs]</a>    <span class="k">def</span> <span class="nf">draw_bboxes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">,</span> <span class="n">confidences</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Draw the bounding boxes about detected objects in the image.</span>
 
 <span class="sd">        Args:</span>

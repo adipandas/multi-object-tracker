@@ -81,7 +81,7 @@
 
 
 <div class="viewcode-block" id="KalmanFilter"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KalmanFilter">[docs]</a><span class="k">class</span> <span class="nc">KalmanFilter</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kalman Filter Implementation.</span>
 
 <span class="sd">    Args:</span>
@@ -124,7 +124,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">state_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="k">if</span> <span class="n">initial_state</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">initial_state</span>
 
 <div class="viewcode-block" id="KalmanFilter.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KalmanFilter.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">u</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Prediction step of Kalman Filter.</span>
 
 <span class="sd">        Args:</span>
@@ -143,7 +143,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span></div>
 
 <div class="viewcode-block" id="KalmanFilter.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KalmanFilter.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">z</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Measurement update of Kalman Filter.</span>
 
 <span class="sd">        Args:</span>
@@ -169,7 +169,7 @@
 
 
 <span class="k">def</span> <span class="nf">get_process_covariance_matrix</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generates a process noise covariance matrix for constant acceleration motion.</span>
 
 <span class="sd">    Args:</span>
@@ -193,7 +193,7 @@
 
 
 <span class="k">def</span> <span class="nf">get_transition_matrix</span><span class="p">(</span><span class="n">dt</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Generate the transition matrix for constant acceleration motion.</span>
 
 <span class="sd">    Args:</span>
@@ -207,7 +207,7 @@
 
 
 <div class="viewcode-block" id="KFTrackerConstantAcceleration"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTrackerConstantAcceleration">[docs]</a><span class="k">class</span> <span class="nc">KFTrackerConstantAcceleration</span><span class="p">(</span><span class="n">KalmanFilter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kalman Filter with constant acceleration kinematic model.</span>
 
 <span class="sd">    Args:</span>
@@ -279,7 +279,7 @@
 
 
 <div class="viewcode-block" id="KFTrackerSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.kalman_tracker.KFTrackerSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrackerSORT</span><span class="p">(</span><span class="n">KalmanFilter</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kalman filter for ``SORT``.</span>
 
 <span class="sd">    Args:</span>
