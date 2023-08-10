@@ -140,7 +140,7 @@ class SORT(CentroidKF_Tracker):
                     self._remove_track(track_id)
         else:
             matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_iou(
-                bbox_tracks, bbox_detections, iou_threshold=0.3)
+                bbox_tracks, bbox_detections, iou_threshold=self.iou_threshold)
 
             for i in range(matches.shape[0]):
                 t, d = matches[i, :]
