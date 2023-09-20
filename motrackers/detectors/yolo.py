@@ -23,7 +23,7 @@ class YOLOv3(Detector):
         object_names = load_labelsjson(labels_path)
 
         layer_names = self.net.getLayerNames()
-        if cv2.__version__ == '4.6.0':
+        if cv.__version__ == '4.6.0':
             self.layer_names = [layer_names[i - 1] for i in self.net.getUnconnectedOutLayers()]
         else:
             self.layer_names = [layer_names[i[0] - 1] for i in self.net.getUnconnectedOutLayers()]
