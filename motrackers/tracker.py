@@ -83,9 +83,10 @@ class Tracker:
         """
 
         outputs = []
-        for trackid, track in tracks.items():
-            if not track.lost:
-                outputs.append(track.output())
+        for _, track in tracks.items():
+            # if not track.lost:
+            #     outputs.append(track.output())
+            outputs.append(track.output())
         return outputs
 
     @staticmethod
