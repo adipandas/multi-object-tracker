@@ -1,6 +1,6 @@
 [project]
 name = "motrackers"
-version = "0.0.1"
+version = "0.0.2"
 description = "Multi-object trackers in Python"
 authors = [
     {name = "Aditya M. Deshpande", email = "adityadeshpande2010@gmail.com"}
