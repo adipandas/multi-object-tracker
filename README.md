@@ -5,7 +5,7 @@
 Easy to use implementation of various multi-object tracking algorithms.
 
 [![DOI](https://zenodo.org/badge/148338463.svg)](https://zenodo.org/badge/latestdoi/148338463)   
-[![Upload motrackers to PyPI](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml/badge.svg)](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml)
+<!-- [![Upload motrackers to PyPI](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml/badge.svg)](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml) -->
 
 
 `YOLOv3 + CentroidTracker` |  `TF-MobileNetSSD + CentroidTracker`
