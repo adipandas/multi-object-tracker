@@ -31,7 +31,6 @@ class YOLOv3(Detector):
         self.scale_factor = 1/255.0
         self.image_size = (416, 416)
 
-        self.net = cv.dnn.readNetFromDarknet(configfile_path, weights_path)
         if use_gpu:
             self.net.setPreferableBackend(cv.dnn.DNN_BACKEND_CUDA)
             self.net.setPreferableTarget(cv.dnn.DNN_TARGET_CUDA)
@@ -64,7 +63,10 @@ class YOLOv3(Detector):
                     confidences.append(float(confidence))
                     class_ids.append(class_id)
 
-        indices = cv.dnn.NMSBoxes(bboxes, confidences, self.confidence_threshold, self.nms_threshold).flatten()
-        class_ids = np.array(class_ids).astype('int')
-        output = np.array(bboxes)[indices, :].astype('int'), np.array(confidences)[indices], class_ids[indices]
+        if len(bboxes):
+            indices = cv.dnn.NMSBoxes(bboxes, confidences, self.confidence_threshold, self.nms_threshold).flatten()
+            class_ids = np.array(class_ids).astype('int')
+            output = np.array(bboxes)[indices, :].astype('int'), np.array(confidences)[indices], class_ids[indices]
+        else:
+            output = np.array([]), np.array([]), np.array([])
         return output
