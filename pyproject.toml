@@ -5,9 +5,9 @@ description = "Multi-object trackers in Python"
 authors = [
     {name = "Aditya M. Deshpande", email = "adityadeshpande2010@gmail.com"}
 ]
-license = {file = "LICENSE.txt"}
+license = {file = "LICENSE"}
 readme = "README.md"
-requires-python = ">3.6"
+requires-python = ">=3.10"
 
 keywords = ["tracking", "object", "multi-object", "python"]
 
@@ -31,6 +31,10 @@ docs = [
     'sphinx',
     'm2r2'
 ]
+test = [
+    'pytest',
+    'flake8'
+]
 
 [project.urls]
 homepath = "https://adipandas.github.io/multi-object-tracker"
@@ -47,3 +51,4 @@ include-package-data = true
 
 [tool.setuptools.packages.find]
 where = ["."]
+include = ["motrackers*"]
