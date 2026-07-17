@@ -38,6 +38,7 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
+          skip-existing: true
 
       # https://github.com/actions/first-interaction/issues/10#issuecomment-1475121828
       - name: Create GitHub Release
