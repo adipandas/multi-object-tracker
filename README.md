@@ -30,6 +30,8 @@ Video source: [link](https://flic.kr/p/L6qyxj) | Video source: [link](https://fl
 
 ## Installation
 
+This package requires **Python 3.10 or later**.
+
 Pip install for OpenCV (version 3.4.3 or later) is available [here](https://pypi.org/project/opencv-python/) and can be done with the following command:
 ```
 pip install motrackers
@@ -76,6 +78,14 @@ while True:
 ```
 
 Please refer [examples](https://github.com/adipandas/multi-object-tracker/tree/master/examples) folder of this repository for more details. You can clone and run the examples.
+
+## Running tests
+
+Install the test dependencies and run the test suite with:
+```
+pip install -e ".[test]"
+pytest
+```
 
 ## Pretrained object detection models
 
