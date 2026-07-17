@@ -84,8 +84,6 @@ class Tracker:
 
         outputs = []
         for _, track in tracks.items():
-            # if not track.lost:
-            #     outputs.append(track.output())
             outputs.append(track.output())
         return outputs
 
