@@ -46,7 +46,7 @@ def iou(bbox1, bbox2):
             ``(x-top-left, y-top-left, x-bottom-right, y-bottom-right)``.
 
     Returns:
-        float: intersection-over-onion of bbox1, bbox2.
+        float: intersection-over-union of bbox1, bbox2.
     """
 
     bbox1 = [float(x) for x in bbox1]
@@ -85,7 +85,7 @@ def iou_xywh(bbox1, bbox2):
         bbox2 (numpy.array or list[floats]): bounding box of length 4 containing ``(x-top-left, y-top-left, width, height)``.
 
     Returns:
-        float: intersection-over-onion of bbox1, bbox2.
+        float: intersection-over-union of bbox1, bbox2.
     """
     bbox1 = bbox1[0], bbox1[1], bbox1[0]+bbox1[2], bbox1[1]+bbox1[3]
     bbox2 = bbox2[0], bbox2[1], bbox2[0]+bbox2[2], bbox2[1]+bbox2[3]

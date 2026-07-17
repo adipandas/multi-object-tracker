@@ -12,7 +12,7 @@ def assign_tracks2detection_iou(bbox_tracks, bbox_detections, iou_threshold=0.3)
     Args:
         bbox_tracks (numpy.ndarray): Bounding boxes of shape `(N, 4)` where `N` is number of objects already being tracked.
         bbox_detections (numpy.ndarray): Bounding boxes of shape `(M, 4)` where `M` is number of objects that are newly detected.
-        iou_threshold (float): IOU threashold.
+        iou_threshold (float): IOU threshold.
 
     Returns:
         tuple: Tuple contains the following elements in the given order:
