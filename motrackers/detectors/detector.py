@@ -35,7 +35,7 @@ class Detector:
         Returns:
             numpy.ndarray: detections
         """
-        raise NotImplemented
+        raise NotImplementedError
 
     def detect(self, image):
         """

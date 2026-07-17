@@ -141,7 +141,7 @@ class Track:
         """
         Implement to prediction the next estimate of track.
         """
-        raise NotImplemented
+        raise NotImplementedError
 
     @staticmethod
     def print_all_track_output_formats():
