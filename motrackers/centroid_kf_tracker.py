@@ -107,6 +107,21 @@ class CentroidKF_Tracker(Tracker):
         )
         self.next_track_id += 1
 
+    def _assign(self, bbox_tracks, bbox_detections):
+        """
+        Associate tracked bounding boxes with detected bounding boxes.
+
+        Args:
+            bbox_tracks (numpy.ndarray): Predicted bounding boxes of tracks with shape `(n, 4)`.
+            bbox_detections (numpy.ndarray): Detected bounding boxes with shape `(m, 4)`.
+
+        Returns:
+            tuple: `(matches, unmatched_detections, unmatched_tracks)`.
+        """
+        return assign_tracks2detection_centroid_distances(
+            bbox_tracks, bbox_detections, distance_threshold=self.centroid_distance_threshold
+        )
+
     def update(self, bboxes, detection_scores, class_ids):
         self.frame_count += 1
         bbox_detections = np.array(bboxes, dtype='int')
@@ -127,9 +142,7 @@ class CentroidKF_Tracker(Tracker):
                 if self.tracks[track_id].lost > self.max_lost:
                     self._remove_track(track_id)
         else:
-            matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_centroid_distances(
-                bbox_tracks, bbox_detections, distance_threshold=self.centroid_distance_threshold
-            )
+            matches, unmatched_detections, unmatched_tracks = self._assign(bbox_tracks, bbox_detections)
 
             for i in range(matches.shape[0]):
                 t, d = matches[i, :]

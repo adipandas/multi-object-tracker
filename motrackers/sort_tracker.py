@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 from motrackers.utils.misc import iou_xywh as iou
-from motrackers.track import KFTrackSORT, KFTrack4DSORT
+from motrackers.track import KFTrack4DSORT
 from motrackers.centroid_kf_tracker import CentroidKF_Tracker
 
 
@@ -94,76 +94,13 @@ class SORT(CentroidKF_Tracker):
         )
 
     def _add_track(self, frame_id, bbox, detection_confidence, class_id, **kwargs):
-        # self.tracks[self.next_track_id] = KFTrackSORT(
-        #     self.next_track_id, frame_id, bbox, detection_confidence, class_id=class_id,
-        #     data_output_format=self.tracker_output_format, process_noise_scale=self.process_noise_scale,
-        #     measurement_noise_scale=self.measurement_noise_scale, **kwargs
-        # )
         self.tracks[self.next_track_id] = KFTrack4DSORT(
             self.next_track_id, frame_id, bbox, detection_confidence, class_id=class_id,
             data_output_format=self.tracker_output_format, process_noise_scale=self.process_noise_scale,
             measurement_noise_scale=self.measurement_noise_scale, kf_time_step=1, **kwargs)
         self.next_track_id += 1
 
-    def update(self, bboxes, detection_scores, class_ids):
-        self.frame_count += 1
-
-        bbox_detections = np.array(bboxes, dtype='int')
-
-        # track_ids_all = list(self.tracks.keys())
-        # bbox_tracks = []
-        # track_ids = []
-        # for track_id in track_ids_all:
-        #     bb = self.tracks[track_id].predict()
-        #     if np.any(np.isnan(bb)):
-        #         self._remove_track(track_id)
-        #     else:
-        #         track_ids.append(track_id)
-        #         bbox_tracks.append(bb)
-
-        track_ids = list(self.tracks.keys())
-        bbox_tracks = []
-        for track_id in track_ids:
-            bb = self.tracks[track_id].predict()
-            bbox_tracks.append(bb)
-
-        bbox_tracks = np.array(bbox_tracks)
-
-        if len(bboxes) == 0:
-            for i in range(len(bbox_tracks)):
-                track_id = track_ids[i]
-                bbox = bbox_tracks[i, :]
-                confidence = self.tracks[track_id].detection_confidence
-                cid = self.tracks[track_id].class_id
-                self._update_track(track_id, self.frame_count, bbox, detection_confidence=confidence, class_id=cid, lost=1)
-                if self.tracks[track_id].lost > self.max_lost:
-                    self._remove_track(track_id)
-        else:
-            matches, unmatched_detections, unmatched_tracks = assign_tracks2detection_iou(
-                bbox_tracks, bbox_detections, iou_threshold=self.iou_threshold)
-
-            for i in range(matches.shape[0]):
-                t, d = matches[i, :]
-                track_id = track_ids[t]
-                bbox = bboxes[d, :]
-                cid = class_ids[d]
-                confidence = detection_scores[d]
-                self._update_track(track_id, self.frame_count, bbox, confidence, cid, lost=0)
-
-            for d in unmatched_detections:
-                bbox = bboxes[d, :]
-                cid = class_ids[d]
-                confidence = detection_scores[d]
-                self._add_track(self.frame_count, bbox, confidence, cid)
-
-            for t in unmatched_tracks:
-                track_id = track_ids[t]
-                bbox = bbox_tracks[t, :]
-                confidence = self.tracks[track_id].detection_confidence
-                cid = self.tracks[track_id].class_id
-                self._update_track(track_id, self.frame_count, bbox, detection_confidence=confidence, class_id=cid, lost=1)
-                if self.tracks[track_id].lost > self.max_lost:
-                    self._remove_track(track_id)
-
-        outputs = self._get_tracks(self.tracks)
-        return outputs
+    def _assign(self, bbox_tracks, bbox_detections):
+        return assign_tracks2detection_iou(
+            bbox_tracks, bbox_detections, iou_threshold=self.iou_threshold
+        )
