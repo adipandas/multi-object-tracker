@@ -177,7 +177,7 @@ def intersection_complement_indices(big_set_indices, small_set_indices):
     Returns:
         numpy.ndarray: Indices of set which is complementary to intersection of two input sets.
     """
-    assert big_set_indices.shape[0] >= small_set_indices.shape[1]
+    assert big_set_indices.shape[0] >= small_set_indices.shape[0]
     n = len(big_set_indices)
     mask = np.ones((n,), dtype=bool)
     mask[small_set_indices] = False
