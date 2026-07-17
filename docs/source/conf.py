@@ -23,7 +23,7 @@ copyright = '2021, Aditya M. Deshpande'
 author = 'Aditya M. Deshpande'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.2'
+release = '0.1.0'
 
 
 # -- General configuration ---------------------------------------------------
