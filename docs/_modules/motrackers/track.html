@@ -1,21 +1,20 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>motrackers.track &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>motrackers.track &mdash; Multi-object trackers in Python 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -26,11 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Multi-object trackers in Python
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Multi-object trackers in Python
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -65,9 +68,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>motrackers.track</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">motrackers.track</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -77,12 +80,14 @@
            <div itemprop="articleBody">
              
   <h1>Source code for motrackers.track</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">motrackers.kalman_tracker</span> <span class="kn">import</span> <span class="n">KFTracker2D</span><span class="p">,</span> <span class="n">KFTrackerSORT</span><span class="p">,</span> <span class="n">KFTracker4D</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">motrackers.kalman_tracker</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFTracker2D</span><span class="p">,</span> <span class="n">KFTrackerSORT</span><span class="p">,</span> <span class="n">KFTracker4D</span>
 
 
-<div class="viewcode-block" id="Track"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track">[docs]</a><span class="k">class</span> <span class="nc">Track</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Track">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">Track</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track containing attributes to track various objects.</span>
 
 <span class="sd">    Args:</span>
@@ -105,7 +110,7 @@
         <span class="n">data_output_formats</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;mot_challenge&#39;</span><span class="p">,</span> <span class="s1">&#39;visdrone_challenge&#39;</span><span class="p">]</span>
     <span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">track_id</span><span class="p">,</span>
         <span class="n">frame_id</span><span class="p">,</span>
@@ -134,8 +139,10 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">NotImplementedError</span>
 
-<div class="viewcode-block" id="Track.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Track.update">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Update the track.</span>
 
 <span class="sd">        Args:</span>
@@ -165,9 +172,10 @@
 
         <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">+=</span> <span class="mi">1</span></div>
 
+
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">centroid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the centroid of the bounding box.</span>
 
 <span class="sd">        Returns:</span>
@@ -176,8 +184,10 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
 
-<div class="viewcode-block" id="Track.get_mot_challenge_format"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_mot_challenge_format">[docs]</a>    <span class="k">def</span> <span class="nf">get_mot_challenge_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Track.get_mot_challenge_format">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_mot_challenge_format">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_mot_challenge_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the tracker data in MOT challenge format as a tuple of elements containing</span>
 <span class="sd">        `(frame, id, bb_left, bb_top, bb_width, bb_height, conf, x, y, z)`</span>
 
@@ -194,8 +204,11 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">mot_tuple</span></div>
 
-<div class="viewcode-block" id="Track.get_vis_drone_format"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_vis_drone_format">[docs]</a>    <span class="k">def</span> <span class="nf">get_vis_drone_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Track.get_vis_drone_format">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.get_vis_drone_format">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_vis_drone_format</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Track data output in VISDRONE Challenge format with tuple as</span>
 <span class="sd">        `(frame_index, target_id, bbox_left, bbox_top, bbox_width, bbox_height, score, object_category,</span>
 <span class="sd">        truncation, occlusion)`.</span>
@@ -216,19 +229,26 @@
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">mot_tuple</span></div>
 
-<div class="viewcode-block" id="Track.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="Track.predict">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.Track.predict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Implement to prediction the next estimate of track.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="bp">NotImplemented</span></div>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div>
+
 
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">print_all_track_output_formats</span><span class="p">():</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">print_all_track_output_formats</span><span class="p">():</span>
         <span class="nb">print</span><span class="p">(</span><span class="n">Track</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">&#39;data_output_formats&#39;</span><span class="p">])</span></div>
 
 
-<div class="viewcode-block" id="KFTrackSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrackSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="KFTrackSORT">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KFTrackSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
 <span class="sd">    Args:</span>
@@ -245,7 +265,7 @@
 <span class="sd">        measurement_noise_scale (float): Measurement noise covariance scale or covariance magnitude as scalar value.</span>
 <span class="sd">        kwargs (dict): Additional key word arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
                  <span class="n">data_output_format</span><span class="o">=</span><span class="s1">&#39;mot_challenge&#39;</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">bbz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])])</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kf</span> <span class="o">=</span> <span class="n">KFTrackerSORT</span><span class="p">(</span>
@@ -253,8 +273,10 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">class_id</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="n">lost</span><span class="p">,</span>
                          <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="n">data_output_format</span><span class="o">=</span><span class="n">data_output_format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="KFTrackSORT.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="KFTrackSORT.predict">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT.predict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts the next estimate of the bounding box of the track.</span>
 
 <span class="sd">        Returns:</span>
@@ -274,15 +296,22 @@
         <span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">w</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">])</span>
         <span class="k">return</span> <span class="n">bb</span></div>
 
-<div class="viewcode-block" id="KFTrackSORT.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KFTrackSORT.update">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackSORT.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">class_id</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="n">lost</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">])])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">z</span><span class="p">)</span></div>
+</div>
 
 
-<div class="viewcode-block" id="KFTrack4DSORT"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT">[docs]</a><span class="k">class</span> <span class="nc">KFTrack4DSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="KFTrack4DSORT">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KFTrack4DSORT</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter tracker used for SORT MOT-Algorithm.</span>
 
 <span class="sd">    Args:</span>
@@ -300,7 +329,7 @@
 <span class="sd">        kwargs (dict): Additional key word arguments.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
                  <span class="n">data_output_format</span><span class="o">=</span><span class="s1">&#39;mot_challenge&#39;</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
                  <span class="n">kf_time_step</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kf</span> <span class="o">=</span> <span class="n">KFTracker4D</span><span class="p">(</span>
@@ -309,19 +338,28 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">class_id</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="n">lost</span><span class="p">,</span>
                          <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="n">data_output_format</span><span class="o">=</span><span class="n">data_output_format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="KFTrack4DSORT.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="KFTrack4DSORT.predict">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT.predict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="o">.</span><span class="n">predict</span><span class="p">()</span>
         <span class="n">bb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">9</span><span class="p">]])</span>
         <span class="k">return</span> <span class="n">bb</span></div>
 
-<div class="viewcode-block" id="KFTrack4DSORT.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KFTrack4DSORT.update">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrack4DSORT.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">class_id</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="n">lost</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bbox</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span></div>
+</div>
 
 
-<div class="viewcode-block" id="KFTrackCentroid"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid">[docs]</a><span class="k">class</span> <span class="nc">KFTrackCentroid</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="KFTrackCentroid">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KFTrackCentroid</span><span class="p">(</span><span class="n">Track</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Track based on Kalman filter used for Centroid Tracking of bounding box in MOT.</span>
 
 <span class="sd">    Args:</span>
@@ -338,15 +376,17 @@
 <span class="sd">        measurement_noise_scale (float): Measurement noise covariance scale or covariance magnitude as scalar value.</span>
 <span class="sd">        kwargs (dict): Additional key word arguments.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span>
                  <span class="n">data_output_format</span><span class="o">=</span><span class="s1">&#39;mot_challenge&#39;</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">((</span><span class="n">bbox</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">bbox</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="o">*</span><span class="n">bbox</span><span class="p">[</span><span class="mi">3</span><span class="p">]))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kf</span> <span class="o">=</span> <span class="n">KFTracker2D</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="n">process_noise_scale</span><span class="p">,</span> <span class="n">measurement_noise_scale</span><span class="o">=</span><span class="n">measurement_noise_scale</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">class_id</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="n">lost</span><span class="p">,</span>
                          <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="n">data_output_format</span><span class="o">=</span><span class="n">data_output_format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<div class="viewcode-block" id="KFTrackCentroid.predict"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="KFTrackCentroid.predict">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid.predict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts the next estimate of the bounding box of the track.</span>
 
 <span class="sd">        Returns:</span>
@@ -360,10 +400,15 @@
         <span class="n">ymin</span> <span class="o">=</span> <span class="n">ymid</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">h</span>
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="KFTrackCentroid.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+<div class="viewcode-block" id="KFTrackCentroid.update">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.track.KFTrackCentroid.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">class_id</span><span class="p">,</span> <span class="n">lost</span><span class="o">=</span><span class="n">lost</span><span class="p">,</span> <span class="n">iou_score</span><span class="o">=</span><span class="n">iou_score</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kf</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">centroid</span><span class="p">)</span></div>
+</div>
+
 </pre></div>
 
            </div>

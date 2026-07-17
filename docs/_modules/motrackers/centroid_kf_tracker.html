@@ -1,21 +1,20 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>motrackers.centroid_kf_tracker &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
-      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>motrackers.centroid_kf_tracker &mdash; Multi-object trackers in Python 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
-        <script src="../../_static/jquery.js"></script>
-        <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -26,11 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../index.html" class="icon icon-home"> Multi-object trackers in Python
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Multi-object trackers in Python
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -65,9 +68,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-      <li>motrackers.centroid_kf_tracker</li>
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">motrackers.centroid_kf_tracker</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -77,17 +80,19 @@
            <div itemprop="articleBody">
              
   <h1>Source code for motrackers.centroid_kf_tracker</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.spatial</span> <span class="kn">import</span> <span class="n">distance</span>
-<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="kn">import</span> <span class="n">linear_sum_assignment</span>
-<span class="kn">from</span> <span class="nn">motrackers.tracker</span> <span class="kn">import</span> <span class="n">Tracker</span>
-<span class="kn">from</span> <span class="nn">motrackers.track</span> <span class="kn">import</span> <span class="n">KFTrackCentroid</span>
-<span class="kn">from</span> <span class="nn">motrackers.utils.misc</span> <span class="kn">import</span> <span class="n">get_centroid</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.spatial</span><span class="w"> </span><span class="kn">import</span> <span class="n">distance</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.optimize</span><span class="w"> </span><span class="kn">import</span> <span class="n">linear_sum_assignment</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">motrackers.tracker</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tracker</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">motrackers.track</span><span class="w"> </span><span class="kn">import</span> <span class="n">KFTrackCentroid</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">motrackers.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_centroid</span>
 
 
-<div class="viewcode-block" id="assign_tracks2detection_centroid_distances"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.centroid_kf_tracker.assign_tracks2detection_centroid_distances">[docs]</a><span class="k">def</span> <span class="nf">assign_tracks2detection_centroid_distances</span><span class="p">(</span><span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">,</span> <span class="n">distance_threshold</span><span class="o">=</span><span class="mf">10.</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="assign_tracks2detection_centroid_distances">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.centroid_kf_tracker.assign_tracks2detection_centroid_distances">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">assign_tracks2detection_centroid_distances</span><span class="p">(</span><span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">,</span> <span class="n">distance_threshold</span><span class="o">=</span><span class="mf">10.</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Assigns detected bounding boxes to tracked bounding boxes using IoU as a distance metric.</span>
 
 <span class="sd">    Args:</span>
@@ -148,8 +153,11 @@
     <span class="k">return</span> <span class="n">matches</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unmatched_detections</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">unmatched_tracks</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="CentroidKF_Tracker"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.centroid_kf_tracker.CentroidKF_Tracker">[docs]</a><span class="k">class</span> <span class="nc">CentroidKF_Tracker</span><span class="p">(</span><span class="n">Tracker</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="CentroidKF_Tracker">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.centroid_kf_tracker.CentroidKF_Tracker">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CentroidKF_Tracker</span><span class="p">(</span><span class="n">Tracker</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Kalman filter based tracking of multiple detected objects.</span>
 
 <span class="sd">    Args:</span>
@@ -162,7 +170,7 @@
 <span class="sd">        time_step (int or float): Time step for Kalman Filter.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
             <span class="bp">self</span><span class="p">,</span>
             <span class="n">max_lost</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">centroid_distance_threshold</span><span class="o">=</span><span class="mf">30.</span><span class="p">,</span>
@@ -178,7 +186,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">kalman_trackers</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">max_lost</span><span class="p">,</span> <span class="n">tracker_output_format</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">next_track_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">KFTrackCentroid</span><span class="p">(</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">next_track_id</span><span class="p">,</span> <span class="n">frame_id</span><span class="p">,</span> <span class="n">bbox</span><span class="p">,</span> <span class="n">detection_confidence</span><span class="p">,</span> <span class="n">class_id</span><span class="o">=</span><span class="n">class_id</span><span class="p">,</span>
             <span class="n">data_output_format</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">tracker_output_format</span><span class="p">,</span> <span class="n">process_noise_scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">process_noise_scale</span><span class="p">,</span>
@@ -186,7 +194,24 @@
         <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">next_track_id</span> <span class="o">+=</span> <span class="mi">1</span>
 
-<div class="viewcode-block" id="CentroidKF_Tracker.update"><a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.centroid_kf_tracker.CentroidKF_Tracker.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">,</span> <span class="n">detection_scores</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">_assign</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Associate tracked bounding boxes with detected bounding boxes.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            bbox_tracks (numpy.ndarray): Predicted bounding boxes of tracks with shape `(n, 4)`.</span>
+<span class="sd">            bbox_detections (numpy.ndarray): Detected bounding boxes with shape `(m, 4)`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: `(matches, unmatched_detections, unmatched_tracks)`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">assign_tracks2detection_centroid_distances</span><span class="p">(</span>
+            <span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">,</span> <span class="n">distance_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">centroid_distance_threshold</span>
+        <span class="p">)</span>
+
+<div class="viewcode-block" id="CentroidKF_Tracker.update">
+<a class="viewcode-back" href="../../includeme/apidocuments.html#motrackers.centroid_kf_tracker.CentroidKF_Tracker.update">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">,</span> <span class="n">detection_scores</span><span class="p">,</span> <span class="n">class_ids</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">frame_count</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">bbox_detections</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
 
@@ -206,9 +231,7 @@
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">[</span><span class="n">track_id</span><span class="p">]</span><span class="o">.</span><span class="n">lost</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_lost</span><span class="p">:</span>
                     <span class="bp">self</span><span class="o">.</span><span class="n">_remove_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">matches</span><span class="p">,</span> <span class="n">unmatched_detections</span><span class="p">,</span> <span class="n">unmatched_tracks</span> <span class="o">=</span> <span class="n">assign_tracks2detection_centroid_distances</span><span class="p">(</span>
-                <span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">,</span> <span class="n">distance_threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">centroid_distance_threshold</span>
-            <span class="p">)</span>
+            <span class="n">matches</span><span class="p">,</span> <span class="n">unmatched_detections</span><span class="p">,</span> <span class="n">unmatched_tracks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_assign</span><span class="p">(</span><span class="n">bbox_tracks</span><span class="p">,</span> <span class="n">bbox_detections</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">matches</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
                 <span class="n">t</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
@@ -235,7 +258,9 @@
                     <span class="bp">self</span><span class="o">.</span><span class="n">_remove_track</span><span class="p">(</span><span class="n">track_id</span><span class="p">)</span>
 
         <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_tracks</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tracks</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">outputs</span></div></div>
+        <span class="k">return</span> <span class="n">outputs</span></div>
+</div>
+
 </pre></div>
 
            </div>

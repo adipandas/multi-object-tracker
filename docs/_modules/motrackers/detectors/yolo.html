@@ -1,21 +1,20 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../../../">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>motrackers.detectors.yolo &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>motrackers.detectors.yolo &mdash; Multi-object trackers in Python 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/underscore.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
@@ -26,11 +25,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> Multi-object trackers in Python
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Multi-object trackers in Python
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -65,9 +68,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>motrackers.detectors.yolo</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">motrackers.detectors.yolo</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -77,14 +80,16 @@
            <div itemprop="articleBody">
              
   <h1>Source code for motrackers.detectors.yolo</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">cv2</span> <span class="k">as</span> <span class="nn">cv</span>
-<span class="kn">from</span> <span class="nn">motrackers.detectors.detector</span> <span class="kn">import</span> <span class="n">Detector</span>
-<span class="kn">from</span> <span class="nn">motrackers.utils.misc</span> <span class="kn">import</span> <span class="n">load_labelsjson</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">cv2</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">motrackers.detectors.detector</span><span class="w"> </span><span class="kn">import</span> <span class="n">Detector</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">motrackers.utils.misc</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_labelsjson</span>
 
 
-<div class="viewcode-block" id="YOLOv3"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.yolo.YOLOv3">[docs]</a><span class="k">class</span> <span class="nc">YOLOv3</span><span class="p">(</span><span class="n">Detector</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="YOLOv3">
+<a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.yolo.YOLOv3">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">YOLOv3</span><span class="p">(</span><span class="n">Detector</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    YOLOv3 Object Detector Module.</span>
 
 <span class="sd">    Args:</span>
@@ -97,12 +102,12 @@
 <span class="sd">        use_gpu (bool): If True, try to load the model on GPU.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights_path</span><span class="p">,</span> <span class="n">configfile_path</span><span class="p">,</span> <span class="n">labels_path</span><span class="p">,</span> <span class="n">confidence_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nms_threshold</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">draw_bboxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weights_path</span><span class="p">,</span> <span class="n">configfile_path</span><span class="p">,</span> <span class="n">labels_path</span><span class="p">,</span> <span class="n">confidence_threshold</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">nms_threshold</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">draw_bboxes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_gpu</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">readNetFromDarknet</span><span class="p">(</span><span class="n">configfile_path</span><span class="p">,</span> <span class="n">weights_path</span><span class="p">)</span>
         <span class="n">object_names</span> <span class="o">=</span> <span class="n">load_labelsjson</span><span class="p">(</span><span class="n">labels_path</span><span class="p">)</span>
 
         <span class="n">layer_names</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">getLayerNames</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">cv2</span><span class="o">.</span><span class="n">__version__</span> <span class="o">==</span> <span class="s1">&#39;4.6.0&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">cv</span><span class="o">.</span><span class="n">__version__</span> <span class="o">&gt;=</span> <span class="s1">&#39;4.6.0&#39;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layer_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer_names</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">getUnconnectedOutLayers</span><span class="p">()]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layer_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">layer_names</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">getUnconnectedOutLayers</span><span class="p">()]</span>
@@ -110,20 +115,24 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mf">255.0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">416</span><span class="p">,</span> <span class="mi">416</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">net</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">readNetFromDarknet</span><span class="p">(</span><span class="n">configfile_path</span><span class="p">,</span> <span class="n">weights_path</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">use_gpu</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">setPreferableBackend</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">DNN_BACKEND_CUDA</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">setPreferableTarget</span><span class="p">(</span><span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">DNN_TARGET_CUDA</span><span class="p">)</span>
 
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">object_names</span><span class="p">,</span> <span class="n">confidence_threshold</span><span class="p">,</span> <span class="n">nms_threshold</span><span class="p">,</span> <span class="n">draw_bboxes</span><span class="p">)</span>
 
-<div class="viewcode-block" id="YOLOv3.forward"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.yolo.YOLOv3.forward">[docs]</a>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+<div class="viewcode-block" id="YOLOv3.forward">
+<a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.yolo.YOLOv3.forward">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
         <span class="n">blob</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">blobFromImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale_factor</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">,</span> <span class="n">swapRB</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">crop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">setInput</span><span class="p">(</span><span class="n">blob</span><span class="p">)</span>
         <span class="n">detections</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">net</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layer_names</span><span class="p">)</span>  <span class="c1"># detect objects using object detection model</span>
         <span class="k">return</span> <span class="n">detections</span></div>
 
-<div class="viewcode-block" id="YOLOv3.detect"><a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.yolo.YOLOv3.detect">[docs]</a>    <span class="k">def</span> <span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
+
+<div class="viewcode-block" id="YOLOv3.detect">
+<a class="viewcode-back" href="../../../includeme/apidocuments.html#motrackers.detectors.yolo.YOLOv3.detect">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">detect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">)</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
 
@@ -143,10 +152,15 @@
                     <span class="n">confidences</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">confidence</span><span class="p">))</span>
                     <span class="n">class_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">class_id</span><span class="p">)</span>
 
-        <span class="n">indices</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">NMSBoxes</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">confidences</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">confidence_threshold</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nms_threshold</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-        <span class="n">class_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">class_ids</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
-        <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bboxes</span><span class="p">)[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">confidences</span><span class="p">)[</span><span class="n">indices</span><span class="p">],</span> <span class="n">class_ids</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
-        <span class="k">return</span> <span class="n">output</span></div></div>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bboxes</span><span class="p">):</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">cv</span><span class="o">.</span><span class="n">dnn</span><span class="o">.</span><span class="n">NMSBoxes</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">confidences</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">confidence_threshold</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">nms_threshold</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+            <span class="n">class_ids</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">class_ids</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bboxes</span><span class="p">)[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">confidences</span><span class="p">)[</span><span class="n">indices</span><span class="p">],</span> <span class="n">class_ids</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+</div>
+
 </pre></div>
 
            </div>

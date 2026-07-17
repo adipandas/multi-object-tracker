@@ -1,22 +1,21 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
+<html class="writer-html5" lang="en" data-content_root="../">
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Multi-object trackers in Python &mdash; Multi-object trackers in Python 1.0.0 documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+  <title>Multi-object trackers in Python &mdash; Multi-object trackers in Python 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -29,11 +28,15 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Multi-object trackers in Python
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Multi-object trackers in Python
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -45,6 +48,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#available-opencv-based-object-detectors">Available OpenCV-based object detectors:</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#how-to-use-examples">How to use?: Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-tests">Running tests</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pretrained-object-detection-models">Pretrained object detection models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#notes">Notes</a></li>
 </ul>
@@ -80,8 +84,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Multi-object trackers in Python</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Multi-object trackers in Python</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/includeme/readmefile.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -92,13 +96,14 @@
            <div itemprop="articleBody">
              
   <section id="multi-object-trackers-in-python">
-<h1>Multi-object trackers in Python<a class="headerlink" href="#multi-object-trackers-in-python" title="Permalink to this heading"></a></h1>
+<h1>Multi-object trackers in Python<a class="headerlink" href="#multi-object-trackers-in-python" title="Link to this heading"></a></h1>
 <p>Easy to use implementation of various multi-object tracking algorithms.</p>
-<a class="reference external image-reference" href="https://zenodo.org/badge/latestdoi/148338463"><img alt="DOI" src="https://zenodo.org/badge/148338463.svg" /></a>
-<p><span class="raw-html-m2r"><br></span></p>
-<a class="reference external image-reference" href="https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml"><img alt="Upload motrackers to PyPI" src="https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml/badge.svg" /></a>
+<a class="reference external image-reference" href="https://zenodo.org/badge/latestdoi/148338463"><img alt="DOI" src="https://zenodo.org/badge/148338463.svg" />
+</a>
+<p><span class="raw-html-m2r"><br></span>
+<span class="raw-html-m2r"><!-- [![Upload motrackers to PyPI](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml/badge.svg)](https://github.com/adipandas/multi-object-tracker/actions/workflows/python-publish.yml) --></span></p>
 <section id="available-multi-object-trackers">
-<h2>Available Multi Object Trackers<a class="headerlink" href="#available-multi-object-trackers" title="Permalink to this heading"></a></h2>
+<h2>Available Multi Object Trackers<a class="headerlink" href="#available-multi-object-trackers" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>CentroidTracker</p></li>
 <li><p>IOUTracker</p></li>
@@ -107,7 +112,7 @@
 </ul>
 </section>
 <section id="available-opencv-based-object-detectors">
-<h2>Available OpenCV-based object detectors:<a class="headerlink" href="#available-opencv-based-object-detectors" title="Permalink to this heading"></a></h2>
+<h2>Available OpenCV-based object detectors:<a class="headerlink" href="#available-opencv-based-object-detectors" title="Link to this heading"></a></h2>
 <ul class="simple">
 <li><p>detector.TF_SSDMobileNetV2</p></li>
 <li><p>detector.Caffe_SSDMobileNet</p></li>
@@ -115,7 +120,8 @@
 </ul>
 </section>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p>This package requires <strong>Python 3.10 or later</strong>.</p>
 <p>Pip install for OpenCV (version 3.4.3 or later) is available <a class="reference external" href="https://pypi.org/project/opencv-python/">here</a> and can be done with the following command:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">motrackers</span>
 </pre></div>
@@ -135,9 +141,9 @@ For using the opencv <code class="docutils literal notranslate"><span class="pre
 </ul>
 </section>
 <section id="how-to-use-examples">
-<h2>How to use?: Examples<a class="headerlink" href="#how-to-use-examples" title="Permalink to this heading"></a></h2>
+<h2>How to use?: Examples<a class="headerlink" href="#how-to-use-examples" title="Link to this heading"></a></h2>
 <p>The interface for each tracker is simple and similar. Please refer the example template below.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">motrackers</span> <span class="kn">import</span> <span class="n">CentroidTracker</span> <span class="c1"># or IOUTracker, CentroidKF_Tracker, SORT</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">motrackers</span><span class="w"> </span><span class="kn">import</span> <span class="n">CentroidTracker</span> <span class="c1"># or IOUTracker, CentroidKF_Tracker, SORT</span>
 <span class="n">input_data</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">detector</span> <span class="o">=</span> <span class="o">...</span>
 <span class="n">tracker</span> <span class="o">=</span> <span class="n">CentroidTracker</span><span class="p">(</span><span class="o">...</span><span class="p">)</span> <span class="c1"># or IOUTracker(...), CentroidKF_Tracker(...), SORT(...)</span>
@@ -161,13 +167,21 @@ For using the opencv <code class="docutils literal notranslate"><span class="pre
 </div>
 <p>Please refer <a class="reference external" href="https://github.com/adipandas/multi-object-tracker/tree/master/examples">examples</a> folder of this repository for more details. You can clone and run the examples.</p>
 </section>
+<section id="running-tests">
+<h2>Running tests<a class="headerlink" href="#running-tests" title="Link to this heading"></a></h2>
+<p>Install the test dependencies and run the test suite with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="s2">&quot;.[test]&quot;</span>
+<span class="n">pytest</span>
+</pre></div>
+</div>
+</section>
 <section id="pretrained-object-detection-models">
-<h2>Pretrained object detection models<a class="headerlink" href="#pretrained-object-detection-models" title="Permalink to this heading"></a></h2>
+<h2>Pretrained object detection models<a class="headerlink" href="#pretrained-object-detection-models" title="Link to this heading"></a></h2>
 <p>You will have to download the pretrained weights for the neural-network models.
 The shell scripts for downloading these are provided <a class="reference external" href="https://github.com/adipandas/multi-object-tracker/tree/master/examples/pretrained_models">here</a> below respective folders.
 Please refer <a class="reference external" href="https://github.com/adipandas/multi-object-tracker/blob/master/DOWNLOAD_WEIGHTS.md">DOWNLOAD_WEIGHTS.md</a> for more details.</p>
 <section id="notes">
-<h3>Notes<a class="headerlink" href="#notes" title="Permalink to this heading"></a></h3>
+<h3>Notes<a class="headerlink" href="#notes" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>There are some variations in implementations as compared to what appeared in papers of <code class="docutils literal notranslate"><span class="pre">SORT</span></code> and <code class="docutils literal notranslate"><span class="pre">IoU</span> <span class="pre">Tracker</span></code>.</p></li>
 <li><p>In case you find any bugs in the algorithm, I will be happy to accept your pull request or you can create an issue to point it out.</p></li>
@@ -175,11 +189,11 @@ Please refer <a class="reference external" href="https://github.com/adipandas/mu
 </section>
 </section>
 <section id="references-credits-and-contributions">
-<h2>References, Credits and Contributions<a class="headerlink" href="#references-credits-and-contributions" title="Permalink to this heading"></a></h2>
+<h2>References, Credits and Contributions<a class="headerlink" href="#references-credits-and-contributions" title="Link to this heading"></a></h2>
 <p>Please see <a class="reference external" href="https://github.com/adipandas/multi-object-tracker/blob/master/docs/readme/REFERENCES.md">REFERENCES.md</a> and <a class="reference external" href="https://github.com/adipandas/multi-object-tracker/blob/master/docs/readme/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
 </section>
 <section id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this heading"></a></h2>
+<h2>Citation<a class="headerlink" href="#citation" title="Link to this heading"></a></h2>
 <p>If you use this repository in your work, please consider citing it with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@misc</span><span class="p">{</span><span class="n">multiobjtracker_amd2018</span><span class="p">,</span>
   <span class="n">author</span> <span class="o">=</span> <span class="p">{</span><span class="n">Deshpande</span><span class="p">,</span> <span class="n">Aditya</span> <span class="n">M</span><span class="o">.</span><span class="p">},</span>
@@ -194,12 +208,14 @@ Please refer <a class="reference external" href="https://github.com/adipandas/mu
 </section>
 </section>
 <section id="example-tf-mobilenetssd-centroidtracker">
-<h1>Example: <cite>TF-MobileNetSSD + CentroidTracker</cite><a class="headerlink" href="#example-tf-mobilenetssd-centroidtracker" title="Permalink to this heading"></a></h1>
-<a class="reference external image-reference" href="https://flic.kr/p/26WeEWy"><img alt="Cows with tf-SSD" class="with-shadow" src="../_images/cows.gif" style="width: 600px;" /></a>
+<h1>Example: <cite>TF-MobileNetSSD + CentroidTracker</cite><a class="headerlink" href="#example-tf-mobilenetssd-centroidtracker" title="Link to this heading"></a></h1>
+<a class="reference external image-reference" href="https://flic.kr/p/26WeEWy"><img alt="Cows with tf-SSD" class="with-shadow" src="../_images/cows.gif" style="width: 600px;" />
+</a>
 </section>
 <section id="example-yolov3-centroidtracker">
-<h1>Example: <cite>YOLOv3 + CentroidTracker</cite><a class="headerlink" href="#example-yolov3-centroidtracker" title="Permalink to this heading"></a></h1>
-<a class="reference external image-reference" href="https://flic.kr/p/L6qyxj"><img alt="Cars with YOLO" class="with-shadow" src="../_images/cars.gif" style="width: 600px;" /></a>
+<h1>Example: <cite>YOLOv3 + CentroidTracker</cite><a class="headerlink" href="#example-yolov3-centroidtracker" title="Link to this heading"></a></h1>
+<a class="reference external image-reference" href="https://flic.kr/p/L6qyxj"><img alt="Cars with YOLO" class="with-shadow" src="../_images/cars.gif" style="width: 600px;" />
+</a>
 </section>
 
 
