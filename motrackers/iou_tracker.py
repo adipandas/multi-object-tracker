@@ -49,7 +49,7 @@ class IOUTracker(Tracker):
                     updated_tracks.append(track_id)
                     del detections[idx]
 
-            if len(updated_tracks) == 0 or track_id is not updated_tracks[-1]:
+            if len(updated_tracks) == 0 or track_id != updated_tracks[-1]:
                 self.tracks[track_id].lost += 1
                 if self.tracks[track_id].lost > self.max_lost:
                     self._remove_track(track_id)
